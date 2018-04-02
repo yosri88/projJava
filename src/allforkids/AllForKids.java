@@ -33,7 +33,8 @@ public class AllForKids extends Application {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        } catch (IOException ex) {
+        } catch (Exception ex) {
+            System.out.println(ex);
             System.out.println(ex.getMessage());
         }
         Scene scene = new Scene(root);
