@@ -6,12 +6,18 @@
 package allforkids.orderManagement.models;
 
 import dopsie.core.*;
+import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
  * @author KHOUBEIB
  */
 public class Order extends Model {
+    
+    private int OrderId;
+    private Date OrderDate;
+    private ArrayList<OrderLine> orderLines;
     
     
     
@@ -24,5 +30,6 @@ public class Order extends Model {
     public String getPrimaryKeyName() {
         return "orderid";
     }
+    
     
 }
