@@ -6,7 +6,7 @@
 package allforkids;
 
 import com.jfoenix.controls.JFXButton;
-import de.jensd.fx.glyphs.*;
+//import de.jensd.fx.glyphs.fontawesome.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

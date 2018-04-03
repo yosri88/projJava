@@ -6,6 +6,7 @@
 package allforkids.orderManagement.models;
 
 import dopsie.core.*;
+import dopsie.exceptions.ModelException;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -36,7 +37,14 @@ public class Customer extends Model {
     public String getPrimaryKeyName() {
         return "customerid";
     }
+    
+    public Address address() throws ModelException{
+        return this.hasOne(Address.class);
+    }
 
+    public Order order() throws ModelException{
+        return this.hasMany(Order.class);
+    }
     public Customer(int CustomerId, String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
         this.CustomerId = CustomerId;
         this.firstName = firstName;

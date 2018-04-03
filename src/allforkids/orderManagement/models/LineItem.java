@@ -13,16 +13,17 @@ import dopsie.core.Model;
  */
 public class LineItem extends Model {
 
-    private int ItemId;
-    private int ProductId; // fk
-    private String ProductName; //fk
-    private float Price; // fk
+    private int itemId;
+    private int productId; // fk
+    private String productName; //fk
+    private double unitPrice; // fk
     private int qty;
-    private float ProductVAT;//fk
+    private float productVAT;//fk
     private float subtotal;
     private float total;
     private float totalVAT;
-
+    private int lineNo;
+    
     @Override
     public String getTableName() {
         return "lineitem";

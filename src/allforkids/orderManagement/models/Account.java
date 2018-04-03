@@ -6,6 +6,7 @@
 package allforkids.orderManagement.models;
 
 import dopsie.core.*;
+import dopsie.exceptions.ModelException;
 
 /**
  *
@@ -24,7 +25,9 @@ public class Account extends Model{
         return "accountid";
     }
     
-    
+    public  Address address() throws ModelException{
+        return this.hasOne(Address.class);
+    }
     
     
     
