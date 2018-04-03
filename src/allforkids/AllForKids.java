@@ -6,15 +6,6 @@ package allforkids;
  */
 
 
-import allforkids.forum.models.Post;
-import allforkids.forum.models.User;
-import allforkids.forum.models.Thread;
-import allforkids.forum.models.Topic;
-import dopsie.core.Model;
-import dopsie.exceptions.ModelException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,7 +23,7 @@ public class AllForKids extends Application {
         
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/allforkids/blog/BlogMain.fxml"));
         } catch (Exception ex) {
             System.out.println(ex);
             System.out.println(ex.getMessage());
