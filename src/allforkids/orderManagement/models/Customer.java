@@ -7,6 +7,7 @@ package allforkids.orderManagement.models;
 
 import dopsie.core.*;
 import dopsie.exceptions.ModelException;
+import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -18,9 +19,9 @@ import java.util.logging.Logger;
  */
 public class Customer extends Model {
 
-    private int CustomerId;
+    private int customerId;
     private String firstName;
-    private String last_Name;
+    private String lastName;
     private int age;
     private String gender;
     private Address address;
@@ -38,17 +39,19 @@ public class Customer extends Model {
         return "customerid";
     }
     
-    public Address address() throws ModelException{
-        return this.hasOne(Address.class);
+    public Account account() throws ModelException{
+        return this.hasOne(Account.class);
     }
 
-    public Order order() throws ModelException{
+    public ArrayList<Order> order() throws ModelException{
         return this.hasMany(Order.class);
     }
+    
+    
     public Customer(int CustomerId, String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
-        this.CustomerId = CustomerId;
+        this.customerId = CustomerId;
         this.firstName = firstName;
-        this.last_Name = last_Name;
+        this.lastName = last_Name;
         this.age = age;
         this.gender = gender;
         this.address = address;
@@ -58,7 +61,7 @@ public class Customer extends Model {
 
     public Customer(String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
         this.firstName = firstName;
-        this.last_Name = last_Name;
+        this.lastName = last_Name;
         this.age = age;
         this.gender = gender;
         this.address = address;
@@ -71,11 +74,11 @@ public class Customer extends Model {
     private static final Logger LOG = Logger.getLogger(Customer.class.getName());
 
     public int getCustomerId() {
-        return CustomerId;
+        return customerId;
     }
 
     public void setCustomerId(int CustomerId) {
-        this.CustomerId = CustomerId;
+        this.customerId = CustomerId;
     }
 
     public String getFirstName() {
@@ -87,11 +90,11 @@ public class Customer extends Model {
     }
 
     public String getLast_Name() {
-        return last_Name;
+        return lastName;
     }
 
     public void setLast_Name(String last_Name) {
-        this.last_Name = last_Name;
+        this.lastName = last_Name;
     }
 
     public int getAge() {

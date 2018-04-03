@@ -6,6 +6,8 @@
 package allforkids.orderManagement.models;
 
 import dopsie.core.*;
+import dopsie.exceptions.ModelException;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,6 +26,10 @@ public class Invoice extends Model {
     @Override
     public String getPrimaryKeyName() {
         return "invoiceid";
+    }
+
+    public Order invoiceOrder() throws ModelException{
+        return this.hasOne(Order.class);
     }
 
 }

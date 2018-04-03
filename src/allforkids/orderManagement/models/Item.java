@@ -5,10 +5,12 @@
  */
 package allforkids.orderManagement.models;
 
+import dopsie.core.Model;
+
 /**
  *
  * @author KHOUBEIB
  */
-public class Item {
+public class Item extends Model{
     
 }

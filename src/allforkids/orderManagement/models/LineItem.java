@@ -6,6 +6,8 @@
 package allforkids.orderManagement.models;
 
 import dopsie.core.Model;
+import dopsie.exceptions.ModelException;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,7 +25,7 @@ public class LineItem extends Model {
     private float total;
     private float totalVAT;
     private int lineNo;
-    
+
     @Override
     public String getTableName() {
         return "lineitem";
@@ -32,6 +34,10 @@ public class LineItem extends Model {
     @Override
     public String getPrimaryKeyName() {
         return "lineitemid";
+    }
+
+    public ArrayList<Item> itemLine() throws ModelException {
+        return this.hasMany(Item.class);
     }
 
 }
