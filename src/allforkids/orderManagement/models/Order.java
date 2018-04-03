@@ -14,14 +14,12 @@ import java.util.ArrayList;
  * @author KHOUBEIB
  */
 public class Order extends Model {
-    
+
     private int OrderId;
     private Date OrderDate;
     private ArrayList<OrderLine> orderLines;
-    
-    
-    
-        @Override
+
+    @Override
     public String getTableName() {
         return "order";
     }
@@ -30,6 +28,5 @@ public class Order extends Model {
     public String getPrimaryKeyName() {
         return "orderid";
     }
-    
-    
+
 }
