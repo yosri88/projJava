@@ -15,8 +15,8 @@ import java.util.ArrayList;
  */
 public class Order extends Model {
 
-    private int OrderId;
-    private Date OrderDate;
+    private int orderId;
+    private Date orderDate;
     private ArrayList<OrderLine> orderLines;
 
     @Override
