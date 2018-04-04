@@ -14,20 +14,18 @@ import java.util.*;
  */
 public class ShoppingCart {
 
- List<ShoppingCartItem> items;
+    List<ShoppingCartItem> items;
     int numberOfItems;
     double total;
 
     public ShoppingCart() {
-        
-       items = new ArrayList<ShoppingCartItem>();
-       
-       
-       numberOfItems = 0;
+
+        items = new ArrayList<ShoppingCartItem>();
+
+        numberOfItems = 0;
         total = 0;
     }
 
-   
     public synchronized void addItem(Product product) {
 
         boolean newItem = true;
@@ -47,7 +45,6 @@ public class ShoppingCart {
         }
     }
 
-  
     public synchronized void update(Product product, String quantity) {
 
         short qty = -1;
@@ -81,14 +78,11 @@ public class ShoppingCart {
         }
     }
 
-   
-    
     public synchronized List<ShoppingCartItem> getItems() {
 
         return items;
     }
 
-   
     public synchronized int getNumberOfItems() {
 
         numberOfItems = 0;
@@ -101,7 +95,6 @@ public class ShoppingCart {
         return numberOfItems;
     }
 
-  
     public synchronized double getSubtotal() {
 
         double amount = 0;
@@ -115,7 +108,6 @@ public class ShoppingCart {
         return amount;
     }
 
- 
     public synchronized void calculateTotal(String surcharge) {
 
         double amount = 0;
@@ -129,13 +121,11 @@ public class ShoppingCart {
         total = amount;
     }
 
-   
     public synchronized double getTotal() {
 
         return total;
     }
 
-   
     public synchronized void clear() {
         items.clear();
         numberOfItems = 0;

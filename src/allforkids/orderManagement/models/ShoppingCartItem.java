@@ -9,7 +9,13 @@ package allforkids.orderManagement.models;
  *
  * @author KHOUBEIB
  */
+
 public class ShoppingCartItem {
+
+    @Override
+    public String toString() {
+        return "ShoppingCartItem{" + "product=" + product + ", quantity=" + quantity + '}';
+    }
 
     Product product;
     short quantity;
