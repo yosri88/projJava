@@ -43,10 +43,7 @@ public class Customer extends Model {
         return this.hasOne(Account.class);
     }
 
-    public ArrayList<Order> order() throws ModelException{
-        return this.hasMany(Order.class);
-    }
-    
+
     
     public Customer(int CustomerId, String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
         this.customerId = CustomerId;

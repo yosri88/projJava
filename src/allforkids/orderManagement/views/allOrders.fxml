@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="allforkids.orderManagement.controllers.AllOrdersController">
+    <stylesheets>
+        <URL value="@allorders.css" />
+    </stylesheets>
+   <children>
+      <Text layoutX="17.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders list" wrappingWidth="80.38309669494629" />
+      <Button layoutX="35.0" layoutY="55.0" mnemonicParsing="false" text="Orders List" />
+      <Button layoutX="130.0" layoutY="55.0" mnemonicParsing="false" text="Open Orders" />
+      <Button layoutX="236.0" layoutY="55.0" mnemonicParsing="false" text="Pending Orders" />
+   </children>
+</AnchorPane>

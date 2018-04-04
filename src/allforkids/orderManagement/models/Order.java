@@ -36,7 +36,9 @@ public class Order extends Model {
         return this.hasMany(OrderLine.class);
     }
     
-       
+      public Customer customer() throws ModelException{
+          return this.hasOne(Customer.class);
+      }
        
        
        
