@@ -5,20 +5,10 @@
  */
 package allforkids.orderManagement.models;
 
-import dopsie.core.*;
 /**
  *
  * @author KHOUBEIB
  */
-public class Payment extends Model {
-
-    @Override
-    public String getTableName() {
-        return "payment";
-    }
-
-    @Override
-    public String getPrimaryKeyName() {
-        return "paymentid";
-    }
+public class ShippingMethod {
+    
 }

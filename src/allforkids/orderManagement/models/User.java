@@ -5,6 +5,7 @@
  */
 package allforkids.orderManagement.models;
 
+
 import dopsie.core.*;
 import dopsie.exceptions.ModelException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author KHOUBEIB
  */
-public class Customer extends Model {
+public class User extends Model {
 
     private int customerId;
     private String firstName;
@@ -45,7 +46,7 @@ public class Customer extends Model {
 
 
     
-    public Customer(int CustomerId, String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
+    public User(int CustomerId, String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
         this.customerId = CustomerId;
         this.firstName = firstName;
         this.lastName = last_Name;
@@ -56,7 +57,7 @@ public class Customer extends Model {
         this.password = password;
     }
 
-    public Customer(String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
+    public User(String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
         this.firstName = firstName;
         this.lastName = last_Name;
         this.age = age;
@@ -66,9 +67,9 @@ public class Customer extends Model {
         this.password = password;
     }
 
-    public Customer() {
+    public User() {
     }
-    private static final Logger LOG = Logger.getLogger(Customer.class.getName());
+    private static final Logger LOG = Logger.getLogger(User.class.getName());
 
     public int getCustomerId() {
         return customerId;

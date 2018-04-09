@@ -37,7 +37,7 @@ public class JavaEmail {
 
         public void setMailServerProperties() {
 
-        String emailPort = "587";//gmail's smtp port
+        String emailPort = "25";//gmail's smtp port
 
         emailProperties = System.getProperties();
         emailProperties.put("mail.smtp.port", emailPort);
@@ -49,7 +49,7 @@ public class JavaEmail {
             MessagingException {
         String[] toEmails = {"test@allforkids.ml"};
         String emailSubject = "Java Email";
-        String emailBody = "This is an email sent by JavaMail api.";
+        String emailBody = "This is an email sent by JavaMail API.";
 
         mailSession = Session.getDefaultInstance(emailProperties, null);
         emailMessage = new MimeMessage(mailSession);

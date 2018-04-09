@@ -4,59 +4,94 @@
  * and open the template in the editor.
  */
 package allforkids.orderManagement.models;
-
-import dopsie.core.*;
+ import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
-import java.sql.Date;
 import java.util.ArrayList;
 
 /**
  *
  * @author KHOUBEIB
  */
-public class Order extends Model {
-
-    private int orderId;
-    private Date orderDate;
-    private ArrayList<OrderLine> orderLines;
-
-    @Override
-    public String getTableName() {
-        return "order";
-    }
-
-    @Override
-    public String getPrimaryKeyName() {
-        return "orderid";
-    }
-
-   
-
-       public ArrayList<OrderLine> orderLines() throws ModelException{
-        return this.hasMany(OrderLine.class);
-    }
+public class Order extends Model{
     
-      public Customer customer() throws ModelException{
-          return this.hasOne(Customer.class);
-      }
-       
-       
-       
-
-    public Order(int orderId, Date orderDate, ArrayList<OrderLine> orderLines) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.orderLines = orderLines;
-    }
-    
-    
-    
+    private int id;
+    private String order_reference;
+    private int order_status;
+    private int customer_id;
+    private int payment_status;
 
     public Order() {
     }
 
-    public Order(int orderId) {
-        this.orderId = orderId;
+    public Order(String order_reference, int order_status, int customer_id, int payment_status) {
+        this.order_reference = order_reference;
+        this.order_status = order_status;
+        this.customer_id  = customer_id;
+        this.payment_status = payment_status;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOrder_reference() {
+        return order_reference;
+    }
+
+    public void setOrder_reference(String order_reference) {
+        this.order_reference = order_reference;
+    }
+
+    public int getOrder_status() {
+        return order_status;
+    }
+
+    public void setOrder_status(int order_status) {
+        this.order_status = order_status;
+    }
+
+    public int getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
+    }
+
+    public int getPayment_status() {
+        return payment_status;
+    }
+
+    public void setPayment_status(int payment_status) {
+        this.payment_status = payment_status;
+    }
+    
+    
+
+    @Override
+    public String getTableName() {
+        return "`order`";
+    }
+
+    @Override
+    public String getPrimaryKeyName() {
+        return "id";
+    }
+
+   
+
+       public ArrayList<LineItem> lineItems() throws ModelException{
+        return this.hasMany(LineItem.class);
+    }
+    
+      public User customer() throws ModelException{
+          return this.belongsTo(User.class);
+      }
+       
+      
+      
 }

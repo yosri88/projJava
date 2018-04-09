@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package allforkids.orderManagement.controllers;
+package allforkids;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author KHOUBEIB
  */
-public class OpenOrdersController implements Initializable {
+public class TestRunController implements Initializable {
 
     /**
      * Initializes the controller class.

@@ -12,7 +12,7 @@ import java.util.*;
  *
  * @author KHOUBEIB
  */
-public class ShoppingCart {
+public class ShoppingCart extends Model {
 
     List<ShoppingCartItem> items;
     int numberOfItems;
@@ -26,7 +26,7 @@ public class ShoppingCart {
         total = 0;
     }
 
-    public synchronized void addItem(Product product) {
+    public  void addItem(Product product) {
 
         boolean newItem = true;
 
@@ -45,7 +45,7 @@ public class ShoppingCart {
         }
     }
 
-    public synchronized void update(Product product, String quantity) {
+    public  void update(Product product, String quantity) {
 
         short qty = -1;
 
@@ -78,12 +78,12 @@ public class ShoppingCart {
         }
     }
 
-    public synchronized List<ShoppingCartItem> getItems() {
+    public  List<ShoppingCartItem> getItems() {
 
         return items;
     }
 
-    public synchronized int getNumberOfItems() {
+    public  int getNumberOfItems() {
 
         numberOfItems = 0;
 
@@ -108,7 +108,7 @@ public class ShoppingCart {
         return amount;
     }
 
-    public synchronized void calculateTotal(String surcharge) {
+    public  void calculateTotal(String surcharge) {
 
         double amount = 0;
 
@@ -121,12 +121,12 @@ public class ShoppingCart {
         total = amount;
     }
 
-    public synchronized double getTotal() {
+    public  double getTotal() {
 
         return total;
     }
 
-    public synchronized void clear() {
+    public  void clear() {
         items.clear();
         numberOfItems = 0;
         total = 0;

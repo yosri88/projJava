@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package allforkids.orderManagement.models;
+
+import dopsie.core.Model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,7 +14,7 @@ import java.util.Date;
  *
  * @author KHOUBEIB
  */
-public class Product implements Serializable{
+public class Product extends Model implements Serializable {
 
     private  Integer id;
     private  String name;

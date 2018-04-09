@@ -5,6 +5,8 @@
  */
 package allforkids.orderManagement.models;
 
+
+
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import java.util.ArrayList;
@@ -15,29 +17,26 @@ import java.util.ArrayList;
  */
 public class LineItem extends Model {
 
-    private int itemId;
-    private int productId; // fk
-    private String productName; //fk
-    private double unitPrice; // fk
-    private int qty;
-    private float productVAT;//fk
-    private float subtotal;
-    private float total;
-    private float totalVAT;
-    private int lineNo;
+ 
 
     @Override
     public String getTableName() {
-        return "lineitem";
+        return "`line_item`";
     }
 
     @Override
     public String getPrimaryKeyName() {
-        return "lineitemid";
+        return "line_item_id";
     }
 
-    public ArrayList<Item> itemLine() throws ModelException {
-        return this.hasMany(Item.class);
+    public Product product() throws ModelException {
+        return this.hasOne(Product.class);
     }
+    
+    public Order order() throws ModelException{
+        return this.belongsTo(Order.class);
+    }
+    
+    
 
 }

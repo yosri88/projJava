@@ -5,31 +5,20 @@
  */
 package allforkids.orderManagement.models;
 
-import dopsie.core.Model;
-import dopsie.exceptions.ModelException;
-import java.util.ArrayList;
-
+import dopsie.core.*;
 /**
  *
  * @author KHOUBEIB
  */
-public class OrderLine extends Model{
-    
-        @Override
+public class PaymentMethod extends Model {
+
+    @Override
     public String getTableName() {
-        return "orderline";
+        return "payment";
     }
 
     @Override
     public String getPrimaryKeyName() {
-        return "orderlineid";
+        return "paymentid";
     }
-
-   
-
-       public LineItem orderLine() throws ModelException{
-        return this.hasOne(LineItem.class);
-    }
-    
-    
 }

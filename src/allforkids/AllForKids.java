@@ -6,15 +6,6 @@ package allforkids;
  */
 
 
-import allforkids.forum.models.Post;
-import allforkids.forum.models.User;
-import allforkids.forum.models.Thread;
-import allforkids.forum.models.Topic;
-import dopsie.core.Model;
-import dopsie.exceptions.ModelException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,10 +23,11 @@ public class AllForKids extends Application {
         
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/allforkids/orderManagement/views/orderTable.fxml"));
         } catch (Exception ex) {
             System.out.println(ex);
             System.out.println(ex.getMessage());
+            
         }
         Scene scene = new Scene(root);
         primaryStage.setTitle("All For Kids");
@@ -51,9 +43,9 @@ public class AllForKids extends Application {
     public static void main(String[] args) {
         System.setProperty("host", "localhost");
         System.setProperty("port", "3306");
-        System.setProperty("database", "esprit");
+        System.setProperty("database", "from_scratch");
         System.setProperty("user", "root");
-        System.setProperty("password", "root");
+        System.setProperty("password", "");
        
         
         launch(args);
