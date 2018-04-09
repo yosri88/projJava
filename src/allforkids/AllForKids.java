@@ -1,20 +1,11 @@
 package allforkids;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-
-import allforkids.forum.models.Post;
-import allforkids.forum.models.User;
-import allforkids.forum.models.Thread;
-import allforkids.forum.models.Topic;
-import dopsie.core.Model;
-import dopsie.exceptions.ModelException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,23 +17,21 @@ import javafx.stage.Stage;
  * @author Wassim
  */
 public class AllForKids extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) {
-        
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+            primaryStage.setResizable(false);
+            root = FXMLLoader.load(getClass().getResource("/allforkids/blog/BlogMain.fxml"));
+            Scene scene = new Scene(root);
+            primaryStage.setTitle("All For Kids");
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } catch (Exception ex) {
             System.out.println(ex);
             System.out.println(ex.getMessage());
         }
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("All For Kids");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    
-        
     }
 
     /**
@@ -54,9 +43,8 @@ public class AllForKids extends Application {
         System.setProperty("database", "esprit");
         System.setProperty("user", "root");
         System.setProperty("password", "root");
-       
-        
+
         launch(args);
     }
-    
+
 }

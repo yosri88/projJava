@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<VBox styleClass="post" stylesheets="@blog.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.blog.PostCardController">
+   <children>
+      <AnchorPane>
+         <children>
+            <Label fx:id="titleLabel" style="-fx-min-width: inherit;" styleClass="post-card-header" text="Blog Post Title" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <WebView fx:id="contentWebView" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" style="-fx-min-height: 130px;">
+         <cursor>
+            <Cursor fx:constant="NONE" />
+         </cursor>
+      </WebView>
+      <AnchorPane styleClass="post-card-footer">
+         <children>
+            <JFXButton onAction="#readMoreBtn" styleClass="primary-btn" text="Read More" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0" />
+            <Label fx:id="postedByLabel" prefHeight="39.0" prefWidth="228.0" text="" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
