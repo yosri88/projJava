@@ -1,21 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.blog.AddPostController">
+<AnchorPane id="AnchorPane" fx:id="addPostPane" prefHeight="600.0" prefWidth="1024.0" stylesheets="@blog.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.blog.AddPostController">
    <children>
-      <JFXButton fx:id="AddPostButton" layoutX="716.0" layoutY="434.0" onAction="#addPost" style=" -jfx-button-type: RAISED; -fx-background-color: #428bca; -fx-text-fill: white;" text="Add post" />
-      <JFXButton cancelButton="true" layoutX="636.0" layoutY="434.0" onAction="#Cancel" style=" -jfx-button-type: RAISED; -fx-background-color: grey; -fx-text-fill: white;" text="Cancel" />
-      <JFXTextArea fx:id="contentTextArea" layoutX="142.0" layoutY="103.0" prefHeight="177.0" prefWidth="576.0" />
-      <JFXTextField fx:id="titleTextField" layoutX="142.0" layoutY="59.0" prefHeight="26.0" prefWidth="576.0" />
-      <Label layoutX="64.0" layoutY="68.0" prefHeight="18.0" prefWidth="30.0" text="Title" textAlignment="RIGHT" />
-      <Label layoutX="45.0" layoutY="101.0" prefHeight="18.0" prefWidth="51.0" text="Content" />
-      <Label layoutX="64.0" layoutY="309.0" prefHeight="18.0" prefWidth="30.0" text="Tags" />
-      <JFXTextField layoutX="140.0" layoutY="301.0" />
-      <JFXButton fx:id="AddTagButton" layoutX="306.0" layoutY="302.0" minWidth="35.0" prefHeight="32.0" prefWidth="35.0" style=" -jfx-button-type: RAISED; -fx-background-color: #428bca; -fx-text-fill: white;" text="+" />
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane styleClass="post-card-header">
+               <children>
+                  <HBox prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <JFXTextField fx:id="titleTextField" prefHeight="26.0" prefWidth="912.0" promptText="New Post">
+                           <HBox.margin>
+                              <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                           </HBox.margin>
+                        </JFXTextField>
+                        <VBox />
+                        <JFXButton onAction="#goBack" prefHeight="36.0" prefWidth="72.0" styleClass="primary-btn" text="Go Back">
+                           <HBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <ScrollPane fx:id="htmlEditorSP" hbarPolicy="NEVER" prefHeight="520.0" prefWidth="1014.0" style="-fx-background-color: transparent;">
+               <content>
+                  <AnchorPane fx:id="htmlEditorAP" />
+               </content>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin></ScrollPane>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXTextField fx:id="newTagTF" onKeyReleased="#TagTfKeyReleased" promptText="Tag">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" top="7.0" />
+                     </HBox.margin></JFXTextField>
+                  <JFXButton fx:id="AddTagButton" minWidth="35.0" onAction="#addTag" prefHeight="32.0" prefWidth="35.0" styleClass="primary-btn" text="+">
+                     <HBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </HBox.margin></JFXButton>
+                  <HBox fx:id="tagsPane" prefHeight="53.0" prefWidth="711.0">
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding></HBox>
+                  <JFXButton fx:id="AddPostButton" onAction="#addPost" prefHeight="36.0" prefWidth="90.0" styleClass="primary-btn" text="Add post">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin></JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
