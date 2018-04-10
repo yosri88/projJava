@@ -6,6 +6,7 @@
 package allforkids.orderManagement.models;
 
 import dopsie.core.*;
+import dopsie.exceptions.ModelException;
 import java.util.*;
 
 /**
@@ -14,6 +15,14 @@ import java.util.*;
  */
 public class ShoppingCart extends Model {
 
+    
+     public User cart() throws ModelException{
+        return this.belongsTo(User.class);
+        
+    }   
+    
+    
+    
     List<ShoppingCartItem> items;
     int numberOfItems;
     double total;

@@ -33,8 +33,9 @@ public class LineItem extends Model {
         return this.hasOne(Product.class);
     }
     
-    public Order order() throws ModelException{
-        return this.belongsTo(Order.class);
+    public ShoppingCart cart() throws ModelException{
+        return this.belongsTo(ShoppingCart.class);
+        
     }
     
     
