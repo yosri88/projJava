@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -31,6 +32,9 @@ public class ChipController implements Initializable {
     private JFXButton closeBtn;
     
     private AddPostController parentController;
+
+    @FXML
+    private HBox parentHBox;
     /**
      * Initializes the controller class.
      */
@@ -39,6 +43,20 @@ public class ChipController implements Initializable {
 
     }
    
+    public void setTagName(String tagName, boolean removable) {
+        this.tagNameLabel.setText(tagName);
+        if(removable == false) {
+            this.parentHBox.getStylesheets().add("/helpers/Chip.css");
+            this.parentHBox.getStyleClass().removeAll();
+            
+            this.parentHBox.getStyleClass().add("disabled-chip");
+            this.tagNameLabel.getStyleClass().removeAll();
+            
+            this.tagNameLabel.getStyleClass().add("disabled-chip-label");
+            this.parentHBox.getChildren().remove(closeBtn);
+        }
+    }
+    
     public void setTagName(String tagName) {
         this.tagNameLabel.setText(tagName);
     }

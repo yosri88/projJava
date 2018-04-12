@@ -6,10 +6,13 @@
 package allforkids.blog;
 
 import allforkids.blog.models.Post;
+import allforkids.blog.models.Tag;
 import allforkids.forum.models.User;
 import dopsie.exceptions.ModelException;
+import helpers.ChipController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
@@ -22,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -42,6 +46,8 @@ public class PostCardController implements Initializable {
     private Post post;
     @FXML
     private WebView contentWebView;
+    @FXML
+    private FlowPane tagsFlowPane;
 
     /**
      * Initializes the controller class.
@@ -69,7 +75,24 @@ public class PostCardController implements Initializable {
         User user = post.author();
         String userFirstName = (String)user.getAttr("first_name");
         this.postedByLabel.setText("Posted by " + userFirstName);
-       
+        
+        ArrayList<Tag> postTags = post.tags();
+        for(Tag tag: postTags) {
+            addTag((String)tag.getAttr("name"));
+        }
+    }
+    
+    private void addTag(String tagName) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/helpers/Chip.fxml"));
+            Pane newLoadedPane = loader.load();
+            ChipController controller = loader.<ChipController>getController();
+            controller.setTagName(tagName, false);
+            tagsFlowPane.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @FXML

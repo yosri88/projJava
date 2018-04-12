@@ -59,6 +59,17 @@
                                           <Cursor fx:constant="NONE" />
                                        </cursor>
                                     </WebView>
+                                    <HBox fx:id="tagsHBox">
+                                       <children>
+                                          <Label style="-fx-font-size: 18;" text="Tags">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets bottom="5.0" right="10.0" top="10.0" />
+                                             </padding></Label>
+                                       </children>
+                                    </HBox>
                                     <Label style="-fx-font-size: 18;" text="Comments">
                                        <VBox.margin>
                                           <Insets bottom="5.0" top="5.0" />

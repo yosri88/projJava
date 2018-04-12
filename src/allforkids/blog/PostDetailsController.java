@@ -7,6 +7,7 @@ package allforkids.blog;
 
 import allforkids.blog.models.Comment;
 import allforkids.blog.models.Post;
+import allforkids.blog.models.Tag;
 import allforkids.forum.models.User;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.webkit.WebPage;
@@ -14,6 +15,7 @@ import dopsie.core.Model;
 import java.sql.Timestamp;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
+import helpers.ChipController;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -34,6 +36,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -66,7 +69,7 @@ public class PostDetailsController implements Initializable {
     @FXML
     private WebView contentWebView;
     @FXML
-    private AnchorPane contentAP;
+    private HBox tagsHBox;
 
     /**
      * Initializes the controller class.
@@ -119,6 +122,11 @@ public class PostDetailsController implements Initializable {
                     commentsSection.getChildren().add(newLoadedPane);
                 }
             }
+            ArrayList<Tag> postTags = post.tags();
+            for(Tag tag: postTags) {
+                addTag((String)tag.getAttr("name"));
+            }
+            
         } catch (ModelException ex) {
             System.out.println(ex.getMessage());
         } catch (IOException ex) {
@@ -126,6 +134,17 @@ public class PostDetailsController implements Initializable {
         }
     }
 
+    private void addTag(String tagName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/helpers/Chip.fxml"));
+            Pane newLoadedPane = loader.load();
+            ChipController controller = loader.<ChipController>getController();
+            controller.setTagName(tagName, false);
+            tagsHBox.getChildren().add(newLoadedPane);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     @FXML
     private void goBack(ActionEvent event) {
         try {
