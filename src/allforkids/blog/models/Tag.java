@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * @author Wassim
  */
 public class Tag extends Model{
+
+
     public ArrayList<Post> posts() throws ModelException {
         return this.manyToMany(Post.class, PostTag.class);
     }

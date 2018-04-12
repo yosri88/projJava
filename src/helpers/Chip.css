@@ -15,7 +15,7 @@ and open the template in the editor.
     -fx-font-family: Roboto Medium; 
     -fx-font-size: 14;
     -fx-padding: 10 15 10 15;
-    -fx-border-insets: 5px;
+/*    -fx-border-insets: 5px;*/
     -fx-background-insets: 5px;
 }
 
