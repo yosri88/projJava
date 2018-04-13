@@ -166,6 +166,7 @@ public class AddPostController implements Initializable {
     public void removeTag(String tagName) {
         Pane chip = this.tags.get(tagName);
         this.tags.remove(tagName);
+        this.tagsPane.getChildren().remove(chip);
     }
 
     @FXML

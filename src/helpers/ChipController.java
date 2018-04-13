@@ -6,6 +6,7 @@
 package helpers;
 
 import allforkids.blog.AddPostController;
+import allforkids.blog.BlogMainController;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,7 +33,9 @@ public class ChipController implements Initializable {
     private JFXButton closeBtn;
     
     private AddPostController parentController;
-
+    
+    private BlogMainController blogMainParentController;
+    
     @FXML
     private HBox parentHBox;
     /**
@@ -64,9 +67,17 @@ public class ChipController implements Initializable {
     public void setParentController(AddPostController parentController) {
         this.parentController = parentController;
     }
+    
+    public void setBlogMainParentController(BlogMainController parentController) {
+        this.blogMainParentController = parentController;
+    }
 
     @FXML
     private void remove(ActionEvent event) {
-        parentController.removeTag(this.tagNameLabel.getText());
+        if(parentController != null ) {
+            parentController.removeTag(this.tagNameLabel.getText());
+        } else if (blogMainParentController != null) {
+            blogMainParentController.removeTag(this.tagNameLabel.getText());
+        }
     }
 }
