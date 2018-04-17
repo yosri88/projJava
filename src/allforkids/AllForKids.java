@@ -23,7 +23,7 @@ public class AllForKids extends Application {
         Parent root = null;
         try {
             primaryStage.setResizable(false);
-            root = FXMLLoader.load(getClass().getResource("/allforkids/blog/BlogMain.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/allforkids/forum/ForumMain.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setTitle("All For Kids");
             primaryStage.setScene(scene);
@@ -43,7 +43,7 @@ public class AllForKids extends Application {
         System.setProperty("database", "esprit");
         System.setProperty("user", "root");
         System.setProperty("password", "root");
-
+        
         launch(args);
     }
 
