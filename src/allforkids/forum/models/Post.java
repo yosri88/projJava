@@ -15,7 +15,7 @@ import dopsie.exceptions.ModelException;
 public class Post extends Model{    
     
     public User author() throws ModelException {
-        return this.belongsTo(User.class);
+        return this.hasOne(User.class);
     }
     
     public Thread thread() throws ModelException {

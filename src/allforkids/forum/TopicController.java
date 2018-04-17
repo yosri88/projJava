@@ -99,19 +99,19 @@ public class TopicController implements Initializable {
     }
     
     public void goToThread(ActionEvent event ,Thread thread) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/forum/Thread.fxml"));
-//            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            appStage.hide();
-//            Pane newLoadedPane = loader.load();
-//            Scene HomePageScene = new Scene(newLoadedPane);
-//            TopicController controller = loader.<TopicController>getController();
-//            controller.setThread(thread);
-//            appStage.setScene(HomePageScene);
-//            appStage.show();
-//        } catch (IOException ex) {
-//            System.out.println(ex.getMessage());
-//        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/forum/Thread.fxml"));
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.hide();
+            Pane newLoadedPane = loader.load();
+            Scene HomePageScene = new Scene(newLoadedPane);
+            ThreadController controller = loader.<ThreadController>getController();
+            controller.setThread(thread);
+            appStage.setScene(HomePageScene);
+            appStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
 }

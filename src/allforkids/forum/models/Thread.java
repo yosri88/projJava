@@ -19,6 +19,6 @@ public class Thread extends Model{
     }
     
     public Topic topic() throws ModelException {
-        return this.belongsTo(Topic.class);
+        return this.hasOne(Topic.class);
     }    
 }

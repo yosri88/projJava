@@ -32,3 +32,15 @@ and open the template in the editor.
     -fx-background-color: #428bca; 
     -fx-text-fill: white;
 }
+
+.user-avatar {
+    -fx-padding : 12px;
+}
+.user-avatar-label {
+    -fx-padding : 12px;
+    -fx-text-fill: #428bca;
+}
+
+.post-content {
+    -fx-padding: 15px;
+}

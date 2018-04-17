@@ -74,7 +74,7 @@ public class ForumMainController implements Initializable {
     }
     
     public void goToTopic(ActionEvent event, Topic topic) {
-         try {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/forum/Topic.fxml"));
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.hide();
