@@ -17,4 +17,10 @@ public class User extends Model{
     public ArrayList<Post> posts() throws ModelException {
         return this.hasMany(Post.class);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        User user = (User) obj;
+        return this.getAttr("id").equals(user.getAttr("id"));
+    }
 }
