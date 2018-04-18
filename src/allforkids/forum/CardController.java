@@ -20,7 +20,7 @@ import javafx.scene.control.Label;
 /**
  * FXML Controller class
  *
- * @author wattouma
+ * @author Wassim
  */
 public class CardController implements Initializable {
 

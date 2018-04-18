@@ -12,6 +12,8 @@ import allforkids.forum.models.VoteType;
 import com.jfoenix.controls.JFXButton;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
+import helpers.NotificationController;
+import helpers.NotificationType;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -28,7 +30,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 /**
  * FXML Controller class
  *
- * @author wattouma
+ * @author Wassim
  */
 public class PostCardController implements Initializable {
 
@@ -81,14 +83,25 @@ public class PostCardController implements Initializable {
 
     @FXML
     private void upVote(ActionEvent event) {
-        vote(VoteType.UP);
-        this.voteCounter.setText(++this.voteScore + "");
+        try {
+            vote(VoteType.UP);
+            this.voteCounter.setText(++this.voteScore + "");
+            NotificationController.showNotification(event, "Upvoted", NotificationType.INFO);
+        } catch(Exception e) {
+            NotificationController.showNotification(event, "Failed to Upvote", NotificationType.WARNING);
+        }
+        
     }
 
     @FXML
     private void downVote(ActionEvent event) {
-        vote(VoteType.DOWN);
-        this.voteCounter.setText(--this.voteScore + "");
+        try {
+            vote(VoteType.DOWN);
+            this.voteCounter.setText(--this.voteScore + "");
+            NotificationController.showNotification(event, "Downvoted", NotificationType.INFO);
+        } catch(Exception e) {
+            NotificationController.showNotification(event, "Failed to Downvote", NotificationType.WARNING);
+        }
     }
     
     public void vote(VoteType voteType) {

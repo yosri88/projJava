@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author wattouma
+ * @author Wassim
  */
 public class ForumMainController implements Initializable {
 

@@ -167,7 +167,9 @@ public class TopicController implements Initializable {
         String postContent = this.newPostContent.getText();
         if(threadTitle.isEmpty() || postContent.isEmpty()) {
             NotificationController.showNotification(event, "Thread Title and Post content should not be empty", NotificationType.DANGER);
-        } else {
+            return;
+        }
+        try {
             Thread thread = new Thread();
             thread.setAttr("title", threadTitle);
             thread.setAttr("topic_id", topic.getAttr("id"));
@@ -183,6 +185,8 @@ public class TopicController implements Initializable {
             post.save();
 
             goToThread(event, thread);
+        } catch(Exception e) {
+            NotificationController.showNotification(event, "Couldn't add Thread", NotificationType.DANGER);
         }
     }
 }

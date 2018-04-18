@@ -54,7 +54,7 @@
                   </JFXButton>
                </top>
                <center>
-                  <Label fx:id="voteCounter" text="-1" textFill="#979797" BorderPane.alignment="CENTER">
+                  <Label fx:id="voteCounter" text="0" textFill="#979797" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>

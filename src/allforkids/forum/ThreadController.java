@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author wattouma
+ * @author Wassim
  */
 public class ThreadController implements Initializable {
 
@@ -45,6 +45,8 @@ public class ThreadController implements Initializable {
     private VBox allPostVBox;
     @FXML
     private JFXButton backBtn;
+    
+    private ArrayList<Post> posts = new ArrayList<>();
     /**
      * Initializes the controller class.
      */
@@ -55,15 +57,13 @@ public class ThreadController implements Initializable {
     
     public void setThread(Thread currentThread) {
         this.thread = currentThread;
-        ArrayList<Post> allPosts = new ArrayList<>();
         try {
-            allPosts = currentThread.posts();
+            this.posts = currentThread.posts();
         }
         catch(ModelException e) {
             System.out.println(e.getMessage());
         }
-        showPosts(allPosts);
-        
+        showPosts(this.posts);
         try {
             Topic currentTopic = currentThread.topic();
             this.backBtn.setText("Back to " + (String)currentTopic.getAttr("name"));
@@ -87,10 +87,25 @@ public class ThreadController implements Initializable {
                 controller.setPost(post);
                 allPostVBox.getChildren().add(newLoadedPane);
             }
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddPost.fxml"));
+            Pane newLoadedPane = loader.load(); 
+            newLoadedPane.prefWidthProperty().bind(allPostVBox.prefWidthProperty());
+            AddPostController controller = loader.<AddPostController>getController();
+            controller.setThread(thread);
+            controller.setCallback(a -> postAdded((Post) a));
+            allPostVBox.getChildren().add(newLoadedPane);
+            
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
+    
+    public void postAdded(Post post) {
+        this.posts.add(post);
+        showPosts(this.posts);
+    }
+    
     @FXML
     private void backToTopic(ActionEvent event) {
         try {
