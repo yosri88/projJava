@@ -5,6 +5,7 @@
  */
 package allforkids.forum;
 
+import allforkids.forum.models.Post;
 import dopsie.exceptions.ModelException;
 import java.io.IOException;
 import java.net.URL;
@@ -20,11 +21,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import allforkids.forum.models.Thread;
 import allforkids.forum.models.Topic;
-import allforkids.forum.models.Post;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
+import java.util.Date;
+import helpers.NotificationController;
+import helpers.NotificationType;
+import java.sql.Timestamp;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 /**
@@ -42,6 +50,18 @@ public class TopicController implements Initializable {
     private VBox allThreadsVBox;
 
     private Topic topic;
+    @FXML
+    private JFXTextField newThreadTitle;
+    @FXML
+    private JFXTextArea newPostContent;
+    @FXML
+    private VBox newThreadSection;
+    @FXML
+    private JFXButton newThreadBtn;
+    @FXML
+    private Label notificationLabel;
+    @FXML
+    private AnchorPane notificationPanel;
     /**
      * Initializes the controller class.
      */
@@ -108,10 +128,61 @@ public class TopicController implements Initializable {
             ThreadController controller = loader.<ThreadController>getController();
             controller.setThread(thread);
             appStage.setScene(HomePageScene);
-            appStage.show();
+            appStage.show();            
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
     
+    @FXML
+    private void openAddNewThread(ActionEvent event) {
+        this.newThreadBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                closeAddNewThread(actionEvent);
+            }
+        });
+        this.newThreadSection.setVisible(true);
+        this.newThreadSection.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        this.newThreadSection.setMinHeight(Region.USE_COMPUTED_SIZE);
+        this.newThreadSection.setMaxHeight(Region.USE_COMPUTED_SIZE);
+    }
+    
+    private void closeAddNewThread(ActionEvent event) {
+        this.newThreadBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                openAddNewThread(actionEvent);
+            }
+        });
+        this.newThreadSection.setVisible(true);
+        this.newThreadSection.setPrefHeight(0);
+        this.newThreadSection.setMinHeight(0);
+        this.newThreadSection.setMaxHeight(0);
+    }
+
+    @FXML
+    private void addThread(ActionEvent event) {
+        String threadTitle = this.newThreadTitle.getText();
+        String postContent = this.newPostContent.getText();
+        if(threadTitle.isEmpty() || postContent.isEmpty()) {
+            NotificationController.showNotification(event, "Thread Title and Post content should not be empty", NotificationType.DANGER);
+        } else {
+            Thread thread = new Thread();
+            thread.setAttr("title", threadTitle);
+            thread.setAttr("topic_id", topic.getAttr("id"));
+            thread.save();
+
+            Post post = new Post();
+
+            Timestamp now = new Timestamp(new Date().getTime());
+            post.setAttr("content", postContent);
+            post.setAttr("thread_id", thread.getAttr("id"));
+            post.setAttr("user_id", 1);
+            post.setAttr("creation_date", now);
+            post.save();
+
+            goToThread(event, thread);
+        }
+    }
 }

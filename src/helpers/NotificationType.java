@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package allforkids.forum;
+package helpers;
 
 /**
  *
- * @author wattouma
+ * @author Wassim
  */
-class event {
-    
+public enum NotificationType {
+    SUCCESS, INFO, WARNING, DANGER;
 }

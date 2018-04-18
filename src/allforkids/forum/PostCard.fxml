@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -26,16 +27,6 @@
          </children>
       </VBox>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
-         <top>
-            <AnchorPane prefHeight="40.0" styleClass="post-content" BorderPane.alignment="CENTER">
-               <children>
-                  <Text fx:id="postContent" fill="#464646" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="post-content" text="Text" wrappingWidth="820.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <font>
-                        <Font name="Helvetica" size="14.0" />
-                     </font></Text>
-               </children>
-            </AnchorPane>
-         </top>
          <bottom>
             <AnchorPane prefHeight="40.0" BorderPane.alignment="CENTER">
                <children>
@@ -43,6 +34,44 @@
                </children>
             </AnchorPane>
          </bottom>
+         <center>
+            <AnchorPane prefHeight="40.0" styleClass="post-content" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="postContent" fill="#464646" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="post-content" text="Text" wrappingWidth="730.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Helvetica" size="14.0" />
+                     </font></Text>
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <BorderPane prefHeight="159.0" prefWidth="70.0" BorderPane.alignment="CENTER">
+               <top>
+                  <JFXButton fx:id="upArrowBtn" onAction="#upVote" text="▲" textFill="#979797" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXButton>
+               </top>
+               <center>
+                  <Label fx:id="voteCounter" text="-1" textFill="#979797" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </center>
+               <bottom>
+                  <JFXButton fx:id="downArrowBtn" onAction="#downVote" text="▼" textFill="#979797" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXButton>
+               </bottom>
+               <padding>
+                  <Insets bottom="20.0" left="5.0" right="5.0" top="20.0" />
+               </padding>
+            </BorderPane>
+         </right>
       </BorderPane>
    </children>
 </HBox>

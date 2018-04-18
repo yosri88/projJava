@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,8 +15,31 @@
          <children>
             <Label fx:id="mainTitleLabel" layoutX="14.0" layoutY="15.0" prefHeight="30.0" prefWidth="236.0" style="-fx-font-size: 25;" text="All For Kids Forum" AnchorPane.bottomAnchor="15.0" AnchorPane.topAnchor="15.0" />
             <JFXButton layoutX="940.0" layoutY="17.0" onAction="#backToForum" styleClass="primary-btn" text="Back to forum" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="17.0" />
+            <JFXButton fx:id="newThreadBtn" layoutX="792.0" layoutY="17.0" onAction="#openAddNewThread" styleClass="primary-btn" text="New Thread" />
          </children>
       </AnchorPane>
+      <VBox fx:id="newThreadSection" maxHeight="0.0" minHeight="0.0" prefHeight="0.0">
+         <children>
+            <JFXTextField fx:id="newThreadTitle" promptText="Thread Title">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextArea fx:id="newPostContent" promptText="Post Content">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </JFXTextArea>
+            <AnchorPane>
+               <children>
+                  <JFXButton alignment="BOTTOM_RIGHT" nodeOrientation="RIGHT_TO_LEFT" onAction="#addThread" styleClass="primary-btn" text="Add Thread" AnchorPane.rightAnchor="0.0" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </AnchorPane>
+         </children>
+      </VBox>
       <ScrollPane fx:id="allThreadsSP" hbarPolicy="NEVER" pickOnBounds="false" prefHeight="540.0" prefWidth="1024.0">
          <content>
             <VBox fx:id="allThreadsVBox" prefWidth="1000.0" />

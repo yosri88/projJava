@@ -8,7 +8,6 @@ package allforkids.forum.models;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import java.util.ArrayList;
-import allforkids.forum.models.Post;
 /**
  *
  * @author Wassim

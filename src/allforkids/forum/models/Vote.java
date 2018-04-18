@@ -23,7 +23,15 @@ public class Vote extends Model{
     }
     
     public VoteType getType() {
-        return this.getAttr("type").equals(-1) ? VoteType.DOWN : VoteType.UP;
+        return (int)this.getAttr("vote") == -1 ? VoteType.DOWN : VoteType.UP;
+    }
+
+    public void setVoteType(VoteType voteType) {
+        if(voteType ==  VoteType.UP) {
+            this.setAttr("vote", 1);
+        } else {
+            this.setAttr("vote", -1);
+        }
     }
 }
 

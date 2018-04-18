@@ -10,6 +10,8 @@ import allforkids.forum.models.Topic;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
+import helpers.NotificationController;
+import helpers.NotificationType;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;

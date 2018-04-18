@@ -6,6 +6,11 @@
 package allforkids.forum;
 
 import allforkids.forum.models.Post;
+import allforkids.forum.models.User;
+import allforkids.forum.models.Vote;
+import allforkids.forum.models.VoteType;
+import com.jfoenix.controls.JFXButton;
+import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import java.net.URL;
 import java.util.Date;
@@ -35,7 +40,16 @@ public class PostCardController implements Initializable {
     private Text postContent;
     @FXML
     private Label postMetaLabel;
-
+    @FXML
+    private Label voteCounter;
+    
+    private Post post;
+    @FXML
+    private JFXButton upArrowBtn;
+    @FXML
+    private JFXButton downArrowBtn;
+    
+    private int voteScore;
     /**
      * Initializes the controller class.
      */
@@ -47,13 +61,43 @@ public class PostCardController implements Initializable {
     
     public void setPost(Post post) {
         try {
+            this.post = post;
             Date creationDate = new Date(((Date) post.getAttr("creation_date")).getTime());
             PrettyTime p = new PrettyTime();
             this.postMetaLabel.setText(p.format(creationDate));
             this.userAvatarNameLabel.setText((String) post.author().getAttr("first_name"));
             this.postContent.setText((String) post.getAttr("content"));
+            this.voteScore = post.voteScore();
+            this.voteCounter.setText(voteScore + "");
+            User user = Model.find(User.class, 1);
+            if(post.userVoted(user)){
+                this.upArrowBtn.setDisable(true);
+                this.downArrowBtn.setDisable(true);
+            }
         } catch (ModelException ex) {
             Logger.getLogger(PostCardController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void upVote(ActionEvent event) {
+        vote(VoteType.UP);
+        this.voteCounter.setText(++this.voteScore + "");
+    }
+
+    @FXML
+    private void downVote(ActionEvent event) {
+        vote(VoteType.DOWN);
+        this.voteCounter.setText(--this.voteScore + "");
+    }
+    
+    public void vote(VoteType voteType) {
+        this.upArrowBtn.setDisable(true);
+        this.downArrowBtn.setDisable(true);
+        Vote vote = new Vote();
+        vote.setAttr("user_id", 1);
+        vote.setAttr("post_id", this.post.getAttr("id"));
+        vote.setVoteType(voteType);
+        vote.save();
     }
 }
