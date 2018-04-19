@@ -86,7 +86,7 @@ public class NotificationController implements Initializable {
             NotificationController controller = loader.<NotificationController>getController();
             controller.show(notificationString, notifType);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            AnchorPane node = (AnchorPane)appStage.getScene().getRoot().getChildrenUnmodifiable().get(0);
+            AnchorPane node = (AnchorPane)appStage.getScene().getRoot();
             node.getChildren().add(newLoadedPane);
         } catch (IOException ex) {
             Logger.getLogger(TopicController.class.getName()).log(Level.SEVERE, null, ex);
