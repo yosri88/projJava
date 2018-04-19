@@ -15,7 +15,8 @@ and open the template in the editor.
 
 
 .post-card-header {
-    -fx-background-color: #d3d3d3;
+    -fx-background-color: #e8e8e8;
+    -fx-text-fill: #428bca;
     -fx-padding: 12;
 }
 
@@ -30,7 +31,7 @@ and open the template in the editor.
 }
 
 .post-card-footer {
-    -fx-background-color: #d3d3d3;
+    -fx-background-color: #e8e8e8;
     -fx-padding: 5 5 5 0;
     -fx-pref-height: 30;
 }

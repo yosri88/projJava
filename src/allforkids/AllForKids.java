@@ -23,7 +23,7 @@ public class AllForKids extends Application {
         Parent root = null;
         try {
             primaryStage.setResizable(false);
-            root = FXMLLoader.load(getClass().getResource("/allforkids/forum/ForumMain.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/allforkids/login/Login.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setTitle("All For Kids");
             primaryStage.setScene(scene);

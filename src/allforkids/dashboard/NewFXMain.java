@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package allforkids.dashboard.blog;
+package allforkids.dashboard;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -26,7 +26,7 @@ public class NewFXMain extends Application {
         Parent root = null;
         try {
             primaryStage.setResizable(false);
-            root = FXMLLoader.load(getClass().getResource("AllPosts.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Main.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setTitle("All For Kids");
             primaryStage.setScene(scene);
