@@ -6,6 +6,7 @@
 package helpers;
 
 import allforkids.blog.AddPostController;
+import allforkids.blog.BlogMainController;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -31,6 +33,11 @@ public class ChipController implements Initializable {
     private JFXButton closeBtn;
     
     private AddPostController parentController;
+    
+    private BlogMainController blogMainParentController;
+    
+    @FXML
+    private HBox parentHBox;
     /**
      * Initializes the controller class.
      */
@@ -39,6 +46,20 @@ public class ChipController implements Initializable {
 
     }
    
+    public void setTagName(String tagName, boolean removable) {
+        this.tagNameLabel.setText(tagName);
+        if(removable == false) {
+            this.parentHBox.getStylesheets().add("/helpers/Chip.css");
+            this.parentHBox.getStyleClass().removeAll();
+            
+            this.parentHBox.getStyleClass().add("disabled-chip");
+            this.tagNameLabel.getStyleClass().removeAll();
+            
+            this.tagNameLabel.getStyleClass().add("disabled-chip-label");
+            this.parentHBox.getChildren().remove(closeBtn);
+        }
+    }
+    
     public void setTagName(String tagName) {
         this.tagNameLabel.setText(tagName);
     }
@@ -46,9 +67,17 @@ public class ChipController implements Initializable {
     public void setParentController(AddPostController parentController) {
         this.parentController = parentController;
     }
+    
+    public void setBlogMainParentController(BlogMainController parentController) {
+        this.blogMainParentController = parentController;
+    }
 
     @FXML
     private void remove(ActionEvent event) {
-        parentController.removeTag(this.tagNameLabel.getText());
+        if(parentController != null ) {
+            parentController.removeTag(this.tagNameLabel.getText());
+        } else if (blogMainParentController != null) {
+            blogMainParentController.removeTag(this.tagNameLabel.getText());
+        }
     }
 }

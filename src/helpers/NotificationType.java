@@ -3,19 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package allforkids.blog.models;
-
-import dopsie.core.Model;
+package helpers;
 
 /**
  *
  * @author Wassim
  */
-public class PostTag extends Model {
-    
-    @Override
-    public String getTableName() {
-        return "`posttag`";
-    }
-    
+public enum NotificationType {
+    SUCCESS, INFO, WARNING, DANGER;
 }
