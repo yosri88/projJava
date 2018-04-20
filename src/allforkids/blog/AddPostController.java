@@ -85,46 +85,52 @@ public class AddPostController implements Initializable {
     }
     @FXML
     private void addPost(ActionEvent event) {
-        String title = titleTextField.getText();
-        String content = this.htmlEditor.getHtmlText();
-        ArrayList<Tag> allPostTags = new ArrayList<>();
-        ArrayList<Tag> tagFromDB;
-        for(String tagName: this.tags.keySet()) {
-            try {
-                System.out.println(tagName);
-                tagFromDB = Model.fetch(Tag.class)
-                        .all()
-                        .where("name", tagName)
-                        .execute();
-                if(tagFromDB.isEmpty()) {
-                    Tag newTag = new Tag();
-                    newTag.setAttr("name", tagName);
-                    newTag.save();
-                    allPostTags.add(newTag);
-                } else {
-                    allPostTags.add(tagFromDB.get(0));
+        try {
+            String title = titleTextField.getText();
+            String content = this.htmlEditor.getHtmlText();
+            ArrayList<Tag> allPostTags = new ArrayList<>();
+            ArrayList<Tag> tagFromDB;
+            for(String tagName: this.tags.keySet()) {
+                try {
+                    System.out.println(tagName);
+                    tagFromDB = Model.fetch(Tag.class)
+                            .all()
+                            .where("name", tagName)
+                            .execute();
+                    if(tagFromDB.isEmpty()) {
+                        Tag newTag = new Tag();
+                        newTag.setAttr("name", tagName);
+                        newTag.save();
+                        allPostTags.add(newTag);
+                    } else {
+                        allPostTags.add(tagFromDB.get(0));
+                    }
+                } catch(ModelException| UnsupportedDataTypeException ex ) {
+                    System.out.println(ex.getMessage());
                 }
-            } catch(ModelException| UnsupportedDataTypeException ex ) {
-                System.out.println(ex.getMessage());
             }
+            System.out.println(allPostTags);
+            Post post = new Post();
+            Timestamp now = new Timestamp(new Date().getTime());
+            post.setAttr("title", title);
+            post.setAttr("content", content);
+            post.setAttr("user_id", 1);
+            post.setAttr("creation_date", now);
+            post.save();
+            
+            for(Tag tag: allPostTags) {
+                PostTag postTag = new PostTag();
+                postTag.setAttr("post_id", post.getAttr("id"));
+                postTag.setAttr("tag_id", tag.getAttr("id"));
+                postTag.save();
+            }
+            
+            goBack(event);
+        } catch (ModelException ex) {
+            Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedDataTypeException ex) {
+            Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(allPostTags);
-        Post post = new Post();
-        Timestamp now = new Timestamp(new Date().getTime());
-        post.setAttr("title", title);
-        post.setAttr("content", content);
-        post.setAttr("user_id", 1);
-        post.setAttr("creation_date", now);
-        post.save();
-        
-        for(Tag tag: allPostTags) {
-            PostTag postTag = new PostTag();
-            postTag.setAttr("post_id", post.getAttr("id"));
-            postTag.setAttr("tag_id", tag.getAttr("id"));
-            postTag.save();
-        }
-        
-        goBack(event);
     }
 
     @FXML

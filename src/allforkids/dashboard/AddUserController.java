@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package allforkids.login;
+package allforkids.dashboard;
 
-import allforkids.blog.BlogMainController;
+import allforkids.login.RegisterController;
+import allforkids.userManagement.models.Role;
 import allforkids.userManagement.models.User;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dopsie.exceptions.ModelException;
@@ -14,11 +16,15 @@ import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.BCrypt;
 import helpers.NotificationController;
 import helpers.NotificationType;
+import helpers.TrayNotificationService;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,9 +37,9 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author wattouma
+ * @author Wassim
  */
-public class RegisterController implements Initializable {
+public class AddUserController implements Initializable {
 
     @FXML
     private JFXTextField usernameTF;
@@ -45,22 +51,29 @@ public class RegisterController implements Initializable {
     private JFXTextField lastNameTF;
     @FXML
     private JFXTextField mailTF;
+    @FXML
+    private JFXComboBox<String> roleDropDown;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        String[] roleValues = Stream.of(Role.values()).map(Role::name).toArray(String[]::new);
+        ArrayList<Object> options = new ArrayList<>(Arrays.asList(roleValues));
+        for(Object option: options) {
+            roleDropDown.getItems().add((String)option);
+        }
     }    
 
     @FXML
-    private void onRegister(ActionEvent event) {
+    private void onRegister(ActionEvent event) throws IOException {
         String username = usernameTF.getText();
         String password = passwordTF.getText();
         String firstName = firstNameTF.getText();
         String lastName = lastNameTF.getText();
         String email = mailTF.getText();
+        String role = roleDropDown.getValue();
         
         if(username.isEmpty() 
                 || password.isEmpty() 
@@ -76,22 +89,27 @@ public class RegisterController implements Initializable {
                 user.setAttr("username", username);
                 user.setAttr("email", email);
                 user.setAttr("password", BCrypt.hashpw(password, BCrypt.gensalt()));
+                user.setRole(Role.valueOf(role));
                 user.save();
-                if(user.getAttr("id") == null) {
-                    NotificationController.showNotification(event, "Could not register", NotificationType.DANGER);
-                } else {
-                    
-                }
-            } catch (ModelException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedDataTypeException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+                TrayNotificationService.successBlueNotification("User added!", "User added!");
+            } catch (ModelException | UnsupportedDataTypeException ex) {
+                TrayNotificationService.failureRedNotification("User not added!", "User not added!");
+            } finally {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
+                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                appStage.hide();
+                Pane newLoadedPane = loader.load();
+                Scene HomePageScene = new Scene(newLoadedPane);
+                appStage.setScene(HomePageScene);
+                appStage.show();
             }
+            
         }
     }
-    
-    private void goToMainMenu(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/welcome/Welcome.fxml"));
+
+    @FXML
+    private void goToUsersList(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/dashboard/UsersList.fxml"));
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.hide();
         Pane newLoadedPane = loader.load();
@@ -99,20 +117,6 @@ public class RegisterController implements Initializable {
         appStage.setScene(HomePageScene);
         appStage.show();
     }
-
-    @FXML
-    private void backToLogin(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/login/Login.fxml"));
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            appStage.hide();
-            Pane newLoadedPane = loader.load();
-            Scene HomePageScene = new Scene(newLoadedPane);
-            appStage.setScene(HomePageScene);
-            appStage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(BlogMainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
     
 }

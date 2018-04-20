@@ -189,6 +189,10 @@ public class PostDetailsController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(PostDetailsController.class
                         .getName()).log(Level.SEVERE, null, ex);
+            } catch (ModelException ex) {
+                Logger.getLogger(PostDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedDataTypeException ex) {
+                Logger.getLogger(PostDetailsController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         this.commentBodyTf.clear();

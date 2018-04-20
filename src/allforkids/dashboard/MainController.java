@@ -7,11 +7,18 @@ package allforkids.dashboard;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -20,27 +27,51 @@ import javafx.scene.control.Label;
  */
 public class MainController implements Initializable {
 
-    @FXML
-    private FontAwesomeIconView faIcon1;
-    @FXML
     private Label label1;
     @FXML
-    private FontAwesomeIconView faIcon21;
+    private FontAwesomeIconView usersIcon;
     @FXML
-    private FontAwesomeIconView faIcon22;
+    private Label usersLabel;
     @FXML
-    private FontAwesomeIconView faIcon211;
+    private FontAwesomeIconView faIcon11;
     @FXML
-    private FontAwesomeIconView faIcon221;
+    private Label label11;
+    @FXML
+    private FontAwesomeIconView faIcon111;
+    @FXML
+    private Label label111;
+    @FXML
+    private FontAwesomeIconView faIcon12;
+    @FXML
+    private Label label12;
+    @FXML
+    private FontAwesomeIconView faIcon13;
+    @FXML
+    private Label label13;
+    @FXML
+    private FontAwesomeIconView faIcon14;
+    @FXML
+    private Label label14;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       faIcon1.setIcon(FontAwesomeIcon.TH_LARGE);
-       faIcon1.setStyle("-fx-text-fill: red;");
-       label1.setText("Blog");
+       usersIcon.setIcon(FontAwesomeIcon.USERS);
+       usersIcon.setStyle("-fx-text-fill: red;");
+       usersLabel.setText("Users");
     }    
+
+    @FXML
+    private void userMenuClicked(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/dashboard/UsersList.fxml"));
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.hide();
+        Pane newLoadedPane = loader.load();
+        Scene HomePageScene = new Scene(newLoadedPane);
+        appStage.setScene(HomePageScene);
+        appStage.show();
+    }
     
 }

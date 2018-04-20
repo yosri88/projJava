@@ -5,6 +5,7 @@
  */
 package allforkids.login;
 
+import allforkids.userManagement.models.Role;
 import allforkids.userManagement.models.User;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -80,7 +81,7 @@ public class LoginController implements Initializable {
                 }
                 boolean loginResult = BCrypt.checkpw(password, (String)user.getAttr("password"));
                 if(loginResult == true) {
-                    goToMainMenu(event);
+                    goToMainMenu(event, user);
                 } else {
                     NotificationController.showNotification(event, "Login/Password incorrect", NotificationType.DANGER);
                 }
@@ -90,8 +91,13 @@ public class LoginController implements Initializable {
         }
     }
 
-    private void goToMainMenu(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/welcome/Welcome.fxml"));
+    private void goToMainMenu(ActionEvent event, User user) throws IOException {
+        FXMLLoader loader = null;
+        if(user.getRole() == Role.ADMIN) {
+            loader = new FXMLLoader(getClass().getResource("/allforkids/dashboard/Main.fxml"));
+        } else {
+            loader = new FXMLLoader(getClass().getResource("/allforkids/welcome/Welcome.fxml"));
+        }
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.hide();
         Pane newLoadedPane = loader.load();

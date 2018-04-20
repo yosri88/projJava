@@ -12,6 +12,7 @@ import allforkids.forum.models.VoteType;
 import com.jfoenix.controls.JFXButton;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
+import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.NotificationController;
 import helpers.NotificationType;
 import java.net.URL;
@@ -105,12 +106,18 @@ public class PostCardController implements Initializable {
     }
     
     public void vote(VoteType voteType) {
-        this.upArrowBtn.setDisable(true);
-        this.downArrowBtn.setDisable(true);
-        Vote vote = new Vote();
-        vote.setAttr("user_id", 1);
-        vote.setAttr("post_id", this.post.getAttr("id"));
-        vote.setVoteType(voteType);
-        vote.save();
+        try {
+            this.upArrowBtn.setDisable(true);
+            this.downArrowBtn.setDisable(true);
+            Vote vote = new Vote();
+            vote.setAttr("user_id", 1);
+            vote.setAttr("post_id", this.post.getAttr("id"));
+            vote.setVoteType(voteType);
+            vote.save();
+        } catch (ModelException ex) {
+            Logger.getLogger(PostCardController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedDataTypeException ex) {
+            Logger.getLogger(PostCardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
