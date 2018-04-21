@@ -6,7 +6,7 @@
 package allforkids.blog;
 
 import allforkids.blog.models.Comment;
-import allforkids.forum.models.User;
+import allforkids.userManagement.models.User;
 import dopsie.exceptions.ModelException;
 import java.net.URL;
 import java.util.ResourceBundle;

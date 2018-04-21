@@ -5,6 +5,7 @@
  */
 package allforkids.forum.models;
 
+import allforkids.userManagement.models.User;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import java.util.ArrayList;

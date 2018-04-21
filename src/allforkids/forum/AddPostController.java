@@ -7,10 +7,9 @@ package allforkids.forum;
 
 import allforkids.forum.models.Post;
 import allforkids.forum.models.Thread;
-import allforkids.forum.models.User;
+import allforkids.userManagement.models.User;
 import com.jfoenix.controls.JFXTextArea;
-import helpers.NotificationController;
-import helpers.NotificationType;
+import helpers.TrayNotificationService;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -60,7 +59,7 @@ public class AddPostController implements Initializable {
     @FXML
     private void addPost(ActionEvent event) {
         if(newPostContentTA.getText().isEmpty()) {
-            NotificationController.showNotification(event, "Post content should not be empty", NotificationType.DANGER);
+            TrayNotificationService.failureRedNotification("Adding a post", "Post content should not be empty");
             return;
         }
         try{
@@ -71,10 +70,10 @@ public class AddPostController implements Initializable {
             post.setAttr("creation_date", now);
             post.setAttr("thread_id", thread.getAttr("id"));
             post.save();
-            NotificationController.showNotification(event, "Post added successfully", NotificationType.SUCCESS);
+            TrayNotificationService.faceBlueNotification("Adding a post", "Post added successfully");
             this.addPostCallback.accept(post);
         } catch(Exception e) {
-            NotificationController.showNotification(event, "Post could not be added", NotificationType.DANGER);
+            TrayNotificationService.failureRedNotification("Adding a post", "Failed to add post");
             System.out.println(e.getMessage());
         }
     }

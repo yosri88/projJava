@@ -7,6 +7,7 @@ package allforkids.dashboard;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import helpers.NavigationService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -65,13 +66,12 @@ public class MainController implements Initializable {
 
     @FXML
     private void userMenuClicked(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/dashboard/UsersList.fxml"));
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.hide();
-        Pane newLoadedPane = loader.load();
-        Scene HomePageScene = new Scene(newLoadedPane);
-        appStage.setScene(HomePageScene);
-        appStage.show();
+        NavigationService.goTo(event, this, "/allforkids/dashboard/userManagement/UsersList.fxml");
+    }
+
+    @FXML
+    private void goToWelcome(ActionEvent event) {
+        NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
     }
     
 }

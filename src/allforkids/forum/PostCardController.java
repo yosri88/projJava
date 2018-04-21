@@ -6,15 +6,14 @@
 package allforkids.forum;
 
 import allforkids.forum.models.Post;
-import allforkids.forum.models.User;
 import allforkids.forum.models.Vote;
 import allforkids.forum.models.VoteType;
+import allforkids.userManagement.models.User;
 import com.jfoenix.controls.JFXButton;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
-import helpers.NotificationController;
-import helpers.NotificationType;
+import helpers.TrayNotificationService;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -27,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.ocpsoft.prettytime.PrettyTime;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -87,9 +87,9 @@ public class PostCardController implements Initializable {
         try {
             vote(VoteType.UP);
             this.voteCounter.setText(++this.voteScore + "");
-            NotificationController.showNotification(event, "Upvoted", NotificationType.INFO);
+            TrayNotificationService.faceBlueNotification("Upvoted", "");
         } catch(Exception e) {
-            NotificationController.showNotification(event, "Failed to Upvote", NotificationType.WARNING);
+            TrayNotificationService.failureRedNotification("Upvote", "Failed to Upvote");
         }
         
     }
@@ -99,25 +99,19 @@ public class PostCardController implements Initializable {
         try {
             vote(VoteType.DOWN);
             this.voteCounter.setText(--this.voteScore + "");
-            NotificationController.showNotification(event, "Downvoted", NotificationType.INFO);
+            TrayNotificationService.faceBlueNotification("Downvoted", "");
         } catch(Exception e) {
-            NotificationController.showNotification(event, "Failed to Downvote", NotificationType.WARNING);
+            TrayNotificationService.failureRedNotification("Downvote", "Failed to Downvote");
         }
     }
     
-    public void vote(VoteType voteType) {
-        try {
-            this.upArrowBtn.setDisable(true);
-            this.downArrowBtn.setDisable(true);
-            Vote vote = new Vote();
-            vote.setAttr("user_id", 1);
-            vote.setAttr("post_id", this.post.getAttr("id"));
-            vote.setVoteType(voteType);
-            vote.save();
-        } catch (ModelException ex) {
-            Logger.getLogger(PostCardController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedDataTypeException ex) {
-            Logger.getLogger(PostCardController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void vote(VoteType voteType) throws ModelException, UnsupportedDataTypeException {
+        this.upArrowBtn.setDisable(true);
+        this.downArrowBtn.setDisable(true);
+        Vote vote = new Vote();
+        vote.setAttr("user_id", 1);
+        vote.setAttr("post_id", this.post.getAttr("id"));
+        vote.setVoteType(voteType);
+        vote.save();
     }
 }

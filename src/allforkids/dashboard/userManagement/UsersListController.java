@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package allforkids.dashboard;
+package allforkids.dashboard.userManagement;
 
 import allforkids.forum.TopicController;
 import allforkids.userManagement.models.Role;
@@ -12,8 +12,7 @@ import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.DopsieCellBuilder;
-import helpers.NotificationController;
-import helpers.NotificationType;
+import helpers.NavigationService;
 import helpers.TrayNotificationService;
 import java.io.IOException;
 import java.net.URL;
@@ -23,9 +22,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,18 +33,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 
 /**
@@ -210,23 +201,11 @@ public class UsersListController implements Initializable {
 
     @FXML
     private void goToAdd(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddUser.fxml"));
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.hide();
-        Pane newLoadedPane = loader.load();
-        Scene HomePageScene = new Scene(newLoadedPane);
-        appStage.setScene(HomePageScene);
-        appStage.show();
+        NavigationService.goTo(event, this, "AddUser.fxml");
     }
 
     @FXML
     private void goToMainMenu(ActionEvent event) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.hide();
-        Pane newLoadedPane = loader.load();
-        Scene HomePageScene = new Scene(newLoadedPane);
-        appStage.setScene(HomePageScene);
-        appStage.show();
+        NavigationService.goTo(event, this, "/allforkids/dashboard/Main.fxml");
     }
 }

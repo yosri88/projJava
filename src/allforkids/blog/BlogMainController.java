@@ -13,6 +13,7 @@ import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.ChipController;
+import helpers.NavigationService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -109,23 +110,6 @@ public class BlogMainController implements Initializable {
         }
     }
     
-    @FXML
-    private void goToAddPost(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddPost.fxml"));
-            Parent parent = loader.load();
-            Scene HomePageScene = new Scene(parent);
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            AddPostController controller = loader.<AddPostController>getController();
-                controller.setStage(appStage);
-            appStage.setScene(HomePageScene);
-            appStage.show();
-
-        } catch (IOException ex) {
-            Logger.getLogger(BlogMainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     @FXML
     private void openFilter(ActionEvent event) {
         this.filterButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -229,5 +213,10 @@ public class BlogMainController implements Initializable {
 
     @FXML
     private void TagTfKeyReleased(KeyEvent event) {
+    }
+
+    @FXML
+    private void goToMainMenu(ActionEvent event) {
+        NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
     }
 }

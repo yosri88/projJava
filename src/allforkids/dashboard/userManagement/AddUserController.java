@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package allforkids.dashboard;
+package allforkids.dashboard.userManagement;
 
-import allforkids.login.RegisterController;
 import allforkids.userManagement.models.Role;
 import allforkids.userManagement.models.User;
 import com.jfoenix.controls.JFXComboBox;
@@ -14,16 +13,13 @@ import com.jfoenix.controls.JFXTextField;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.BCrypt;
-import helpers.NotificationController;
-import helpers.NotificationType;
+import helpers.NavigationService;
 import helpers.TrayNotificationService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,7 +76,7 @@ public class AddUserController implements Initializable {
                 || firstName.isEmpty()
                 || lastName.isEmpty()
                 || email.isEmpty()) {
-            NotificationController.showNotification(event, "Fields should not be empty", NotificationType.DANGER);
+            TrayNotificationService.failureRedNotification("Fields should not be empty", "Fields should not be empty");
         } else {
             try {
                 User user = new User();
@@ -95,13 +91,7 @@ public class AddUserController implements Initializable {
             } catch (ModelException | UnsupportedDataTypeException ex) {
                 TrayNotificationService.failureRedNotification("User not added!", "User not added!");
             } finally {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
-                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                appStage.hide();
-                Pane newLoadedPane = loader.load();
-                Scene HomePageScene = new Scene(newLoadedPane);
-                appStage.setScene(HomePageScene);
-                appStage.show();
+                NavigationService.goTo(event, this, "UsersList.fxml");
             }
             
         }
@@ -109,13 +99,7 @@ public class AddUserController implements Initializable {
 
     @FXML
     private void goToUsersList(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/dashboard/UsersList.fxml"));
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.hide();
-        Pane newLoadedPane = loader.load();
-        Scene HomePageScene = new Scene(newLoadedPane);
-        appStage.setScene(HomePageScene);
-        appStage.show();
+        NavigationService.goTo(event, this, "/allforkids/dashboard/userManagement/UsersList.fxml");
     }
     
     

@@ -7,15 +7,15 @@ package allforkids.login;
 
 import allforkids.userManagement.models.Role;
 import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.BCrypt;
-import helpers.NotificationController;
-import helpers.NotificationType;
+import helpers.NavigationService;
+import helpers.TrayNotificationService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +27,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javax.management.Notification;
 
 /**
  * FXML Controller class
@@ -69,40 +68,27 @@ public class LoginController implements Initializable {
         String password = this.passwordTF.getText();
         String username = this.usernameTF.getText();
         if(username.isEmpty() || password.isEmpty()) {
-            NotificationController.showNotification(event, "Login/Password fields are required", NotificationType.DANGER);
+            TrayNotificationService.failureRedNotification("Login/Password fields required", "Login/Password fields required");
             return;
         } 
         else {
             try {
                 User user = User.getByUsername(username);
                 if(user == null) {
-                    NotificationController.showNotification(event, "Login/Password incorrect", NotificationType.DANGER);
+                    TrayNotificationService.failureRedNotification("Login/Password incorrect", "Login/Password incorrect");
                     return;
                 }
                 boolean loginResult = BCrypt.checkpw(password, (String)user.getAttr("password"));
                 if(loginResult == true) {
-                    goToMainMenu(event, user);
+                    UserSession.setInstance(user);
+                    TrayNotificationService.successBlueNotification("Welcome", "Welcome " +  (String)user.getAttr("first_name"));
+                    NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
                 } else {
-                    NotificationController.showNotification(event, "Login/Password incorrect", NotificationType.DANGER);
+                    TrayNotificationService.failureRedNotification("Login/Password incorrect", "Login/Password incorrect");
                 }
             } catch(ModelException | UnsupportedDataTypeException ex) {
-                NotificationController.showNotification(event, "Could not login", NotificationType.DANGER);
+                TrayNotificationService.failureRedNotification("Could not login", "Could not login");
             } 
         }
-    }
-
-    private void goToMainMenu(ActionEvent event, User user) throws IOException {
-        FXMLLoader loader = null;
-        if(user.getRole() == Role.ADMIN) {
-            loader = new FXMLLoader(getClass().getResource("/allforkids/dashboard/Main.fxml"));
-        } else {
-            loader = new FXMLLoader(getClass().getResource("/allforkids/welcome/Welcome.fxml"));
-        }
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.hide();
-        Pane newLoadedPane = loader.load();
-        Scene HomePageScene = new Scene(newLoadedPane);
-        appStage.setScene(HomePageScene);
-        appStage.show();
     }
 }

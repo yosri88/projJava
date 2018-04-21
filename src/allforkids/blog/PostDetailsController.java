@@ -8,7 +8,7 @@ package allforkids.blog;
 import allforkids.blog.models.Comment;
 import allforkids.blog.models.Post;
 import allforkids.blog.models.Tag;
-import allforkids.forum.models.User;
+import allforkids.userManagement.models.User;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.webkit.WebPage;
 import dopsie.core.Model;

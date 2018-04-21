@@ -5,9 +5,11 @@
  */
 package allforkids.userManagement.models;
 
+import allforkids.forum.models.Post;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,9 +17,15 @@ import dopsie.exceptions.UnsupportedDataTypeException;
  */
 public class User extends Model{
 
+    
+    public ArrayList<Post> posts() throws ModelException {
+        return this.hasMany(Post.class);
+    }
+
     @Override
-    public String getTableName() {
-        return "`user`"; //To change body of generated methods, choose Tools | Templates.
+    public boolean equals(Object obj) {
+        allforkids.userManagement.models.User user = (allforkids.userManagement.models.User) obj;
+        return this.getAttr("id").equals(user.getAttr("id"));
     }
     
     

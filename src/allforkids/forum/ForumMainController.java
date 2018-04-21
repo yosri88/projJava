@@ -10,8 +10,7 @@ import allforkids.forum.models.Topic;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
-import helpers.NotificationController;
-import helpers.NotificationType;
+import helpers.NavigationService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -89,5 +88,10 @@ public class ForumMainController implements Initializable {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    @FXML
+    private void goToMainMenu(ActionEvent event) {
+        NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
     }
 }

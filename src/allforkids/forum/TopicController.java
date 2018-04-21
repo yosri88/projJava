@@ -24,9 +24,9 @@ import allforkids.forum.models.Topic;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import helpers.NavigationService;
 import java.util.Date;
-import helpers.NotificationController;
-import helpers.NotificationType;
+import helpers.TrayNotificationService;
 import java.sql.Timestamp;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -79,23 +79,12 @@ public class TopicController implements Initializable {
         catch(ModelException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(allThreads);
         showThreads(allThreads);
     }
 
     @FXML
     private void backToForum(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/forum/ForumMain.fxml"));
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            appStage.hide();
-            Pane newLoadedPane = loader.load();
-            Scene HomePageScene = new Scene(newLoadedPane);
-            appStage.setScene(HomePageScene);
-            appStage.show();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+        NavigationService.goTo(event, this, "/allforkids/forum/ForumMain.fxml");
     }
     
     private void showThreads(ArrayList<Thread> threads) {
@@ -166,7 +155,7 @@ public class TopicController implements Initializable {
         String threadTitle = this.newThreadTitle.getText();
         String postContent = this.newPostContent.getText();
         if(threadTitle.isEmpty() || postContent.isEmpty()) {
-            NotificationController.showNotification(event, "Thread Title and Post content should not be empty", NotificationType.DANGER);
+            TrayNotificationService.failureRedNotification("Add Thread", "Thread Title and Post content should not be empty");
             return;
         }
         try {
@@ -183,10 +172,10 @@ public class TopicController implements Initializable {
             post.setAttr("user_id", 1);
             post.setAttr("creation_date", now);
             post.save();
-
+            TrayNotificationService.successBlueNotification("Add Thread", "Thread added successfully");
             goToThread(event, thread);
         } catch(Exception e) {
-            NotificationController.showNotification(event, "Couldn't add Thread", NotificationType.DANGER);
+            TrayNotificationService.failureRedNotification("Add Thread", "Couldn't add Thread");
         }
     }
 }
