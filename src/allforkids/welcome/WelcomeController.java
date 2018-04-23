@@ -22,6 +22,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -40,6 +42,10 @@ public class WelcomeController implements Initializable {
     private FontAwesomeIconView storeIcon;
     @FXML
     private JFXButton goToDashboardBtn;
+    @FXML
+    private JFXButton userFullNameBtn;
+    @FXML
+    private AnchorPane avatarContainer;
     /**
      * Initializes the controller class.
      */
@@ -50,16 +56,16 @@ public class WelcomeController implements Initializable {
         storeIcon.setIcon(FontAwesomeIcon.SHOPPING_CART);
         User currentUser = UserSession.getInstance();
         Role role = currentUser.getRole();
+        this.userFullNameBtn.setText(currentUser.getFullName());
         if(role != Role.USER) {
             goToDashboardBtn.setText("You're " + role.name().toLowerCase() + ", go to dashboard");
         } else {
             goToDashboardBtn.setVisible(false);
         }
+        avatarContainer.getChildren()
+                        .add(currentUser.getAvatarViewPane(50, 50));
     }    
 
-    @FXML
-    private void profileClick(ActionEvent event) {
-    }
 
     @FXML
     private void goToBlog(ActionEvent event) {
@@ -80,6 +86,17 @@ public class WelcomeController implements Initializable {
     @FXML
     private void goToStore(ActionEvent event) {
         
+    }
+
+    @FXML
+    private void goToProfile(ActionEvent event) {
+        NavigationService.goTo(event, this, "/allforkids/userManagement/profile/EditProfile.fxml");
+    }
+
+    @FXML
+    private void logout(ActionEvent event) {
+        UserSession.setInstance(null);
+        NavigationService.goTo(event, this, "/allforkids/login/Login.fxml");
     }
 
     

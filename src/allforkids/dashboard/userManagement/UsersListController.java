@@ -5,7 +5,6 @@
  */
 package allforkids.dashboard.userManagement;
 
-import allforkids.forum.TopicController;
 import allforkids.userManagement.models.Role;
 import allforkids.userManagement.models.User;
 import dopsie.core.Model;
@@ -27,18 +26,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
 
 /**

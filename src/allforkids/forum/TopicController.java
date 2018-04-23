@@ -21,6 +21,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import allforkids.forum.models.Thread;
 import allforkids.forum.models.Topic;
+import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -152,6 +154,7 @@ public class TopicController implements Initializable {
 
     @FXML
     private void addThread(ActionEvent event) {
+        User currentUser = UserSession.getInstance();
         String threadTitle = this.newThreadTitle.getText();
         String postContent = this.newPostContent.getText();
         if(threadTitle.isEmpty() || postContent.isEmpty()) {
@@ -169,7 +172,7 @@ public class TopicController implements Initializable {
             Timestamp now = new Timestamp(new Date().getTime());
             post.setAttr("content", postContent);
             post.setAttr("thread_id", thread.getAttr("id"));
-            post.setAttr("user_id", 1);
+            post.setAttr("user_id", currentUser.getAttr("id"));
             post.setAttr("creation_date", now);
             post.save();
             TrayNotificationService.successBlueNotification("Add Thread", "Thread added successfully");

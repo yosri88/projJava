@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package allforkids.blog;
+package allforkids.dashboard.blog;
 
 import helpers.ChipController;
 import allforkids.blog.models.Post;
 import allforkids.blog.models.PostTag;
 import allforkids.blog.models.Tag;
+import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -16,6 +18,7 @@ import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.HtmlEditorWithImage;
+import helpers.NavigationService;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -29,16 +32,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
 /**
@@ -109,12 +107,12 @@ public class AddPostController implements Initializable {
                     System.out.println(ex.getMessage());
                 }
             }
-            System.out.println(allPostTags);
+            User currentUser = UserSession.getInstance();
             Post post = new Post();
             Timestamp now = new Timestamp(new Date().getTime());
             post.setAttr("title", title);
             post.setAttr("content", content);
-            post.setAttr("user_id", 1);
+            post.setAttr("user_id", currentUser.getAttr("id"));
             post.setAttr("creation_date", now);
             post.save();
             
@@ -126,27 +124,14 @@ public class AddPostController implements Initializable {
             }
             
             goBack(event);
-        } catch (ModelException ex) {
-            Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedDataTypeException ex) {
+        } catch (ModelException | UnsupportedDataTypeException ex) {
             Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
     private void goBack(ActionEvent event) {
-        try {
-            Parent parent = FXMLLoader.load(getClass().getResource("/allforkids/blog/BlogMain.fxml"));
-            Scene HomePageScene = new Scene(parent);
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            appStage.hide();
-            appStage.setScene(HomePageScene);
-            appStage.show();
-
-        } catch (IOException ex) {
-            Logger.getLogger(BlogMainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        NavigationService.goTo(event, this, "/allforkids/blog/BlogMain.fxml");
     }
 
     @FXML

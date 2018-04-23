@@ -4,8 +4,6 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -29,17 +27,10 @@
             </Label>
          </left>
          <right>
-            <HBox prefHeight="60.0" prefWidth="310.0" BorderPane.alignment="CENTER">
+            <HBox BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="file:/Users/wattouma/Desktop/avatar.jpg" />
-                     </image>
-                  </ImageView>
-                  <JFXButton onAction="#profileClick" ripplerFill="#eeeeee" text="Wassim Kallel" textFill="#eeeeee">
+                  <AnchorPane fx:id="avatarContainer" prefHeight="50.0" prefWidth="50.0" />
+                  <JFXButton fx:id="userFullNameBtn" onAction="#goToProfile" ripplerFill="#eeeeee" textFill="#eeeeee">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -47,7 +38,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton styleClass="primary-btn" text="Logout">
+                  <JFXButton onAction="#logout" styleClass="primary-btn" text="Logout">
                      <HBox.margin>
                         <Insets bottom="15.0" left="30.0" right="15.0" top="15.0" />
                      </HBox.margin>

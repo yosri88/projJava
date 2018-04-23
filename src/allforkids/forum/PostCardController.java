@@ -9,6 +9,7 @@ import allforkids.forum.models.Post;
 import allforkids.forum.models.Vote;
 import allforkids.forum.models.VoteType;
 import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
@@ -24,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import org.ocpsoft.prettytime.PrettyTime;
 import tray.notification.TrayNotification;
@@ -35,8 +37,6 @@ import tray.notification.TrayNotification;
  */
 public class PostCardController implements Initializable {
 
-    @FXML
-    private ImageView userAvatarImView;
     @FXML
     private Label userAvatarNameLabel;
     @FXML
@@ -53,6 +53,8 @@ public class PostCardController implements Initializable {
     private JFXButton downArrowBtn;
     
     private int voteScore;
+    @FXML
+    private AnchorPane avatarContainer;
     /**
      * Initializes the controller class.
      */
@@ -64,21 +66,30 @@ public class PostCardController implements Initializable {
     
     public void setPost(Post post) {
         try {
+            System.out.println(post);
             this.post = post;
             Date creationDate = new Date(((Date) post.getAttr("creation_date")).getTime());
             PrettyTime p = new PrettyTime();
             this.postMetaLabel.setText(p.format(creationDate));
-            this.userAvatarNameLabel.setText((String) post.author().getAttr("first_name"));
+            this.userAvatarNameLabel.setText((String) post.author().getFullName());
+            this.avatarContainer.getChildren()
+                                .add(
+                                        post.author().getAvatarViewPane(
+                                                avatarContainer.getPrefWidth(), 
+                                                avatarContainer.getPrefHeight()
+                                        )
+                                );
             this.postContent.setText((String) post.getAttr("content"));
             this.voteScore = post.voteScore();
             this.voteCounter.setText(voteScore + "");
-            User user = Model.find(User.class, 1);
-            if(post.userVoted(user)){
+            User currentUser = UserSession.getInstance();
+            if(post.userVoted(currentUser)){
                 this.upArrowBtn.setDisable(true);
                 this.downArrowBtn.setDisable(true);
             }
+            
         } catch (ModelException ex) {
-            Logger.getLogger(PostCardController.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 

@@ -9,6 +9,8 @@ import allforkids.forum.models.Post;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
+import helpers.CustomImageViewPane;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +37,10 @@ public class User extends Model{
         } catch(IndexOutOfBoundsException ex) {
             return null;
         }
+    }
+    
+    public String getFullName() {
+        return this.getAttr("first_name") + " " + this.getAttr("last_name");
     }
     
     public Role getRole() {
@@ -70,5 +76,16 @@ public class User extends Model{
             default:
                 break;
         }
+    }
+    
+    public CustomImageViewPane getAvatarViewPane(double width, double height) {
+        String path = (String)this.getAttr("avatar_path");
+        if(path == null) {
+            path = "/img/default-user.png";
+            return new CustomImageViewPane(path, width, height);
+        }
+        String absolutePath =  Paths.get("").toAbsolutePath().toString();
+        path = "file:" + absolutePath + path;
+        return new CustomImageViewPane(path, width, height);
     }
 }

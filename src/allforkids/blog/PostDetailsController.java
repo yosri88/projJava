@@ -9,6 +9,7 @@ import allforkids.blog.models.Comment;
 import allforkids.blog.models.Post;
 import allforkids.blog.models.Tag;
 import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.webkit.WebPage;
 import dopsie.core.Model;
@@ -16,6 +17,8 @@ import java.sql.Timestamp;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.ChipController;
+import helpers.NavigationService;
+import helpers.TrayNotificationService;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -127,9 +130,7 @@ public class PostDetailsController implements Initializable {
                 addTag((String)tag.getAttr("name"));
             }
             
-        } catch (ModelException ex) {
-            System.out.println(ex.getMessage());
-        } catch (IOException ex) {
+        } catch (ModelException | IOException ex) {
             Logger.getLogger(PostDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -147,19 +148,7 @@ public class PostDetailsController implements Initializable {
     }
     @FXML
     private void goBack(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/blog/BlogMain.fxml"));
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            appStage.hide();
-            Pane newLoadedPane = loader.load();
-            Scene HomePageScene = new Scene(newLoadedPane);
-            appStage.setScene(HomePageScene);
-            appStage.show();
-
-        } catch (IOException ex) {
-            Logger.getLogger(BlogMainController.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
+        NavigationService.goTo(event, this, "/allforkids/blog/BlogMain.fxml");
     }
 
     @FXML
@@ -169,15 +158,14 @@ public class PostDetailsController implements Initializable {
             try {
                 int id = (int) this.post.getAttr("id");
                 Timestamp now = new Timestamp(new Date().getTime());
-
+                User currentUser = UserSession.getInstance();
                 Comment comment = new Comment();
                 comment.setAttr("post_id", id);
                 comment.setAttr("content", commentText);
-                comment.setAttr("user_id", 1);
+                comment.setAttr("user_id", currentUser.getAttr("id"));
                 comment.setAttr("creation_date", now);
                 comment.save();
-
-                System.out.println(this.commentsSection.getChildren().remove(this.noCommentLabel));
+                this.commentsSection.getChildren().remove(this.noCommentLabel);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Comment.fxml"));
                 Pane newLoadedPane = loader.load();
@@ -185,14 +173,9 @@ public class PostDetailsController implements Initializable {
                 CommentController controller = loader.<CommentController>getController();
                 controller.setCommentData(comment);
                 commentsSection.getChildren().add(newLoadedPane);
-
-            } catch (IOException ex) {
-                Logger.getLogger(PostDetailsController.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            } catch (ModelException ex) {
-                Logger.getLogger(PostDetailsController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedDataTypeException ex) {
-                Logger.getLogger(PostDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+                TrayNotificationService.successBlueNotification("Comment", "Commented on post successfully");
+            } catch (IOException | ModelException | UnsupportedDataTypeException ex) {
+                TrayNotificationService.failureRedNotification("Comment", "Failed to comment");
             }
         }
         this.commentBodyTf.clear();

@@ -8,6 +8,7 @@ package allforkids.forum;
 import allforkids.forum.models.Post;
 import allforkids.forum.models.Thread;
 import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXTextArea;
 import helpers.TrayNotificationService;
 import java.net.URL;
@@ -20,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -29,8 +31,6 @@ import javafx.scene.image.ImageView;
 public class AddPostController implements Initializable {
 
     @FXML
-    private ImageView userAvatarImView;
-    @FXML
     private Label userAvatarNameLabel;
     @FXML
     private JFXTextArea newPostContentTA;
@@ -38,16 +38,23 @@ public class AddPostController implements Initializable {
     private Thread thread;
     
     private Consumer addPostCallback;
+    @FXML
+    private AnchorPane avatarContainer;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        User currentUser = UserSession.getInstance();
+        this.avatarContainer.getChildren()
+                                .add(
+                                        currentUser.getAvatarViewPane(
+                                                avatarContainer.getPrefWidth(), 
+                                                avatarContainer.getPrefHeight()
+                                        )
+                                );
+        userAvatarNameLabel.setText(currentUser.getFullName());
     }    
-    public void setConnectedUser(User user) {
-        
-    }
     public void setCallback(Consumer callback) {
         this.addPostCallback = callback;
     }
@@ -63,10 +70,11 @@ public class AddPostController implements Initializable {
             return;
         }
         try{
+            User currentUser = UserSession.getInstance();
             Post post = new Post();
             Timestamp now = new Timestamp(new Date().getTime());
             post.setAttr("content", newPostContentTA.getText());
-            post.setAttr("user_id", 1);
+            post.setAttr("user_id", currentUser.getAttr("id"));
             post.setAttr("creation_date", now);
             post.setAttr("thread_id", thread.getAttr("id"));
             post.save();

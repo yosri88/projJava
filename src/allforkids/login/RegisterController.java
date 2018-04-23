@@ -71,9 +71,9 @@ public class RegisterController implements Initializable {
                 user.save();
                 if(user.getAttr("id") == null) {
                     TrayNotificationService.failureRedNotification("Could not register", "Could not register");
-                    NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
                 } else {
                     UserSession.setInstance(user);
+                    NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
                 }
             } catch (ModelException | UnsupportedDataTypeException ex) {
                 TrayNotificationService.failureRedNotification("Could not register", "Could not register");
