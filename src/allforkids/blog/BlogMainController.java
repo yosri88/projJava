@@ -82,7 +82,7 @@ public class BlogMainController implements Initializable {
             allPostsFlowPane.prefWidthProperty().bind(allPostsScrollPane.prefWidthProperty().add(45));
             allPostsScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 
-            ArrayList<Post> allPosts = Model.fetch(Post.class).all().orderBy("creation_date", "DESC").execute();
+            ArrayList<Post> allPosts = Model.fetch(Post.class).all().where("online", "1").orderBy("creation_date", "DESC").execute();
             showPosts(allPosts);
         } catch (UnsupportedDataTypeException | ModelException ex) {
             Logger.getLogger(BlogMainController.class.getName()).log(Level.SEVERE, null, ex);

@@ -34,10 +34,6 @@ public class MainController implements Initializable {
     @FXML
     private Label usersLabel;
     @FXML
-    private FontAwesomeIconView faIcon11;
-    @FXML
-    private Label label11;
-    @FXML
     private FontAwesomeIconView faIcon111;
     @FXML
     private Label label111;
@@ -53,6 +49,10 @@ public class MainController implements Initializable {
     private FontAwesomeIconView faIcon14;
     @FXML
     private Label label14;
+    @FXML
+    private FontAwesomeIconView blogIcon;
+    @FXML
+    private Label blogLabel;
 
     /**
      * Initializes the controller class.
@@ -62,6 +62,10 @@ public class MainController implements Initializable {
        usersIcon.setIcon(FontAwesomeIcon.USERS);
        usersIcon.setStyle("-fx-text-fill: red;");
        usersLabel.setText("Users");
+       
+       blogIcon.setIcon(FontAwesomeIcon.TH);
+       blogIcon.setStyle("-fx-text-fill: red;");
+       blogLabel.setText("Posts");
     }    
 
     @FXML
@@ -72,6 +76,11 @@ public class MainController implements Initializable {
     @FXML
     private void goToWelcome(ActionEvent event) {
         NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
+    }
+
+    @FXML
+    private void blogMenuClicked(ActionEvent event) {
+        NavigationService.goTo(event, this, "/allforkids/dashboard/blog/PostsList.fxml");
     }
     
 }

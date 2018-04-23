@@ -13,6 +13,7 @@ import helpers.ChipController;
 import helpers.CustomImageViewPane;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -70,6 +71,12 @@ public class PostCardController implements Initializable {
     public void setPostData(Post post) throws ModelException {
         this.post = post;
         this.titleLabel.setText((String) post.getAttr("title"));
+        String imagePath = (String) post.getAttr("image_path");
+        if(imagePath != null) {
+            String absolutePath =  Paths.get("").toAbsolutePath().toString();
+            imagePath = "file:" + absolutePath + imagePath;
+            imageContainer.getChildren().add(new CustomImageViewPane(imagePath, 280f, 200f));
+        }
     }
     
     private void addTag(String tagName) {

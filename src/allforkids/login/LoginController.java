@@ -5,7 +5,7 @@
  */
 package allforkids.login;
 
-import allforkids.userManagement.models.Role;
+
 import allforkids.userManagement.models.User;
 import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
