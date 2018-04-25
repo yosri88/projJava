@@ -38,11 +38,11 @@ public class AllForKids extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.setProperty("host", "localhost");
+        System.setProperty("host", "pma.allforkids.ml");
         System.setProperty("port", "3306");
-        System.setProperty("database", "esprit");
-        System.setProperty("user", "root");
-        System.setProperty("password", "root");
+        System.setProperty("database", "from_scratch");
+        System.setProperty("user", "wassim");
+        System.setProperty("password", "Lpd*de7W");
         
         launch(args);
     }
