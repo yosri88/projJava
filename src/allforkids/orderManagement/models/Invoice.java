@@ -22,12 +22,12 @@ public class Invoice extends Model {
 
     @Override
     public String getTableName() {
-        return "invoice";
+        return "`invoice`";
     }
 
     @Override
     public String getPrimaryKeyName() {
-        return "invoiceid";
+        return "id";
     }
 
     public Order invoiceOrder() throws ModelException{

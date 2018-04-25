@@ -5,7 +5,14 @@
  */
 package allforkids.orderManagement.controllers;
 
+import allforkids.orderManagement.models.LineItem;
+import allforkids.orderManagement.models.Product;
+import allforkids.orderManagement.models.User;
+import dopsie.core.Model;
+import dopsie.exceptions.ModelException;
+import dopsie.exceptions.UnsupportedDataTypeException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
@@ -24,4 +31,11 @@ public class ShoppingCartController implements Initializable {
         // TODO
     }    
     
+    
+    public ArrayList<LineItem> getUserLineItems (User u) throws ModelException, UnsupportedDataTypeException{
+           
+        ArrayList<LineItem> allLineItem = Model.fetch(LineItem.class).all().execute();
+        return allLineItem;
+        
+    }
 }

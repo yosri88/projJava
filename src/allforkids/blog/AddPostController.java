@@ -12,6 +12,8 @@ import allforkids.blog.models.Post;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import dopsie.exceptions.ModelException;
+import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.HtmlEditorWithImage;
 import java.io.IOException;
 import java.net.URL;
@@ -81,7 +83,7 @@ public class AddPostController implements Initializable {
 
     }
     @FXML
-    private void addPost(ActionEvent event) {
+    private void addPost(ActionEvent event) throws ModelException {
         String title = titleTextField.getText();
         String content = this.htmlEditor.getHtmlText();
         Post post = new Post();
@@ -90,7 +92,11 @@ public class AddPostController implements Initializable {
         post.setAttr("content", content);
         post.setAttr("user_id", 1);
         post.setAttr("creation_date", now);
-        post.save();
+        try {
+            post.save();
+        } catch (UnsupportedDataTypeException ex) {
+            Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         goBack(event);
     }
 

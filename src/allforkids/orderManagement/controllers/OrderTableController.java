@@ -6,7 +6,9 @@
 package allforkids.orderManagement.controllers;
 
 import allforkids.orderManagement.models.Order;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dopsie.core.Model;
+import dopsie.dataTypes.Date;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import java.net.URL;
@@ -20,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,81 +35,166 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class OrderTableController implements Initializable {
 
     @FXML
-    private TableView<Order> orderTable;
+    private TableView<OrderView> orderTable;
     @FXML
-    private TableColumn<Order, String> orderRefColumn;
+    private TableColumn<OrderView, String> orderRefColumn;
     @FXML
-    private TableColumn<Order, Number> orderSatusColumn;
+    private TableColumn<OrderView, String> orderSatusColumn;
     @FXML
-    private TableColumn<Order, Number> orderCustomerColumn;
+    private TableColumn<OrderView, String> orderCustomerColumn;
     @FXML
-    private TableColumn<Order, Number> orderAmountColumn;
+    private TableColumn<OrderView, Double> orderAmountColumn;
+    @FXML
+    private TableColumn<OrderView, String> orderShippingColumn;
+    @FXML
+    private TableColumn<OrderView, String> orderDateColumn;
 
-    
-    ObservableList<Order> orderList = FXCollections.observableArrayList();
-    
+    ObservableList<OrderView> orderList = FXCollections.observableArrayList();
+    @FXML
+    private Label customLab;
+    @FXML
+    private Label totalLab;
+
     /**
      * Initializes the controller class.
      */
-    
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-              
-       ArrayList<Order> orders = null;
- /*       try {
+
+        ArrayList<OrderView> ordersList = null;
+
+        /*       try {
             orders = Model.fetch(Order.class).all().execute();
         } catch (ModelException ex) {
             Logger.getLogger(OrderTableController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedDataTypeException ex) {
             Logger.getLogger(OrderTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
-*/
-        
+         */
         try {
-            ResultSet rs = Order.sqlQuery("SELECT order_reference, "
-                    + "order_status, "
-                    + "customer_id, "
-                    + "payment_status"
-                    + "  FROM `order`");
-            
-            while (rs.next()){
-                
-                System.out.println(rs.getString("order_reference"));
-                
-                orderList.add(new Order(
-                        
-                        rs.getString("order_reference"), 
-                        rs.getInt("order_status"),
-                        rs.getInt("customer_id"),
-                        rs.getInt("payment_status")                    
-                                              
+            ResultSet rs
+                    = //                    Order.sqlQuery("SELECT order_reference, "
+                    //                    + "order_status, "
+                    //                    + "customer_id, "
+                    //                    + "payment_status"
+                    //                    + "  FROM `order`");
+                    //            
+                    Order.sqlQuery("SELECT CONCAT(u.firstname,\" \",u.lastname) as \"customer\" , sh.method as \"shippingMethod\","
+                            + " sc.total as \"amount\", "
+                            + "od.order_reference as \"reference\", os.`status` \n"
+                            + ", od.creation_date as \"creationDate\"\n"
+                            + "FROM user u , shopping_cart sc, \n"
+                            + "shipping_method sh, `order` od , order_status os\n"
+                            + "WHERE\n"
+                            + "u.id = sc.fk_user_id and od.customer_id = u.id "
+                            + "and od.fk_shipping_method_id = sh.id and os.id = od.order_status;");
+
+            while (rs.next()) {
+
+                System.out.println(rs.getString("amount"));
+
+                orderList.add(new OrderView(
+                        rs.getString("reference"),
+                        rs.getString("customer"),
+                        rs.getString("status"),
+                        rs.getString("shippingMethod"), 
+                        rs.getString("creationDate"),
+                        rs.getDouble("amount")
                 ));
             }
-            
-        //    System.out.println("Lines number :"+orderList.stream().count());
-        System.out.println( System.getProperties());  
-        
-        
+
+            //    System.out.println("Lines number :"+orderList.stream().count());
         } catch (UnsupportedDataTypeException ex) {
             Logger.getLogger(OrderTableController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(OrderTableController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ModelException ex) {
+            Logger.getLogger(OrderTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
-                        
-        orderRefColumn.setCellValueFactory(new PropertyValueFactory<Order,String>("order_reference"));
-        orderSatusColumn.setCellValueFactory(new PropertyValueFactory<>("order_status"));
-        orderCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
-        orderAmountColumn.setCellValueFactory(new PropertyValueFactory<>("payment_status"));
-        
-        
-                
+
+        orderRefColumn.setCellValueFactory(new PropertyValueFactory<>("reference"));
+        orderSatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        orderCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
+        orderAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        orderShippingColumn.setCellValueFactory(new PropertyValueFactory<>("shippingMethod"));
+        orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
+
         orderTable.setItems(orderList);
         
-    }    
-   
+        
+        //clear OrderDetails
+        showOrderDetails(null);
+        
+        //Listen for selection changes and show the order properties when changed
+        orderTable.getSelectionModel().selectedItemProperty().addListener(
+        
+                ((observable, oldValue, newValue) -> { showOrderDetails(newValue);
+                })
+        
+        );
+        
+        
+
+    }
+
+    private void showOrderDetails(OrderView order){
+        if (order != null){
+            totalLab.setText(String.valueOf(order.getAmount()));
+            customLab.setText(order.getCustomer());
+            
+        }else
+        {
+            totalLab.setText("---");
+            customLab.setText("---");
+        }
+    }
     
+    public class OrderView extends RecursiveTreeObject<Object>{
+
+        private final String reference;
+        private final String customer;
+        private final String status;
+        private final String shippingMethod;
+        private final String creationDate;
+        private final Double amount;
+
+        public OrderView(String reference, String customer, String status, String shippingMethod, String creationDate, Double amount) {
+            this.reference = reference;
+            this.customer = customer;
+            this.status = status;
+            this.shippingMethod = shippingMethod;
+            this.creationDate = creationDate;
+            this.amount = amount;
+        }
+
+        public String getReference() {
+            return reference;
+        }
+
+        public String getCustomer() {
+            return customer;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public String getShippingMethod() {
+            return shippingMethod;
+        }
+
+        public String getCreationDate() {
+            return creationDate;
+        }
+
+        public Double getAmount() {
+            return amount;
+        }
+        
+
+        
     
+        
+    }
+
 }

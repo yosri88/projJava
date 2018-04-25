@@ -9,6 +9,7 @@ package allforkids.orderManagement.models;
 import dopsie.core.*;
 import dopsie.exceptions.ModelException;
 import java.util.ArrayList;
+import allforkids.orderManagement.models.Order;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -20,150 +21,168 @@ import java.util.logging.Logger;
  */
 public class User extends Model {
 
-    private int customerId;
-    private String firstName;
-    private String lastName;
-    private int age;
-    private String gender;
-    private Address address;
-    private String username;
-    private String password;
+//    private int customerId;
+//    private String firstName;
+//    private String lastName;
+//    private int age;
+//    private String gender;
+//    private Address address;
+//    private String username;
+//    private String password;
 //	private String isAdmin;
 
     @Override
     public String getTableName() {
-        return "customer";
+        return "user";
     }
 
     @Override
     public String getPrimaryKeyName() {
-        return "customerid";
+        return "id";
     }
     
-    public Account account() throws ModelException{
-        return this.hasOne(Account.class);
-    }
-
-
     
-    public User(int CustomerId, String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
-        this.customerId = CustomerId;
-        this.firstName = firstName;
-        this.lastName = last_Name;
-        this.age = age;
-        this.gender = gender;
-        this.address = address;
-        this.username = username;
-        this.password = password;
-    }
+   public ArrayList<Order> orders() throws ModelException{
+       return this.hasMany(Order.class);
+   }
 
-    public User(String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
-        this.firstName = firstName;
-        this.lastName = last_Name;
-        this.age = age;
-        this.gender = gender;
-        this.address = address;
-        this.username = username;
-        this.password = password;
-    }
 
-    public User() {
-    }
-    private static final Logger LOG = Logger.getLogger(User.class.getName());
+   public Order getUserShoppingCart() throws ModelException{
+        Order UserShoppingCart = null;
+        
+          for(Order o : this.orders()){
+              
+              if ((int)o.getAttr("shopping_cart")== 1){
+                  UserShoppingCart = o;
+              }
+          }
+         return UserShoppingCart; 
+          
+   }
+    
+//    public User(int CustomerId, String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
+//        this.customerId = CustomerId;
+//        this.firstName = firstName;
+//        this.lastName = last_Name;
+//        this.age = age;
+//        this.gender = gender;
+//        this.address = address;
+//        this.username = username;
+//        this.password = password;
+//    }
+//
+//    public User(String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
+//        this.firstName = firstName;
+//        this.lastName = last_Name;
+//        this.age = age;
+//        this.gender = gender;
+//        this.address = address;
+//        this.username = username;
+//        this.password = password;
+//    }
+//
+//    public User() {
+//    }
+ //   private static final Logger LOG = Logger.getLogger(User.class.getName());
 
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int CustomerId) {
-        this.customerId = CustomerId;
-    }
+//    public int getCustomerId() {
+//        return customerId;
+//    }
+//
+//    public void setCustomerId(int CustomerId) {
+//        this.customerId = CustomerId;
+//    }
 
     public String getFirstName() {
-        return firstName;
+        return (String) this.getAttr("firstname");
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.setAttr("firstname", firstName);
     }
 
-    public String getLast_Name() {
-        return lastName;
+    public String getLastName() {
+         return (String) this.getAttr("lastname");
     }
-
-    public void setLast_Name(String last_Name) {
-        this.lastName = last_Name;
+    
+    
+    public void setLastName(String lastName) {
+        this.setAttr("firstname", lastName);
     }
 
     public int getAge() {
-        return age;
+        return (int) this.getAttr("age");
     }
 
     public void setAge(int age) {
-        this.age = age;
+        this.setAttr("age", age);
     }
-
-    public String getGender() {
-        return gender;
+    
+    public String getFullName(){
+        return this.getFirstName()+" "+this.getLastName();
     }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-//    public static String getTableName() {
-//        return tableName;
+//
+//    public String getGender() {
+//        return gender;
 //    }
-    public static void setTableName(String tableName) {
-        RelationalModel.tableName = tableName;
-    }
-
-    public boolean isIsNew() {
-        return isNew;
-    }
-
-    public void setIsNew(boolean isNew) {
-        this.isNew = isNew;
-    }
-
-    public Boolean getIsModified() {
-        return isModified;
-    }
-
-    public void setIsModified(Boolean isModified) {
-        this.isModified = isModified;
-    }
-
-    public HashMap<String, Object> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(HashMap<String, Object> attributes) {
-        this.attributes = attributes;
-    }
+//
+//    public void setGender(String gender) {
+//        this.gender = gender;
+//    }
+//
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
+//
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
+//
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+//
+////    public static String getTableName() {
+////        return tableName;
+////    }
+//    public static void setTableName(String tableName) {
+//        RelationalModel.tableName = tableName;
+//    }
+//
+//    public boolean isIsNew() {
+//        return isNew;
+//    }
+//
+//    public void setIsNew(boolean isNew) {
+//        this.isNew = isNew;
+//    }
+//
+//    public Boolean getIsModified() {
+//        return isModified;
+//    }
+//
+//    public void setIsModified(Boolean isModified) {
+//        this.isModified = isModified;
+//    }
+//
+//    public HashMap<String, Object> getAttributes() {
+//        return attributes;
+//    }
+//
+//    public void setAttributes(HashMap<String, Object> attributes) {
+//        this.attributes = attributes;
+//    }
 
 }

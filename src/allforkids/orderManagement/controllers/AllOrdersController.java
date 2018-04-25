@@ -17,6 +17,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import dopsie.dataTypes.Date;
+import dopsie.exceptions.ModelException;
+import dopsie.exceptions.UnsupportedDataTypeException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -49,7 +53,7 @@ public class AllOrdersController implements Initializable {
     }
 
     @FXML
-    public void addOrder(ActionEvent event) {
+    public void addOrder(ActionEvent event) throws ModelException {
 
         String orderStatus = OrderStatusTextField.getText();
         String payment = paymentTextField.getText();
@@ -70,7 +74,11 @@ public class AllOrdersController implements Initializable {
 
         System.out.println(order.getPrimaryKeyName());
 
-        order.save();
+        try {
+            order.save();
+        } catch (UnsupportedDataTypeException ex) {
+            Logger.getLogger(AllOrdersController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
 
     }
