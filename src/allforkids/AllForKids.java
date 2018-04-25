@@ -23,7 +23,7 @@ public class AllForKids extends Application {
         
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/allforkids/orderManagement/views/treeOrder.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/allforkids/orderManagement/views/shoppingCart.fxml"));
         } catch (Exception ex) {
             System.out.println(ex);
             System.out.println(ex.getMessage());

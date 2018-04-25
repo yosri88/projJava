@@ -12,7 +12,6 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -64,7 +64,7 @@ public class fffff {
 
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
         for (Order d : allOrderList) {
-          
+
             try {
                 orders.add(new OrderView(
                         (int) d.getAttr("id"),
@@ -72,17 +72,24 @@ public class fffff {
                         d.customer().getFullName(),
                         d.getOrderStatus(),
                         d.getShippingMethod(),
-             //        (Date)d.getAttr("creation_date"),
-                     (String)df.format((java.sql.Date)d.getAttr("creation_date")),
+                        //        (Date)d.getAttr("creation_date"),
+                        (String) df.format((java.sql.Date) d.getAttr("creation_date")),
                         d.getOrderTotalWithVAT().toString()
                 ));
-         //       System.out.println("------------------------------------->" + orders);  (String) df.format(
+                //       System.out.println("------------------------------------->" + orders);  (String) df.format(
             } catch (ModelException ex) {
                 Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        orders.stream().forEach(p -> System.out.println(p.getAmount()+""+p.getCreationDate()));
+        orders.stream().forEach(p -> System.out.println(p.getAmount() + "" + p.getCreationDate()));
+
+        User u = Model.find(User.class, 2);
+        String link = (String) u.getUserShoppingCart().lineItems().get(0).product().getAttr("image_link");
+        System.out.println(link);
+        //ImageView v = new ImageView("D:/Esprit/Projets/Java Web/AllForKids(kbach)/src/allforkids/orderManagement/views/image/" + link + ".jpg");
+       // ImageView v = new ImageView("D:/" + link + ".jpg");
+        ImageView v = new ImageView("file:D:/chocolat.jpg");
 
 //        System.out.println(o.isShoppingCart());
 //        System.out.println(o);
@@ -148,53 +155,51 @@ public class fffff {
 //
 //        p.setAttr("status", p.toString());
 //        p.save();
-
     }
-    
-          static  class OrderView extends RecursiveTreeObject<OrderView> {
 
-            StringProperty reference;
-            StringProperty customer;
-            StringProperty status;
-            StringProperty shippingMethod;
-            StringProperty creationDate;
-            StringProperty amount;
+    static class OrderView extends RecursiveTreeObject<OrderView> {
 
-            public OrderView(int id, String reference, String customer, String status, String shippingMethod, String creationDate,  String amount) {
-                this.reference = new SimpleStringProperty(reference);
-                this.customer = new SimpleStringProperty(customer);
-                this.status = new SimpleStringProperty(status);
-                this.shippingMethod = new SimpleStringProperty(shippingMethod);
-                this.creationDate = new SimpleStringProperty(creationDate);
-                this.amount = new SimpleStringProperty(amount);
+        StringProperty reference;
+        StringProperty customer;
+        StringProperty status;
+        StringProperty shippingMethod;
+        StringProperty creationDate;
+        StringProperty amount;
 
-            }
+        public OrderView(int id, String reference, String customer, String status, String shippingMethod, String creationDate, String amount) {
+            this.reference = new SimpleStringProperty(reference);
+            this.customer = new SimpleStringProperty(customer);
+            this.status = new SimpleStringProperty(status);
+            this.shippingMethod = new SimpleStringProperty(shippingMethod);
+            this.creationDate = new SimpleStringProperty(creationDate);
+            this.amount = new SimpleStringProperty(amount);
+
+        }
 
         @Override
         public String toString() {
             return "OrderView{" + "reference=" + reference + ", customer=" + customer + ", status=" + status + ", shippingMethod=" + shippingMethod + ", creationDate=" + creationDate + ", amount=" + amount + '}';
         }
 
-            public StringProperty getCustomer() {
-                return customer;
-            }
-
-            public StringProperty getStatus() {
-                return status;
-            }
-
-            public StringProperty getShippingMethod() {
-                return shippingMethod;
-            }
-
-            public StringProperty getCreationDate() {
-                return creationDate;
-            }
-
-            public StringProperty getAmount() {
-                return amount;
-            }
+        public StringProperty getCustomer() {
+            return customer;
         }
 
+        public StringProperty getStatus() {
+            return status;
+        }
+
+        public StringProperty getShippingMethod() {
+            return shippingMethod;
+        }
+
+        public StringProperty getCreationDate() {
+            return creationDate;
+        }
+
+        public StringProperty getAmount() {
+            return amount;
+        }
+    }
 
 }

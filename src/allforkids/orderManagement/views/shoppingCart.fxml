@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.orderManagement.controllers.ShoppingCartController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="768.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.orderManagement.controllers.ShoppingCartController">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="369.0" prefWidth="547.0" style="-fx-background-color: CFD8DC;">
+         <children>
+            <TableView fx:id="itemsTable" layoutX="7.0" layoutY="85.0" prefHeight="200.0" prefWidth="534.0" styleClass=".noheader" stylesheets="@shopping.css">
+              <columns>
+                <TableColumn fx:id="imageItem" prefWidth="75.0" text="C1" />
+                <TableColumn fx:id="descriptionAndPrice" prefWidth="75.0" text="C2" />
+                  <TableColumn fx:id="quantity" prefWidth="75.0" text="Column X" />
+                  <TableColumn fx:id="total" prefWidth="75.0" text="Column X" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="570.0" layoutY="14.0" prefHeight="370.0" prefWidth="186.0" style="-fx-background-color: CFD8DC;" />
+      <Separator layoutX="13.0" layoutY="85.0" prefHeight="6.0" prefWidth="554.0" style="-fx-background-color: grey;" />
+   </children>
 </AnchorPane>
