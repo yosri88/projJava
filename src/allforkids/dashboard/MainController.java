@@ -84,8 +84,8 @@ public class MainController implements Initializable {
        forumIcon.setIcon(FontAwesomeIcon.ALIGN_JUSTIFY);
        forumLabel.setText("Forum");
        
-       ordersIcon.setIcon(FontAwesomeIcon.CUBES);
-       ordersLabel.setText("Products");
+       productsIcon.setIcon(FontAwesomeIcon.CUBE);
+       productsLabel.setText("Products");
        
        ordersIcon.setIcon(FontAwesomeIcon.SHOPPING_CART);
        ordersLabel.setText("Orders");
