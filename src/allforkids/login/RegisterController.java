@@ -5,6 +5,7 @@
  */
 package allforkids.login;
 
+import allforkids.userManagement.models.Role;
 import allforkids.userManagement.models.User;
 import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXPasswordField;
@@ -68,6 +69,7 @@ public class RegisterController implements Initializable {
                 user.setAttr("username", username);
                 user.setAttr("email", email);
                 user.setAttr("password", BCrypt.hashpw(password, BCrypt.gensalt()));
+                user.setRole(Role.USER);
                 user.save();
                 if(user.getAttr("id") == null) {
                     TrayNotificationService.failureRedNotification("Could not register", "Could not register");
