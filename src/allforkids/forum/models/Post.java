@@ -5,6 +5,7 @@
  */
 package allforkids.forum.models;
 
+import allforkids.userManagement.models.User;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import java.util.ArrayList;
@@ -27,6 +28,11 @@ public class Post extends Model{
         return this.hasMany(Vote.class);
     }
     
+    public ArrayList<Report> reports() throws ModelException {
+        return this.hasMany(Report.class);
+    }
+    
+    
     public int voteScore() throws ModelException {
         int score = 0;
         for(Vote vote: this.votes()) {
@@ -42,6 +48,15 @@ public class Post extends Model{
     public boolean userVoted(User user) throws ModelException {
         for(Vote vote: this.votes()) {
             if(vote.voter().equals(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean userReported(User user) throws ModelException {
+        for (Report report: this.reports()) {
+            if(report.reporter().equals(user)) {
                 return true;
             }
         }

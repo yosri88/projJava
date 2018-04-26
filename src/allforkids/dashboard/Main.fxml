@@ -4,8 +4,6 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -28,48 +26,21 @@
                </padding>
             </Label>
          </left>
-         <right>
-            <HBox prefHeight="60.0" prefWidth="310.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="file:/Users/wattouma/Desktop/avatar.jpg" />
-                     </image>
-                  </ImageView>
-                  <Label text="Wasssim kallel" textFill="#428bca">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="15.0" left="15.0" top="15.0" />
-                     </HBox.margin>
-                  </Label>
-                  <JFXButton styleClass="primary-btn" text="Logout">
-                     <HBox.margin>
-                        <Insets bottom="15.0" left="30.0" right="15.0" top="15.0" />
-                     </HBox.margin>
-                  </JFXButton>
-               </children>
-            </HBox>
-         </right>
       </BorderPane>
       <VBox layoutY="69.0" prefHeight="540.0" prefWidth="1024.0">
          <children>
             <HBox prefHeight="270.0" prefWidth="1024.0">
                <children>
-                  <JFXButton prefHeight="270.0" prefWidth="270.0">
+                  <JFXButton fx:id="usersMenu" onAction="#userMenuClicked" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
                         <VBox prefHeight="270.0" prefWidth="270.0">
                            <children>
-                              <FontAwesomeIconView fx:id="faIcon1" fill="#ff6262" glyphName="" size="64" text="" wrappingWidth="61.0">
+                              <FontAwesomeIconView fx:id="usersIcon" fill="#428bca" glyphName="" size="64" text="" wrappingWidth="61.0">
                                  <VBox.margin>
                                     <Insets bottom="20.0" left="100.0" right="100.0" top="60.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
-                              <Label fx:id="label1" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#ff6262">
+                              <Label fx:id="usersLabel" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#428bca">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -81,16 +52,16 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton prefHeight="270.0" prefWidth="270.0">
+                  <JFXButton fx:id="blogMenu" onAction="#blogMenuClicked" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
                         <VBox prefHeight="270.0" prefWidth="270.0">
                            <children>
-                              <FontAwesomeIconView fx:id="faIcon11" fill="#ff6262" glyphName="" size="64" text="" wrappingWidth="61.0">
+                              <FontAwesomeIconView fx:id="blogIcon" fill="#428bca" glyphName="" size="64" text="" wrappingWidth="61.0">
                                  <VBox.margin>
                                     <Insets bottom="20.0" left="100.0" right="100.0" top="60.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
-                              <Label fx:id="label11" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#ff6262">
+                              <Label fx:id="blogLabel" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#428bca">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -98,17 +69,20 @@
                            </children>
                         </VBox>
                      </graphic>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
                   </JFXButton>
-                  <JFXButton prefHeight="270.0" prefWidth="270.0">
+                  <JFXButton fx:id="forumMenu" onAction="#forumMenuClicked" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
                         <VBox prefHeight="270.0" prefWidth="270.0">
                            <children>
-                              <FontAwesomeIconView fx:id="faIcon111" fill="#ff6262" glyphName="" size="64" text="" wrappingWidth="61.0">
+                              <FontAwesomeIconView fx:id="forumIcon" fill="#428bca" glyphName="ALIGN_JUSTIFY" size="64" text="" wrappingWidth="61.0">
                                  <VBox.margin>
                                     <Insets bottom="20.0" left="100.0" right="100.0" top="60.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
-                              <Label fx:id="label111" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#ff6262">
+                              <Label fx:id="forumLabel" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#428bca">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -116,21 +90,24 @@
                            </children>
                         </VBox>
                      </graphic>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
                   </JFXButton>
                </children>
             </HBox>
             <HBox prefHeight="270.0" prefWidth="1024.0">
                <children>
-                  <JFXButton prefHeight="270.0" prefWidth="270.0">
+                  <JFXButton fx:id="productsMenu" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
                         <VBox prefHeight="270.0" prefWidth="270.0">
                            <children>
-                              <FontAwesomeIconView fx:id="faIcon12" fill="#ff6262" glyphName="" size="64" text="" wrappingWidth="61.0">
+                              <FontAwesomeIconView fx:id="productsIcon" fill="#428bca" glyphName="" size="64" text="" wrappingWidth="61.0">
                                  <VBox.margin>
                                     <Insets bottom="20.0" left="100.0" right="100.0" top="60.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
-                              <Label fx:id="label12" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#ff6262">
+                              <Label fx:id="productsLabel" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#428bca">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -138,17 +115,20 @@
                            </children>
                         </VBox>
                      </graphic>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
                   </JFXButton>
-                  <JFXButton prefHeight="270.0" prefWidth="270.0">
+                  <JFXButton fx:id="OrdersMenu" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
                         <VBox prefHeight="270.0" prefWidth="270.0">
                            <children>
-                              <FontAwesomeIconView fx:id="faIcon13" fill="#ff6262" glyphName="" size="64" text="" wrappingWidth="61.0">
+                              <FontAwesomeIconView fx:id="ordersIcon" fill="#428bca" glyphName="" size="64" text="" wrappingWidth="61.0">
                                  <VBox.margin>
                                     <Insets bottom="20.0" left="100.0" right="100.0" top="60.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
-                              <Label fx:id="label13" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#ff6262">
+                              <Label fx:id="ordersLabel" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#428bca">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -156,17 +136,20 @@
                            </children>
                         </VBox>
                      </graphic>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
                   </JFXButton>
-                  <JFXButton prefHeight="270.0" prefWidth="270.0">
+                  <JFXButton fx:id="StatisticsMenu" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
                         <VBox prefHeight="270.0" prefWidth="270.0">
                            <children>
-                              <FontAwesomeIconView fx:id="faIcon14" fill="#ff6262" glyphName="" size="64" text="" wrappingWidth="61.0">
+                              <FontAwesomeIconView fx:id="statisticsIcon" fill="#428bca" glyphName="" size="64" text="" wrappingWidth="61.0">
                                  <VBox.margin>
                                     <Insets bottom="20.0" left="100.0" right="100.0" top="60.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
-                              <Label fx:id="label14" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#ff6262">
+                              <Label fx:id="statisticsLabel" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="274.0" text="Label" textFill="#428bca">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -174,10 +157,14 @@
                            </children>
                         </VBox>
                      </graphic>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
                   </JFXButton>
                </children>
             </HBox>
          </children>
       </VBox>
+      <JFXButton layoutX="692.0" layoutY="569.0" onAction="#goToWelcome" styleClass="primary-btn" text="Welcome Page" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
    </children>
 </AnchorPane>

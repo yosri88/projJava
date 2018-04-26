@@ -52,7 +52,7 @@
                               <Font name="Roboto Medium" size="14.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField labelFloat="true" layoutX="225.0" layoutY="158.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="E-mail">
+                        <JFXTextField fx:id="mailTF" labelFloat="true" layoutX="225.0" layoutY="158.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="E-mail">
                            <font>
                               <Font name="Roboto Medium" size="14.0" />
                            </font>

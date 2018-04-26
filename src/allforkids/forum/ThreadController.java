@@ -122,5 +122,10 @@ public class ThreadController implements Initializable {
             System.out.println(ex.getMessage());
         }
     }
+
+    void setNewPost(Post newPost) {
+        this.posts.add(newPost);
+        showPosts(posts);
+    }
     
 }

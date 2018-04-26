@@ -5,7 +5,7 @@
  */
 package helpers;
 
-import allforkids.blog.AddPostController;
+import allforkids.dashboard.blog.AddPostController;
 import allforkids.blog.BlogMainController;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;

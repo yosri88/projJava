@@ -7,10 +7,10 @@ package allforkids.forum;
 
 import allforkids.forum.models.Post;
 import allforkids.forum.models.Thread;
-import allforkids.forum.models.User;
+import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXTextArea;
-import helpers.NotificationController;
-import helpers.NotificationType;
+import helpers.TrayNotificationService;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -30,8 +31,6 @@ import javafx.scene.image.ImageView;
 public class AddPostController implements Initializable {
 
     @FXML
-    private ImageView userAvatarImView;
-    @FXML
     private Label userAvatarNameLabel;
     @FXML
     private JFXTextArea newPostContentTA;
@@ -39,16 +38,26 @@ public class AddPostController implements Initializable {
     private Thread thread;
     
     private Consumer addPostCallback;
+    @FXML
+    private AnchorPane avatarContainer;
+    @FXML
+    private Label roleLabel;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        User currentUser = UserSession.getInstance();
+        this.avatarContainer.getChildren()
+                                .add(
+                                        currentUser.getAvatarViewPane(
+                                                avatarContainer.getPrefWidth(), 
+                                                avatarContainer.getPrefHeight()
+                                        )
+                                );
+        this.roleLabel.setText((String) currentUser.getRole().name().toLowerCase());
+        userAvatarNameLabel.setText(currentUser.getFullName());
     }    
-    public void setConnectedUser(User user) {
-        
-    }
     public void setCallback(Consumer callback) {
         this.addPostCallback = callback;
     }
@@ -60,21 +69,22 @@ public class AddPostController implements Initializable {
     @FXML
     private void addPost(ActionEvent event) {
         if(newPostContentTA.getText().isEmpty()) {
-            NotificationController.showNotification(event, "Post content should not be empty", NotificationType.DANGER);
+            TrayNotificationService.failureRedNotification("Adding a post", "Post content should not be empty");
             return;
         }
         try{
+            User currentUser = UserSession.getInstance();
             Post post = new Post();
             Timestamp now = new Timestamp(new Date().getTime());
             post.setAttr("content", newPostContentTA.getText());
-            post.setAttr("user_id", 1);
+            post.setAttr("user_id", currentUser.getAttr("id"));
             post.setAttr("creation_date", now);
             post.setAttr("thread_id", thread.getAttr("id"));
             post.save();
-            NotificationController.showNotification(event, "Post added successfully", NotificationType.SUCCESS);
+            TrayNotificationService.faceBlueNotification("Adding a post", "Post added successfully");
             this.addPostCallback.accept(post);
         } catch(Exception e) {
-            NotificationController.showNotification(event, "Post could not be added", NotificationType.DANGER);
+            TrayNotificationService.failureRedNotification("Adding a post", "Failed to add post");
             System.out.println(e.getMessage());
         }
     }

@@ -21,12 +21,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import allforkids.forum.models.Thread;
 import allforkids.forum.models.Topic;
+import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import dopsie.exceptions.UnsupportedDataTypeException;
+import helpers.NavigationService;
 import java.util.Date;
-import helpers.NotificationController;
-import helpers.NotificationType;
+import helpers.TrayNotificationService;
 import java.sql.Timestamp;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -79,23 +82,12 @@ public class TopicController implements Initializable {
         catch(ModelException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(allThreads);
         showThreads(allThreads);
     }
 
     @FXML
     private void backToForum(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/forum/ForumMain.fxml"));
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            appStage.hide();
-            Pane newLoadedPane = loader.load();
-            Scene HomePageScene = new Scene(newLoadedPane);
-            appStage.setScene(HomePageScene);
-            appStage.show();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+        NavigationService.goTo(event, this, "/allforkids/forum/ForumMain.fxml");
     }
     
     private void showThreads(ArrayList<Thread> threads) {
@@ -110,7 +102,7 @@ public class TopicController implements Initializable {
                 Pane newLoadedPane = loader.load(); 
                 newLoadedPane.prefWidthProperty().bind(allThreadsVBox.prefWidthProperty());
                 CardController controller = loader.<CardController>getController();
-                controller.setContent((String)thread.getAttr("title"),  thread.posts().size() + " Posts", thread, (a, b) -> goToThread((ActionEvent) a, (Thread)b));
+                controller.setContent((String)thread.getAttr("title"),  thread.posts().size() + " Posts", thread, (a, b) -> goToThread((ActionEvent) a, (Thread)b, null));
                 allThreadsVBox.getChildren().add(newLoadedPane);
             }
         } catch (IOException | ModelException ex) {
@@ -118,7 +110,7 @@ public class TopicController implements Initializable {
         }
     }
     
-    public void goToThread(ActionEvent event ,Thread thread) {
+    public void goToThread(ActionEvent event ,Thread thread, Post newPost) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/forum/Thread.fxml"));
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -127,6 +119,9 @@ public class TopicController implements Initializable {
             Scene HomePageScene = new Scene(newLoadedPane);
             ThreadController controller = loader.<ThreadController>getController();
             controller.setThread(thread);
+            if(newPost != null) {
+                controller.setNewPost(newPost);
+            }
             appStage.setScene(HomePageScene);
             appStage.show();            
         } catch (IOException ex) {
@@ -163,10 +158,11 @@ public class TopicController implements Initializable {
 
     @FXML
     private void addThread(ActionEvent event) {
+        User currentUser = UserSession.getInstance();
         String threadTitle = this.newThreadTitle.getText();
         String postContent = this.newPostContent.getText();
         if(threadTitle.isEmpty() || postContent.isEmpty()) {
-            NotificationController.showNotification(event, "Thread Title and Post content should not be empty", NotificationType.DANGER);
+            TrayNotificationService.failureRedNotification("Add Thread", "Thread Title and Post content should not be empty");
             return;
         }
         try {
@@ -180,13 +176,13 @@ public class TopicController implements Initializable {
             Timestamp now = new Timestamp(new Date().getTime());
             post.setAttr("content", postContent);
             post.setAttr("thread_id", thread.getAttr("id"));
-            post.setAttr("user_id", 1);
+            post.setAttr("user_id", currentUser.getAttr("id"));
             post.setAttr("creation_date", now);
             post.save();
-
-            goToThread(event, thread);
-        } catch(Exception e) {
-            NotificationController.showNotification(event, "Couldn't add Thread", NotificationType.DANGER);
+            TrayNotificationService.successBlueNotification("Add Thread", "Thread added successfully");
+            goToThread(event, thread, post);
+        } catch(ModelException | UnsupportedDataTypeException e) {
+            TrayNotificationService.failureRedNotification("Add Thread", "Couldn't add Thread");
         }
     }
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helpers;
+package allforkids.userManagement.models;
 
 /**
  *
  * @author Wassim
  */
-public enum NotificationType {
-    SUCCESS, INFO, WARNING, DANGER;
+public enum Role {
+    USER, ANALYST, COMMUNITY_MANAGER, ADMIN;
 }

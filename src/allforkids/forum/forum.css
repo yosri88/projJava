@@ -22,9 +22,8 @@ and open the template in the editor.
 .card {
     -fx-background-radius: 10;
     -fx-border-insets: 10px;
-    -fx-background-insets: 5px;
     -fx-border-color: #d3d3d3;
-    -fx-border-radius: 4;
+    -fx-border-radius: 5;
 }
 
 .primary-btn {
@@ -43,4 +42,16 @@ and open the template in the editor.
 
 .post-content {
     -fx-padding: 15px;
+}
+
+
+.red-vote {
+    -fx-text-fill: #bf0000;
+}
+.green-vote {
+    -fx-text-fill: #009628;
+}
+
+.gray-vote {
+    -fx-text-fill: gray;
 }
