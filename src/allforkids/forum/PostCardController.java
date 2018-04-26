@@ -6,6 +6,7 @@
 package allforkids.forum;
 
 import allforkids.forum.models.Post;
+import allforkids.forum.models.Report;
 import allforkids.forum.models.Vote;
 import allforkids.forum.models.VoteType;
 import allforkids.userManagement.models.User;
@@ -17,15 +18,20 @@ import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.TrayNotificationService;
 import java.net.URL;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import org.ocpsoft.prettytime.PrettyTime;
 import tray.notification.TrayNotification;
@@ -55,6 +61,10 @@ public class PostCardController implements Initializable {
     private int voteScore;
     @FXML
     private AnchorPane avatarContainer;
+    @FXML
+    private Label roleLabel;
+    @FXML
+    private JFXButton reportBtn;
     /**
      * Initializes the controller class.
      */
@@ -72,6 +82,7 @@ public class PostCardController implements Initializable {
             PrettyTime p = new PrettyTime();
             this.postMetaLabel.setText(p.format(creationDate));
             this.userAvatarNameLabel.setText((String) post.author().getFullName());
+            this.roleLabel.setText((String) post.author().getRole().name().toLowerCase());
             this.avatarContainer.getChildren()
                                 .add(
                                         post.author().getAvatarViewPane(
@@ -79,25 +90,46 @@ public class PostCardController implements Initializable {
                                                 avatarContainer.getPrefHeight()
                                         )
                                 );
-            this.postContent.setText((String) post.getAttr("content"));
+            if((Integer)post.getAttr("reported") == 1) {
+                this.postContent.setText(" The content of this message was reported");
+                this.postContent.setOpacity(0.7);
+                this.upArrowBtn.setDisable(true);
+                this.downArrowBtn.setDisable(true);
+                this.reportBtn.setDisable(true);
+            } else {
+                this.postContent.setText((String) post.getAttr("content"));
+            }
             this.voteScore = post.voteScore();
-            this.voteCounter.setText(voteScore + "");
+            updateVoteScore();
             User currentUser = UserSession.getInstance();
             if(post.userVoted(currentUser)){
                 this.upArrowBtn.setDisable(true);
                 this.downArrowBtn.setDisable(true);
+                this.reportBtn.setDisable(true);
             }
             
         } catch (ModelException ex) {
-            
+            System.out.println(ex.getMessage());
         }
     }
 
+    private void updateVoteScore() {
+        this.voteCounter.setText(this.voteScore + "");
+        this.voteCounter.getStyleClass().removeAll(this.voteCounter.getStyleClass());
+        if(this.voteScore > 0) {
+            this.voteCounter.getStyleClass().add("green-vote");
+        } else if (this.voteScore < 0) {
+            this.voteCounter.getStyleClass().add("red-vote");
+        } else {
+            this.voteCounter.getStyleClass().add("gray-vote");
+        }
+    }
     @FXML
     private void upVote(ActionEvent event) {
         try {
             vote(VoteType.UP);
-            this.voteCounter.setText(++this.voteScore + "");
+            this.voteScore++;
+            updateVoteScore();
             TrayNotificationService.faceBlueNotification("Upvoted", "");
         } catch(Exception e) {
             TrayNotificationService.failureRedNotification("Upvote", "Failed to Upvote");
@@ -109,7 +141,8 @@ public class PostCardController implements Initializable {
     private void downVote(ActionEvent event) {
         try {
             vote(VoteType.DOWN);
-            this.voteCounter.setText(--this.voteScore + "");
+            this.voteScore--;
+            updateVoteScore();
             TrayNotificationService.faceBlueNotification("Downvoted", "");
         } catch(Exception e) {
             TrayNotificationService.failureRedNotification("Downvote", "Failed to Downvote");
@@ -124,5 +157,28 @@ public class PostCardController implements Initializable {
         vote.setAttr("post_id", this.post.getAttr("id"));
         vote.setVoteType(voteType);
         vote.save();
+    }
+
+    @FXML
+    private void reportClicked(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Report");
+        alert.setHeaderText(null);
+        alert.setContentText("Do you confirm ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            try {
+                Report report = new Report();
+                User currentUser = UserSession.getInstance();
+                report.setAttr("user_id", currentUser.getAttr("id"));
+                report.setAttr("post_id", this.post.getAttr("id"));
+                report.save();
+                this.reportBtn.setDisable(true);
+                TrayNotificationService.successBlueNotification("Reporting Post", "Post reported successfully");
+            } catch (ModelException | UnsupportedDataTypeException ex) {
+                TrayNotificationService.failureRedNotification("Reporting Post", "Reporting post failed");
+            }
+        }
     }
 }

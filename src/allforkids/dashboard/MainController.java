@@ -5,6 +5,10 @@
  */
 package allforkids.dashboard;
 
+import allforkids.userManagement.models.Role;
+import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
+import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import helpers.NavigationService;
@@ -34,25 +38,37 @@ public class MainController implements Initializable {
     @FXML
     private Label usersLabel;
     @FXML
-    private FontAwesomeIconView faIcon111;
-    @FXML
-    private Label label111;
-    @FXML
-    private FontAwesomeIconView faIcon12;
-    @FXML
-    private Label label12;
-    @FXML
-    private FontAwesomeIconView faIcon13;
-    @FXML
-    private Label label13;
-    @FXML
-    private FontAwesomeIconView faIcon14;
-    @FXML
-    private Label label14;
-    @FXML
     private FontAwesomeIconView blogIcon;
     @FXML
     private Label blogLabel;
+    @FXML
+    private FontAwesomeIconView forumIcon;
+    @FXML
+    private Label forumLabel;
+    @FXML
+    private JFXButton usersMenu;
+    @FXML
+    private JFXButton blogMenu;
+    @FXML
+    private JFXButton forumMenu;
+    @FXML
+    private JFXButton productsMenu;
+    @FXML
+    private FontAwesomeIconView productsIcon;
+    @FXML
+    private Label productsLabel;
+    @FXML
+    private JFXButton OrdersMenu;
+    @FXML
+    private FontAwesomeIconView ordersIcon;
+    @FXML
+    private Label ordersLabel;
+    @FXML
+    private JFXButton StatisticsMenu;
+    @FXML
+    private FontAwesomeIconView statisticsIcon;
+    @FXML
+    private Label statisticsLabel;
 
     /**
      * Initializes the controller class.
@@ -60,12 +76,39 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        usersIcon.setIcon(FontAwesomeIcon.USERS);
-       usersIcon.setStyle("-fx-text-fill: red;");
        usersLabel.setText("Users");
        
        blogIcon.setIcon(FontAwesomeIcon.TH);
-       blogIcon.setStyle("-fx-text-fill: red;");
        blogLabel.setText("Posts");
+       
+       forumIcon.setIcon(FontAwesomeIcon.ALIGN_JUSTIFY);
+       forumLabel.setText("Forum");
+       
+       ordersIcon.setIcon(FontAwesomeIcon.CUBES);
+       ordersLabel.setText("Products");
+       
+       ordersIcon.setIcon(FontAwesomeIcon.SHOPPING_CART);
+       ordersLabel.setText("Orders");
+       
+       statisticsIcon.setIcon(FontAwesomeIcon.PIE_CHART);
+       statisticsLabel.setText("Statistics");
+       
+       User currentUser = UserSession.getInstance();
+       
+       if(currentUser.getRole() == Role.ANALYST) {
+           usersMenu.setDisable(true);
+           blogMenu.setDisable(true);
+           forumMenu.setDisable(true);
+           productsMenu.setDisable(true);
+           OrdersMenu.setDisable(true);
+       } 
+       if(currentUser.getRole() == Role.COMMUNITY_MANAGER) {
+            usersMenu.setDisable(true);
+            productsMenu.setDisable(true);
+            OrdersMenu.setDisable(true);
+            StatisticsMenu.setDisable(true);
+       }
+       
     }    
 
     @FXML
@@ -82,5 +125,9 @@ public class MainController implements Initializable {
     private void blogMenuClicked(ActionEvent event) {
         NavigationService.goTo(event, this, "/allforkids/dashboard/blog/PostsList.fxml");
     }
-    
+
+    @FXML
+    private void forumMenuClicked(ActionEvent event) {
+        NavigationService.goTo(event, this, "/allforkids/dashboard/forum/TopicsList.fxml");
+    }
 }

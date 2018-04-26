@@ -26,6 +26,7 @@ import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.NavigationService;
 import java.util.Date;
 import helpers.TrayNotificationService;
@@ -101,7 +102,7 @@ public class TopicController implements Initializable {
                 Pane newLoadedPane = loader.load(); 
                 newLoadedPane.prefWidthProperty().bind(allThreadsVBox.prefWidthProperty());
                 CardController controller = loader.<CardController>getController();
-                controller.setContent((String)thread.getAttr("title"),  thread.posts().size() + " Posts", thread, (a, b) -> goToThread((ActionEvent) a, (Thread)b));
+                controller.setContent((String)thread.getAttr("title"),  thread.posts().size() + " Posts", thread, (a, b) -> goToThread((ActionEvent) a, (Thread)b, null));
                 allThreadsVBox.getChildren().add(newLoadedPane);
             }
         } catch (IOException | ModelException ex) {
@@ -109,7 +110,7 @@ public class TopicController implements Initializable {
         }
     }
     
-    public void goToThread(ActionEvent event ,Thread thread) {
+    public void goToThread(ActionEvent event ,Thread thread, Post newPost) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/allforkids/forum/Thread.fxml"));
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -118,6 +119,9 @@ public class TopicController implements Initializable {
             Scene HomePageScene = new Scene(newLoadedPane);
             ThreadController controller = loader.<ThreadController>getController();
             controller.setThread(thread);
+            if(newPost != null) {
+                controller.setNewPost(newPost);
+            }
             appStage.setScene(HomePageScene);
             appStage.show();            
         } catch (IOException ex) {
@@ -176,8 +180,8 @@ public class TopicController implements Initializable {
             post.setAttr("creation_date", now);
             post.save();
             TrayNotificationService.successBlueNotification("Add Thread", "Thread added successfully");
-            goToThread(event, thread);
-        } catch(Exception e) {
+            goToThread(event, thread, post);
+        } catch(ModelException | UnsupportedDataTypeException e) {
             TrayNotificationService.failureRedNotification("Add Thread", "Couldn't add Thread");
         }
     }

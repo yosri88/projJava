@@ -40,6 +40,8 @@ public class AddPostController implements Initializable {
     private Consumer addPostCallback;
     @FXML
     private AnchorPane avatarContainer;
+    @FXML
+    private Label roleLabel;
     /**
      * Initializes the controller class.
      */
@@ -53,6 +55,7 @@ public class AddPostController implements Initializable {
                                                 avatarContainer.getPrefHeight()
                                         )
                                 );
+        this.roleLabel.setText((String) currentUser.getRole().name().toLowerCase());
         userAvatarNameLabel.setText(currentUser.getFullName());
     }    
     public void setCallback(Consumer callback) {

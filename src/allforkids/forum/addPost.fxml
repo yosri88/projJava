@@ -11,7 +11,7 @@
 
 <HBox prefWidth="1000.0" styleClass="card" stylesheets="@forum.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.forum.AddPostController">
    <children>
-      <VBox>
+      <VBox style="-fx-border-color: #428bca;">
          <children>
             <AnchorPane fx:id="avatarContainer" prefHeight="120.0" prefWidth="120.0">
                <VBox.margin>
@@ -19,9 +19,10 @@
                </VBox.margin>
             </AnchorPane>
             <Label fx:id="userAvatarNameLabel" alignment="TOP_CENTER" prefHeight="17.0" prefWidth="140.0" styleClass="user-avatar-label" text="Label" textAlignment="CENTER" textOverrun="CLIP" />
+            <Label fx:id="roleLabel" alignment="TOP_CENTER" prefHeight="17.0" prefWidth="140.0" text="Label" textAlignment="CENTER" textOverrun="CLIP" />
          </children>
       </VBox>
-      <BorderPane prefHeight="200.0" prefWidth="845.0">
+      <BorderPane prefHeight="200.0" prefWidth="845.0" style="-fx-border-radius: 0 5 5 0; -fx-border-color: #428bca;">
          <bottom>
             <AnchorPane prefHeight="40.0" BorderPane.alignment="CENTER">
                <children>

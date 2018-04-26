@@ -80,9 +80,14 @@ public class LoginController implements Initializable {
                 }
                 boolean loginResult = BCrypt.checkpw(password, (String)user.getAttr("password"));
                 if(loginResult == true) {
-                    UserSession.setInstance(user);
-                    TrayNotificationService.successBlueNotification("Welcome", "Welcome " +  (String)user.getAttr("first_name"));
-                    NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
+                    if((Integer)user.getAttr("active") == 1) {
+                        UserSession.setInstance(user);
+                        TrayNotificationService.successBlueNotification("Welcome", "Welcome " +  (String)user.getAttr("first_name"));
+                        NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
+                    } else {
+                        TrayNotificationService.failureRedNotification("Banned", "You're banned, " +  (String)user.getAttr("first_name"));
+                    }
+                    
                 } else {
                     TrayNotificationService.failureRedNotification("Login/Password incorrect", "Login/Password incorrect");
                 }
