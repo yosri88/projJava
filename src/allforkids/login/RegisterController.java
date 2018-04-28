@@ -10,6 +10,7 @@ import allforkids.userManagement.models.User;
 import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.BCrypt;
@@ -20,6 +21,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import static java.lang.Math.toIntExact;
 
 /**
  * FXML Controller class
@@ -74,7 +76,8 @@ public class RegisterController implements Initializable {
                 if(user.getAttr("id") == null) {
                     TrayNotificationService.failureRedNotification("Could not register", "Could not register");
                 } else {
-                    UserSession.setInstance(user);
+                    User connectedUser = Model.find(User.class, toIntExact((Long)user.getAttr("id")));
+                    UserSession.setInstance(connectedUser);
                     NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
                 }
             } catch (ModelException | UnsupportedDataTypeException ex) {
