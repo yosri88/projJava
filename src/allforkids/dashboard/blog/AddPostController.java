@@ -133,8 +133,8 @@ public class AddPostController implements Initializable {
             
             if (newPicPath != null) {
                 File source = new File(this.newPicPath);
-                String outputFilePath = "/uploads/blog/" + (new Date()).getTime();
-                File dest = new File(getCurrentAbsolutePath() + outputFilePath);
+                String outputFilePath = "uploads/blog/" + (new Date()).getTime();
+                File dest = new File(System.getProperty("uploads_folder") + outputFilePath);
                 copyFileUsingStream(source, dest);
                 post.setAttr("image_path", outputFilePath);
             }
@@ -226,6 +226,9 @@ public class AddPostController implements Initializable {
         File file = fileChooser.showOpenDialog(appStage);
         if (file != null) {
             this.newPicPath = file.getAbsolutePath();
+            this.chooseImBtn.getStyleClass().add("file-choosed");
+            this.chooseImBtn.setText("Image Attached");
+            this.chooseImBtn.setDisable(true);
         }
     }
 

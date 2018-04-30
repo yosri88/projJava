@@ -88,7 +88,7 @@ public class PostDetailsController implements Initializable {
             this.titleLabel.setText((String) post.getAttr("title"));
 
             final WebEngine webEngine = this.contentWebView.getEngine();
-            webEngine.loadContent((String) post.getAttr("content"));
+            webEngine.loadContent((String) post.getAttr("content") + "<style>body {background-color: rgb(244, 244, 244);} </style>");
             webEngine.documentProperty().addListener(new ChangeListener<Document>() {
                 @Override 
                 public void changed(ObservableValue<? extends Document> prop, Document oldDoc, Document newDoc) {

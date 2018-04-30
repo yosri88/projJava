@@ -56,9 +56,8 @@ public class ProductCardController implements Initializable {
         this.productPrice.setText(prodPrice + " HT");
         String imagePath = (String) product.getAttr("image");
         if(imagePath != null) {
-            System.out.println(imagePath);
-            String absolutePath =  Paths.get("").toAbsolutePath().toString();
-            imagePath = "file:" + absolutePath + "/" + imagePath;
+            String absolutePath =  System.getProperty("uploads_folder");
+            imagePath = "file:" + absolutePath + imagePath;
             double imageWidth = imageContainer.getPrefWidth();
             double imageHeight = imageContainer.getPrefHeight();
             imageContainer.getChildren().add(new CustomImageViewPane(imagePath, imageWidth, imageHeight));

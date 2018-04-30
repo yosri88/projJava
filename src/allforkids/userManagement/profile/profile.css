@@ -8,3 +8,9 @@ and open the template in the editor.
     Author     : Wassim
 */
 
+.primary-btn {
+    -jfx-button-type: FLAT; 
+    -fx-background-color: #428bca; 
+    -fx-text-fill: white;
+}
+

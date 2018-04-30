@@ -53,8 +53,6 @@ public class HtmlEditorWithImage extends HTMLEditor {
             btnCaretAddImage.setMaxSize(100.0, 24.0);
 
             bar.getItems().addAll(btnCaretAddImage);
-            this.setHtmlText("<style>body {background-color: rgb(244, 244, 244);} </style>");
-
             btnCaretAddImage.setOnAction((ActionEvent event) -> {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Select an image");
