@@ -1,0 +1,11 @@
+
+.primary-btn {
+    -jfx-button-type: FLAT; 
+    -fx-background-color: #428bca; 
+    -fx-text-fill: white;
+}
+
+.category-btn {
+    padding: 10px;
+    width: 100%;
+}

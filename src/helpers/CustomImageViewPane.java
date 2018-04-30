@@ -34,7 +34,7 @@ public class CustomImageViewPane extends Pane {
             imageView = new ImageView(new Image(url, paneWidth, (normalRatio / ratio) * paneHeight, false, true));
         }
 
-        Rectangle rec = new Rectangle(280, 200);
+        Rectangle rec = new Rectangle(paneWidth, paneHeight);
 
         rec.relocate(0, 0);
 
