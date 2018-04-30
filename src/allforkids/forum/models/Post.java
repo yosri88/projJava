@@ -55,7 +55,8 @@ public class Post extends Model{
     }
     
     public boolean userReported(User user) throws ModelException {
-        for (Report report: this.reports()) {
+        ArrayList<Report> reports = this.reports();
+        for (Report report: reports) {
             if(report.reporter().equals(user)) {
                 return true;
             }

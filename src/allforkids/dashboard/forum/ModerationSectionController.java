@@ -64,7 +64,7 @@ public class ModerationSectionController implements Initializable {
 
         userCol.setCellValueFactory(new DopsieCellBuilder(p -> {
             try {
-                return ((Report) p).reporter().getFullName();
+                return ((Report) p).post().author().getFullName();
             } catch (ModelException ex) {
                 Logger.getLogger(ModerationSectionController.class.getName()).log(Level.SEVERE, null, ex);
             }
