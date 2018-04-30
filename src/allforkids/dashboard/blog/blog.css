@@ -66,3 +66,7 @@ and open the template in the editor.
     -fx-border-color: #d3d3d3;
     -fx-border-radius: 4;
 }
+
+.file-choosed {
+    -fx-background-color: #4BB543; 
+}

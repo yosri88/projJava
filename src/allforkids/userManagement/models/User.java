@@ -84,7 +84,7 @@ public class User extends Model{
             path = "/img/default-user.png";
             return new CustomImageViewPane(path, width, height);
         }
-        String absolutePath =  Paths.get("").toAbsolutePath().toString();
+        String absolutePath =  System.getProperty("uploads_folder");
         path = "file:" + absolutePath + path;
         return new CustomImageViewPane(path, width, height);
     }

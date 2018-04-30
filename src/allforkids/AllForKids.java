@@ -44,6 +44,7 @@ public class AllForKids extends Application {
         System.setProperty("database", "from_scratch");
         System.setProperty("user", "wassim");
         System.setProperty("password", "Lpd*de7W");
+        System.setProperty("uploads_folder", "/Users/wattouma/projects/AllForKids/");
         
         launch(args);
     }

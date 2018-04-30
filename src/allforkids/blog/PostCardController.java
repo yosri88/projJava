@@ -65,7 +65,7 @@ public class PostCardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        imageContainer.getChildren().add(new CustomImageViewPane("file:/Users/wattouma/Desktop/avatar.jpg", 280f, 200f));
+        imageContainer.getChildren().add(new CustomImageViewPane("/img/default-blog.png", 280f, 200f));
     }
 
     public void setPostData(Post post) throws ModelException {
@@ -73,7 +73,8 @@ public class PostCardController implements Initializable {
         this.titleLabel.setText((String) post.getAttr("title"));
         String imagePath = (String) post.getAttr("image_path");
         if(imagePath != null) {
-            String absolutePath =  Paths.get("").toAbsolutePath().toString();
+            
+            String absolutePath =  System.getProperty("uploads_folder");
             imagePath = "file:" + absolutePath + imagePath;
             imageContainer.getChildren().add(new CustomImageViewPane(imagePath, 280f, 200f));
         }

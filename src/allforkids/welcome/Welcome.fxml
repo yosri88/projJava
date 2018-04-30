@@ -14,7 +14,7 @@
    <children>
       <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="1024.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <Label text="All for kids dashboard" textFill="#e8e8e8" BorderPane.alignment="CENTER">
+            <Label text="All for kids Dashboard" textFill="#e8e8e8" BorderPane.alignment="CENTER">
                <font>
                   <Font size="30.0" />
                </font>

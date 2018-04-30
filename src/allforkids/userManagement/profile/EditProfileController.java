@@ -74,9 +74,8 @@ public class EditProfileController implements Initializable {
             imagePath = "/img/default-user.png";
         } else {
             Path currentRelativePath = Paths.get("");
-            String s = currentRelativePath.toAbsolutePath().toString();
-            imagePath = "file:" + s + imagePath;
-            System.out.println(imagePath);
+            String absolutePath =  System.getProperty("uploads_folder");
+            imagePath = "file:" + absolutePath + imagePath;
         }
         setPic(imagePath);
     }
@@ -121,8 +120,8 @@ public class EditProfileController implements Initializable {
                 }
                 if (this.newPicPath != null) {
                     File source = new File(this.newPicPath);
-                    String outputFilePath = "/uploads/avatars/" + username;
-                    File dest = new File(getCurrentAbsolutePath() + outputFilePath);
+                    String outputFilePath = "uploads/avatars/" + username;
+                    File dest = new File(System.getProperty("uploads_folder") + outputFilePath);
                     copyFileUsingStream(source, dest);
                     currentUser.setAttr("avatar_path", outputFilePath);
                 }

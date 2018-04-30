@@ -81,9 +81,9 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <ScrollPane fx:id="allPostsScrollPane" hbarPolicy="NEVER" prefWidth="960.0">
+      <ScrollPane fx:id="allPostsScrollPane" hbarPolicy="NEVER" prefHeight="540.0" prefWidth="1024.0">
          <content>
-            <FlowPane fx:id="allPostsFlowPane" prefWidth="1020.0" />
+            <FlowPane fx:id="allPostsFlowPane" minHeight="538.0" prefWidth="1020.0" />
          </content>
       </ScrollPane>
    </children>

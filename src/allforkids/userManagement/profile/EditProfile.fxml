@@ -6,23 +6,39 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="1024.0" minHeight="600.0" minWidth="1024.0" prefHeight="600.0" prefWidth="1024.0" stylesheets="@profile.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.userManagement.profile.EditProfileController">
    <children>
-      <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="14.0" prefHeight="60.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label layoutX="14.0" layoutY="15.0" prefHeight="30.0" prefWidth="236.0" style="-fx-font-size: 25;" text="All For Kids" AnchorPane.bottomAnchor="15.0" AnchorPane.topAnchor="15.0" />
-            <HBox layoutX="833.9000244140625" layoutY="10.899999618530273" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="20.0" layoutY="20.0" prefHeight="60.0" prefWidth="1024.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <Label text="All for kids" textFill="#e8e8e8" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
                <padding>
-                  <Insets right="12.0" />
+                  <Insets left="20.0" />
                </padding>
+            </Label>
+         </left>
+         <right>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton onAction="#goToWelcome" styleClass="primary-btn" text="Back to Welcome Page">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
             </HBox>
-            <JFXButton layoutX="940.0" layoutY="17.0" onAction="#goToWelcome" styleClass="primary-btn" text="Back to Welcome Page" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="17.0" />
-         </children>
-      </AnchorPane>
+         </right>
+      </BorderPane>
       <VBox layoutX="476.0" layoutY="185.0" prefHeight="353.0" prefWidth="512.0">
          <children>
             <JFXTextField fx:id="firstNameTF" labelFloat="true" promptText="First name">
