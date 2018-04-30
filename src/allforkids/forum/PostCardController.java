@@ -12,7 +12,6 @@ import allforkids.forum.models.VoteType;
 import allforkids.userManagement.models.User;
 import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
-import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.TrayNotificationService;
@@ -20,21 +19,15 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import org.ocpsoft.prettytime.PrettyTime;
-import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -58,7 +51,7 @@ public class PostCardController implements Initializable {
     @FXML
     private JFXButton downArrowBtn;
     
-    private int voteScore;
+    private long voteScore;
     @FXML
     private AnchorPane avatarContainer;
     @FXML
@@ -76,7 +69,6 @@ public class PostCardController implements Initializable {
     
     public void setPost(Post post) {
         try {
-            System.out.println(post);
             this.post = post;
             Date creationDate = new Date(((Date) post.getAttr("creation_date")).getTime());
             PrettyTime p = new PrettyTime();
@@ -90,8 +82,9 @@ public class PostCardController implements Initializable {
                                                 avatarContainer.getPrefHeight()
                                         )
                                 );
-            if((Integer)post.getAttr("reported") == 1) {
-                this.postContent.setText(" The content of this message was reported");
+            
+            if((Integer)post.getAttr("reported") != null && (Integer)post.getAttr("reported") == 1) {
+                this.postContent.setText("The content of this message was reported");
                 this.postContent.setOpacity(0.7);
                 this.upArrowBtn.setDisable(true);
                 this.downArrowBtn.setDisable(true);

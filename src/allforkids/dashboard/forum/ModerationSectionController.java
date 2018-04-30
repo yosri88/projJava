@@ -13,6 +13,7 @@ import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.DopsieCellBuilder;
+import helpers.MailingService;
 import helpers.NavigationService;
 import helpers.TrayNotificationService;
 import java.net.URL;
@@ -98,6 +99,13 @@ public class ModerationSectionController implements Initializable {
             
             userToBan.save();
             postToHide.save();
+            
+            String userMail = (String)userToBan.getAttr("email");
+            if(userMail != null) {
+                MailingService.send(userMail, 
+                    "You've been banned", 
+                    "You've been banned due to posting inappropriate content on allForKids Forum");
+            }
             
             postReportsProcessed(postToHide);
             TrayNotificationService.successBlueNotification("Topic deleted!", "Topic deleted!");

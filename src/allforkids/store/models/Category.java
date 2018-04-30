@@ -14,6 +14,11 @@ import java.util.ArrayList;
  * @author Wassim
  */
 public class Category extends Model {
+
+    @Override
+    public String getTableName() {
+        return "product_category";
+    }
     
     public ArrayList<Product> products() throws ModelException{
         return this.hasMany(Product.class);

@@ -85,7 +85,7 @@ public class WelcomeController implements Initializable {
 
     @FXML
     private void goToStore(ActionEvent event) {
-        
+        NavigationService.goTo(event, this, "/allforkids/store/ProductsList.fxml");
     }
 
     @FXML

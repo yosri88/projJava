@@ -6,6 +6,7 @@ package allforkids;
  * and open the template in the editor.
  */
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -14,6 +14,12 @@ import java.util.ArrayList;
  * @author Wassim
  */
 public class Product extends Model{
+
+    @Override
+    public String getTableName() {
+        return "products";
+    }
+    
     public Category category() throws ModelException {
         return this.belongsTo(Category.class);
     }
