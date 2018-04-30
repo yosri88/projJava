@@ -9,6 +9,7 @@ import allforkids.store.models.Product;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import helpers.CustomImageViewPane;
+import helpers.NavigationService;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -109,7 +110,7 @@ public class ProductDetailsController implements Initializable {
 
     @FXML
     private void goToStore(ActionEvent event) {
-        
+        NavigationService.goTo(event, this, "/allforkids/store/ProductsList.fxml");
     }
 
     @FXML

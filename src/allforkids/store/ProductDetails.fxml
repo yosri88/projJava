@@ -59,7 +59,7 @@
                               </HBox>
                            </graphic>
                         </JFXButton>
-                        <JFXButton onAction="#goToStore" styleClass="primary-btn" text="Main Menu">
+                        <JFXButton onAction="#goToStore" styleClass="primary-btn" text="Back to store">
                            <HBox.margin>
                               <Insets bottom="15.0" left="30.0" right="15.0" top="15.0" />
                            </HBox.margin>

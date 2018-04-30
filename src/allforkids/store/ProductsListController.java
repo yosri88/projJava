@@ -99,6 +99,12 @@ public class ProductsListController implements Initializable {
 
     private void showProducts(ArrayList<Product> productsToShow) {
         productsFlowPane.getChildren().removeAll(productsFlowPane.getChildren());
+        if(productsToShow.isEmpty()) {
+            Label newLabel = new Label("No Product in here");
+            newLabel.getStyleClass().add("no-product-message");
+            productsFlowPane.getChildren().add(newLabel);
+            return;
+        }
         try {
             for(Product product: productsToShow) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ProductCard.fxml"));
@@ -131,7 +137,6 @@ public class ProductsListController implements Initializable {
                 productsToShow.add(product);
             }
         }
-        
         showProducts(productsToShow);
     }
     
