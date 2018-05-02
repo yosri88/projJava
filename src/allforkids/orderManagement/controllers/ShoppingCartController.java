@@ -173,6 +173,7 @@ public class ShoppingCartController implements Initializable {
             @Override
             public TableCell<Record, Boolean> call(TableColumn<Record, Boolean> p) {
                 return new ButtonCell( ShoppingitemList);
+                
             }
 
         });
@@ -216,6 +217,9 @@ public class ShoppingCartController implements Initializable {
             this.deleteItem = new Button("Delete item");
         }
 
+        public  int getId(){
+            return id;
+        }
         public ImageView getImage() {
             return image;
         }

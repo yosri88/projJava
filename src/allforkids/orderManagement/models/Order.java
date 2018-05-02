@@ -139,6 +139,7 @@ public class Order extends Model {
 
         return numberOfItems;
     }
+    
 
     public void confirmOrder() {
 

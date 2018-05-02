@@ -53,6 +53,8 @@ public class LineItem extends Model {
     int getQuantity() {
         return (int) this.getAttr("quantity");
     }
+    
+
 
     public void updateCalculation() throws ModelException, UnsupportedDataTypeException {
 
