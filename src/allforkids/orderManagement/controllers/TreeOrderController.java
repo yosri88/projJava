@@ -38,6 +38,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.cell.ChoiceBoxTreeTableCell;
 import javafx.scene.control.cell.ComboBoxTreeTableCell;
 
 /**
@@ -56,29 +57,29 @@ public class TreeOrderController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO// TODO
         JFXTreeTableColumn<OrderView, String> referenceCol = new JFXTreeTableColumn<>("Reference");
-        referenceCol.setPrefWidth(150);
+        referenceCol.setPrefWidth(300);
         referenceCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<OrderView, String> param) -> param.getValue().getValue().reference //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         );
 
         JFXTreeTableColumn<OrderView, String> customerCol = new JFXTreeTableColumn<>("customer");
-        customerCol.setPrefWidth(150);
+        customerCol.setPrefWidth(300);
         customerCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<OrderView, String> param) -> param.getValue().getValue().customer //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         );
 
         JFXTreeTableColumn<OrderView, String> statusCol = new JFXTreeTableColumn<>("status");
-        statusCol.setPrefWidth(150);
+        statusCol.setPrefWidth(300);
         statusCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<OrderView, String> param) -> param.getValue().getValue().status //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         );
         JFXTreeTableColumn<OrderView, String> shippingMethodCol = new JFXTreeTableColumn<>("shipping Method");
-        shippingMethodCol.setPrefWidth(150);
+        shippingMethodCol.setPrefWidth(300);
         shippingMethodCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<OrderView, String> param) -> param.getValue().getValue().shippingMethod //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         );
         JFXTreeTableColumn<OrderView, String> creationDateCol = new JFXTreeTableColumn<>("creation Date");
-        creationDateCol.setPrefWidth(150);
+        creationDateCol.setPrefWidth(300);
         creationDateCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<OrderView, String> param) -> param.getValue().getValue().creationDate //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         );
         JFXTreeTableColumn<OrderView, String> amountCol = new JFXTreeTableColumn<>("amount ");
-        amountCol.setPrefWidth(150);
+        amountCol.setPrefWidth(300);
         amountCol.setCellValueFactory((TreeTableColumn.CellDataFeatures<OrderView, String> param) -> param.getValue().getValue().amount //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         );
 
@@ -131,7 +132,7 @@ public class TreeOrderController implements Initializable {
             list.add(t.statusName());       
         });
 
-        statusCol.setCellFactory(ComboBoxTreeTableCell.forTreeTableColumn(list));
+        statusCol.setCellFactory(ChoiceBoxTreeTableCell.forTreeTableColumn(list));
         statusCol.setOnEditCommit(new EventHandler<TreeTableColumn.CellEditEvent<OrderView, String>>() {
             @Override
             public void handle(TreeTableColumn.CellEditEvent<OrderView, String> event) {
@@ -166,7 +167,7 @@ public class TreeOrderController implements Initializable {
                         Boolean flag = o.getValue().reference.getValue().toLowerCase().contains(newValue.toLowerCase())
                                 || o.getValue().shippingMethod.getValue().toLowerCase().contains(newValue.toLowerCase())
                                 || o.getValue().amount.getValue().toLowerCase().contains(newValue.toLowerCase())
-                                                                || o.getValue().creationDate.getValue().toLowerCase().contains(newValue.toLowerCase())
+                                || o.getValue().creationDate.getValue().toLowerCase().contains(newValue.toLowerCase())
                                 || o.getValue().customer.getValue().toLowerCase().contains(newValue.toLowerCase())
                                 || o.getValue().status.getValue().toLowerCase().contains(newValue.toLowerCase());
                         return flag;

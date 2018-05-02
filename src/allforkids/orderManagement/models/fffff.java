@@ -23,6 +23,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Spinner;
+import static javafx.scene.control.Spinner.STYLE_CLASS_ARROWS_ON_LEFT_HORIZONTAL;
+import static javafx.scene.control.Spinner.STYLE_CLASS_ARROWS_ON_LEFT_VERTICAL;
+import static javafx.scene.control.Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL;
+import static javafx.scene.control.Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL;
 import javafx.scene.image.ImageView;
 
 /**
@@ -201,5 +206,7 @@ public class fffff {
             return amount;
         }
     }
+    
+    
 
 }

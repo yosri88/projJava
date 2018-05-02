@@ -6,31 +6,31 @@
 package allforkids.orderManagement.controllers;
 
 import allforkids.orderManagement.controllers.ShoppingCartController.ShoppingItem;
+import java.util.function.BiConsumer;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TableView;
 
 /**
  *
  * @author KHOUBEIB
  */
-public class SpinnerTableCell<S, T extends Number> extends TableCell<S, T> {
+public class SpinnerTableCell<S, T extends Integer> extends TableCell<S, T> {
 
     private final Spinner<T> spinner;
 
-    public SpinnerTableCell() {
-        this(1);
-    }
+    public SpinnerTableCell(int stock, BiConsumer<S, T> update, int step) {
 
-    public SpinnerTableCell(int step) {
+        this.spinner = new Spinner<>(0, stock, step);
+        this.spinner.setEditable(true);
 
-        this.spinner = new Spinner<>(0, 100, step);
-        this.spinner.valueProperty().addListener((observable, oldValue, newValue) -> commitEdit(newValue));
-        this.spinner.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (isNowFocused) {
-                getTableView().edit(getIndex(), getTableColumn());
-            }
-        });
-
+        this.spinner.valueProperty().addListener((observable, oldValue, newValue)
+                -> update.accept(getTableView().getItems().get(getIndex()), newValue)
+        );
+      
     }
 
     @Override
@@ -44,7 +44,9 @@ public class SpinnerTableCell<S, T extends Number> extends TableCell<S, T> {
         }
 
         this.spinner.getValueFactory().setValue(c);
+        System.out.println(c);
 
         setGraphic(spinner);
     }
+
 }

@@ -1,25 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Separator?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="768.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.orderManagement.controllers.ShoppingCartController">
+<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="1024.0" minHeight="600.0" minWidth="1024.0" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.orderManagement.controllers.ShoppingCartController">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="369.0" prefWidth="547.0" style="-fx-background-color: CFD8DC;">
-         <children>
-            <TableView fx:id="itemsTable" layoutX="7.0" layoutY="85.0" prefHeight="200.0" prefWidth="534.0" styleClass=".noheader" stylesheets="@shopping.css">
+      <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="1024.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <Label text="Shopping cart" textFill="#e8e8e8" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+         </left>
+         <right>
+            <HBox prefHeight="60.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="filterButton" styleClass="primary-btn" text="Filter/Search">
+                     <HBox.margin>
+                        <Insets bottom="12.0" left="5.0" right="5.0" top="12.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton styleClass="primary-btn" text="Main Menu">
+                     <HBox.margin>
+                        <Insets bottom="12.0" left="5.0" right="12.0" top="12.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </right>
+      </BorderPane>
+      <BorderPane layoutX="-12.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <right>
+            <AnchorPane prefHeight="540.0" prefWidth="166.0" style="-fx-border-color: gray; -fx-border-width: 0 0 0 2;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="nbrItem" layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="176.0" text="Total amount" />
+                  <Label fx:id="totalHT" layoutX="25.0" layoutY="64.0" prefHeight="18.0" prefWidth="73.0" text="TotalHT" />
+                  <JFXButton fx:id="filterButton1" layoutX="46.0" layoutY="186.0" styleClass="primary-btn" text="Make the Order" />
+                  <Label fx:id="nbrItem1" layoutX="86.0" layoutY="48.0" prefHeight="50.0" prefWidth="42.0" text=" TND" />
+               </children></AnchorPane>
+         </right>
+         <center>
+            <TableView fx:id="itemsTableView" prefHeight="540.0" prefWidth="810.0" styleClass="noheader" stylesheets="@shopping.css" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="imageItem" prefWidth="75.0" text="C1" />
-                <TableColumn fx:id="descriptionAndPrice" prefWidth="75.0" text="C2" />
-                  <TableColumn fx:id="quantity" prefWidth="75.0" text="Column X" />
-                  <TableColumn fx:id="total" prefWidth="75.0" text="Column X" />
+                <TableColumn fx:id="imageItemColumn" prefWidth="181.60003358125687" text="image" />
+                <TableColumn fx:id="descriptionAndPriceColumn" minWidth="0.0" prefWidth="190.40003967285156" text="Description" />
+                  <TableColumn fx:id="quantityColumn" prefWidth="111.20001220703125" text="Quantity" />
+                  <TableColumn fx:id="totalItemRowColumn" prefWidth="201.5999755859375" text="Total" />
               </columns>
             </TableView>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="570.0" layoutY="14.0" prefHeight="370.0" prefWidth="186.0" style="-fx-background-color: CFD8DC;" />
-      <Separator layoutX="13.0" layoutY="85.0" prefHeight="6.0" prefWidth="554.0" style="-fx-background-color: grey;" />
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
