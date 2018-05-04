@@ -9,7 +9,6 @@ import allforkids.store.models.Category;
 import allforkids.store.models.Product;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;

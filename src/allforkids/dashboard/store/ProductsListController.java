@@ -5,7 +5,6 @@
  */
 package allforkids.dashboard.store;
 
-import allforkids.store.models.Category;
 import allforkids.store.models.Product;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;

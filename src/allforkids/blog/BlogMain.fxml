@@ -17,7 +17,7 @@
          <left>
             <Label text="All for kids blog" textFill="#e8e8e8" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="30.0" />
+                  <Font size="25.0" />
                </font>
                <BorderPane.margin>
                   <Insets />

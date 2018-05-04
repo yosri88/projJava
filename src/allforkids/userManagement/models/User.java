@@ -10,7 +10,6 @@ import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.CustomImageViewPane;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**

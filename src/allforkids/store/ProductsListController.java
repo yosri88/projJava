@@ -70,8 +70,8 @@ public class ProductsListController implements Initializable {
         ArrayList<Category> categories = new ArrayList<>();
         
         try {
-            categories = Model.fetch(Category.class).all().execute();
-            allProducts = Model.fetch(Product.class).all().execute();
+            categories = Model.fetch(Category.class).all().where("active", "1").execute();
+            allProducts = Model.fetch(Product.class).all().where("active", "1").execute();
         } catch (ModelException | UnsupportedDataTypeException ex) {
             Logger.getLogger(ProductsListController.class.getName()).log(Level.SEVERE, null, ex);
         }

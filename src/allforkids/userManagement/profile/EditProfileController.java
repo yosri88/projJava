@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -73,7 +72,6 @@ public class EditProfileController implements Initializable {
         if (imagePath == null) {
             imagePath = "/img/default-user.png";
         } else {
-            Path currentRelativePath = Paths.get("");
             String absolutePath =  System.getProperty("uploads_folder");
             imagePath = "file:" + absolutePath + imagePath;
         }
@@ -156,9 +154,6 @@ public class EditProfileController implements Initializable {
         NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
     }
 
-    private String getFileExtension(File file) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @FXML
     private void uploadPic(MouseEvent event) {

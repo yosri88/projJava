@@ -8,7 +8,6 @@ package allforkids.dashboard.forum;
 import allforkids.forum.models.Post;
 import allforkids.forum.models.Report;
 import allforkids.userManagement.models.User;
-import com.jfoenix.controls.JFXTextField;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;

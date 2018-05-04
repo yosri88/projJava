@@ -11,7 +11,6 @@ import allforkids.blog.models.PostTag;
 import allforkids.blog.models.Tag;
 import allforkids.userManagement.models.User;
 import allforkids.userManagement.models.UserSession;
-import static allforkids.userManagement.profile.EditProfileController.getCurrentAbsolutePath;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
