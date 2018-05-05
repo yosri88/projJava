@@ -102,7 +102,7 @@ public class ShoppingCartController implements Initializable {
         } catch (ModelException ex) {
             Logger.getLogger(ShoppingCartController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(u);
+
         try {
             o = u.getUserShoppingCart();
             System.out.println(o);
@@ -121,7 +121,7 @@ public class ShoppingCartController implements Initializable {
                         i.getAttr("total").toString()
                 )
                 );
-                System.out.println("counting . . . . . . . " + ShoppingitemList.stream().count());
+                
             }
 
         } catch (ModelException ex) {
