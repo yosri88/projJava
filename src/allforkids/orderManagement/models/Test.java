@@ -43,8 +43,9 @@ public class Test {
 
      //   System.out.println(p1.getPrice());
 
-        Address address = new Address("City", "Region", "Street");
+    
 
+     
       //  User c1 = new User(0, "khoubeib", "bach", 0, "male", address, "khoubeib", "password");
 
         //     ShoppingCartItem cartitem = new ShoppingCartItem(p1);

@@ -18,7 +18,9 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -28,6 +30,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -115,13 +118,15 @@ public class ShoppingCartController implements Initializable {
                         image,
                         (String) i.product().getAttr("product_name") + " : " + i.product().getAttr("product_price"),
                         (Integer) i.getAttr("quantity"),
-                        i.getAttr("sub_total").toString()
+                        i.getAttr("total").toString()
                 )
                 );
                 System.out.println("counting . . . . . . . " + ShoppingitemList.stream().count());
             }
 
         } catch (ModelException ex) {
+            Logger.getLogger(ShoppingCartController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedDataTypeException ex) {
             Logger.getLogger(ShoppingCartController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -137,22 +142,18 @@ public class ShoppingCartController implements Initializable {
 
 
         /* Quantity Spinner Column */
-        
         quantityColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
         quantityColumn.setCellFactory(tc -> {
             // available stock not yet implemeted 
             int stock = 1000;
-            return new SpinnerTableCell<>( stock, ShoppingItem::setQuantity, 1);
+            return new SpinnerTableCell<>(stock, ShoppingItem::setQuantity, 1);
         }
         );
-        
-        
-         /* Total  Column */
+
+        /* Total  Column */
         totalItemRowColumn.setCellValueFactory(new PropertyValueFactory<>("total"));
 
-        
         /*  Delete button column */
-        
         //Insert Button
         TableColumn deleteColumn = new TableColumn<>("Action");
         itemsTableView.getColumns().add(deleteColumn);
@@ -172,23 +173,18 @@ public class ShoppingCartController implements Initializable {
 
             @Override
             public TableCell<Record, Boolean> call(TableColumn<Record, Boolean> p) {
-                return new ButtonCell( ShoppingitemList);
-                
+                return new ButtonCell(ShoppingitemList);
+
             }
 
         });
 
-        
-
-        
         /* fill the itemsTableView with items */
         // adding the shoppingitemList
         itemsTableView.setItems(ShoppingitemList);
         // setting the table view editable
         itemsTableView.setEditable(true);
-        
-        
-        
+
         ShoppingitemList.addListener((javafx.collections.ListChangeListener.Change<? extends ShoppingItem> pChange) -> {
             while (pChange.next()) {
                 System.out.println(pChange.getList());
@@ -208,6 +204,8 @@ public class ShoppingCartController implements Initializable {
         private StringProperty total;
         private Button deleteItem;
 
+
+
         public ShoppingItem(int id, ImageView image, String descriptionPice, int quantity, String total) {
             this.id = id;
             this.image = image;
@@ -217,9 +215,10 @@ public class ShoppingCartController implements Initializable {
             this.deleteItem = new Button("Delete item");
         }
 
-        public  int getId(){
+        public int getId() {
             return id;
         }
+
         public ImageView getImage() {
             return image;
         }
@@ -233,11 +232,10 @@ public class ShoppingCartController implements Initializable {
         }
 
         public void setQuantity(int qty) {
-            
+
             this.quantity = qty;
             System.out.println(this.toString());
             this.updateItemRow();
-            
 
         }
 

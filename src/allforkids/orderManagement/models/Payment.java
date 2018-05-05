@@ -52,6 +52,16 @@ public class Payment extends Model {
         }
     };
 
+    public Double getPaymentAmount() {
+
+        return (Double) this.getAttr("amount");
+    }
+
+    private PaymentMethod method;
     private PaymentStatus status;
+
+    public void setPaymentMethod(PaymentMethod method) {
+        this.setAttr("method", method.name());
+    }
 
 }

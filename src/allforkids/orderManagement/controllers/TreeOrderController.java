@@ -102,8 +102,8 @@ public class TreeOrderController implements Initializable {
                         String.valueOf(o.getAttr("id")),
                         (String)o.getAttr("order_reference"),
                         o.customer().getFullName(),
-                        o.getOrderStatus(),
-                        o.getShippingMethod(),
+                        o.getOrderStatusName(),
+                        o.shippingMethod().getMethodName(),
                         (String) df.format(o.getAttr("creation_date")),
                          o.getOrderTotalWithVAT().toString()
                 ));

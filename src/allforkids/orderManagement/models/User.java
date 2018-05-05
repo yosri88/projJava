@@ -5,11 +5,11 @@
  */
 package allforkids.orderManagement.models;
 
-
 import dopsie.core.*;
 import dopsie.exceptions.ModelException;
 import java.util.ArrayList;
 import allforkids.orderManagement.models.Order;
+import dopsie.exceptions.UnsupportedDataTypeException;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -30,7 +30,6 @@ public class User extends Model {
 //    private String username;
 //    private String password;
 //	private String isAdmin;
-
     @Override
     public String getTableName() {
         return "user";
@@ -40,26 +39,38 @@ public class User extends Model {
     public String getPrimaryKeyName() {
         return "id";
     }
-    
-    
-   public ArrayList<Order> orders() throws ModelException{
-       return this.hasMany(Order.class);
-   }
 
+    public ArrayList<Order> orders() throws ModelException {
+        return this.hasMany(Order.class);
+    }
 
-   public Order getUserShoppingCart() throws ModelException{
+    public Order getUserShoppingCart() throws ModelException, UnsupportedDataTypeException {
         Order UserShoppingCart = null;
-        
-          for(Order o : this.orders()){
-              
-              if ((int)o.getAttr("shopping_cart")== 1){
-                  UserShoppingCart = o;
-              }
-          }
-         return UserShoppingCart; 
-          
-   }
-    
+        boolean newCustomer = true;
+        for (Order o : this.orders()) {
+
+            if ((int) o.getAttr("order_status") == 0) {
+                UserShoppingCart = o;
+                newCustomer = false;
+            }
+        }
+
+        if (newCustomer) {
+            UserShoppingCart = new Order();
+            UserShoppingCart.setAttr("user_id", this.getAttr("id"));
+            UserShoppingCart.setAttr("order_status", 0);
+            UserShoppingCart.save();
+        }
+
+        return UserShoppingCart;
+
+    }
+
+    public ArrayList<Address> address() throws ModelException {
+
+        return this.hasMany(Address.class);
+    }
+
 //    public User(int CustomerId, String firstName, String last_Name, int age, String gender, Address address, String username, String password) {
 //        this.customerId = CustomerId;
 //        this.firstName = firstName;
@@ -83,8 +94,7 @@ public class User extends Model {
 //
 //    public User() {
 //    }
- //   private static final Logger LOG = Logger.getLogger(User.class.getName());
-
+    //   private static final Logger LOG = Logger.getLogger(User.class.getName());
 //    public int getCustomerId() {
 //        return customerId;
 //    }
@@ -92,7 +102,6 @@ public class User extends Model {
 //    public void setCustomerId(int CustomerId) {
 //        this.customerId = CustomerId;
 //    }
-
     public String getFirstName() {
         return (String) this.getAttr("firstname");
     }
@@ -102,10 +111,9 @@ public class User extends Model {
     }
 
     public String getLastName() {
-         return (String) this.getAttr("lastname");
+        return (String) this.getAttr("lastname");
     }
-    
-    
+
     public void setLastName(String lastName) {
         this.setAttr("firstname", lastName);
     }
@@ -117,9 +125,9 @@ public class User extends Model {
     public void setAge(int age) {
         this.setAttr("age", age);
     }
-    
-    public String getFullName(){
-        return this.getFirstName()+" "+this.getLastName();
+
+    public String getFullName() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 //
 //    public String getGender() {

@@ -49,53 +49,75 @@ public class fffff {
         System.setProperty("password", "");
 
         Order o = Model.find(Order.class, 1);
-        o.setOrderStatus(OrderStatus.VERIFICATIONREQUIRED);
-        o.save();
-        System.out.println(o.getOrderStatus());
-        System.out.println(o.getOrderTotalVat());
-        System.out.println(o.getOrderTotalWithoutVAT());
-        System.out.println(o.getOrderTotalWithVAT());
-        System.out.println(o.customer());
-        List<Order.OrderStatus> lisFromEnum = Arrays.asList(Order.OrderStatus.values());
+//        o.setOrderStatus(OrderStatus.VERIFICATIONREQUIRED);
+//        o.save();
+//        System.out.println(o.getOrderStatus());
+//        System.out.println(o.getOrderTotalVat());
+//        System.out.println(o.getOrderTotalWithoutVAT());
+//        System.out.println(o.getOrderTotalWithVAT());
+//        System.out.println(o.customer());
+//        List<Order.OrderStatus> lisFromEnum = Arrays.asList(Order.OrderStatus.values());
 
-        ObservableList<OrderView> orders = FXCollections.observableArrayList();
+//        ShippingMethod m = new ShippingMethod();
+//        m.setAttr("name", "Chrono Post");
+//        m.setAttr("extra_fee", 35.5);
+//        m.save();
 
-        ArrayList<Order> allOrderList = null;
-        try {
-            allOrderList = Model.fetch(Order.class).all().execute();
-        } catch (ModelException | UnsupportedDataTypeException ex) {
-            Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-        for (Order d : allOrderList) {
+//        System.out.println(Arrays.toString(OrderStatus.values()));
+//         System.out.println(o.getOrderStatusIndex());
+//         System.out.println(o.getOrderStatusName());
+//         o.setOrderStatusByIndex(10);
+//         System.out.println(o.getOrderStatusName());
+//         o.setOrderStatusByName("DISPUTED");
+//         System.out.println(o.getOrderStatusName());
 
-            try {
-                orders.add(new OrderView(
-                        (int) d.getAttr("id"),
-                        (String) d.getAttr("reference"),
-                        d.customer().getFullName(),
-                        d.getOrderStatus(),
-                        d.getShippingMethod(),
-                        //        (Date)d.getAttr("creation_date"),
-                        (String) df.format((java.sql.Date) d.getAttr("creation_date")),
-                        d.getOrderTotalWithVAT().toString()
-                ));
-                //       System.out.println("------------------------------------->" + orders);  (String) df.format(
-            } catch (ModelException ex) {
-                Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        System.out.println("================================================");
+//        System.out.println("payment sum : " + o.getTotalPayment());
+//        System.out.println("total ttc : " + o.getOrderTotalWithVAT());
+//        System.out.println("reste à payer :" + (o.getOrderTotalWithVAT() - o.getTotalPayment()));
+//        o.paymentAction(469.76, Payment.PaymentMethod.CREDITPOINT.name());
+//        System.out.println("reste à payer :" + (o.getOrderTotalWithVAT() - o.getTotalPayment()));
 
-        orders.stream().forEach(p -> System.out.println(p.getAmount() + "" + p.getCreationDate()));
-
-        User u = Model.find(User.class, 2);
-        String link = (String) u.getUserShoppingCart().lineItems().get(0).product().getAttr("image_link");
-        System.out.println(link);
+//        System.out.println(o.getTotalPayment());
+//
+//        ObservableList<OrderView> orders = FXCollections.observableArrayList();
+//
+//        ArrayList<Order> allOrderList = null;
+//        try {
+//            allOrderList = Model.fetch(Order.class).all().execute();
+//        } catch (ModelException | UnsupportedDataTypeException ex) {
+//            Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+//        for (Order d : allOrderList) {
+//
+//            try {
+//                orders.add(new OrderView(
+//                        (int) d.getAttr("id"),
+//                        (String) d.getAttr("reference"),
+//                        d.customer().getFullName(),
+//                        d.getOrderStatus(),
+//                        d.getShippingMethod(),
+//                        //        (Date)d.getAttr("creation_date"),
+//                        (String) df.format((java.sql.Date) d.getAttr("creation_date")),
+//                        d.getOrderTotalWithVAT().toString()
+//                ));
+//                //       System.out.println("------------------------------------->" + orders);  (String) df.format(
+//            } catch (ModelException ex) {
+//                Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//
+//        orders.stream().forEach(p -> System.out.println(p.getAmount() + "" + p.getCreationDate()));
+//
+        User u = Model.find(User.class, 5);
+        System.out.println(u.getUserShoppingCart());
+//        String link = (String) u.getUserShoppingCart().lineItems().get(0).product().getAttr("image_link");
+//        System.out.println(link);
         //ImageView v = new ImageView("D:/Esprit/Projets/Java Web/AllForKids(kbach)/src/allforkids/orderManagement/views/image/" + link + ".jpg");
-       // ImageView v = new ImageView("D:/" + link + ".jpg");
-        ImageView v = new ImageView("file:D:/chocolat.jpg");
-
+        // ImageView v = new ImageView("D:/" + link + ".jpg");
 //        System.out.println(o.isShoppingCart());
 //        System.out.println(o);
 //        System.out.println(o.lineItems());
@@ -162,7 +184,7 @@ public class fffff {
 //        p.save();
     }
 
-    static class OrderView extends RecursiveTreeObject<OrderView> {
+    /*   static class OrderView extends RecursiveTreeObject<OrderView> {
 
         StringProperty reference;
         StringProperty customer;
@@ -207,6 +229,5 @@ public class fffff {
         }
     }
     
-    
-
+     */
 }

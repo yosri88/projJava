@@ -21,15 +21,22 @@ import javafx.scene.control.TableView;
 public class SpinnerTableCell<S, T extends Integer> extends TableCell<S, T> {
 
     private final Spinner<T> spinner;
+   
 
     public SpinnerTableCell(int stock, BiConsumer<S, T> update, int step) {
 
+        
         this.spinner = new Spinner<>(0, stock, step);
         this.spinner.setEditable(true);
 
         this.spinner.valueProperty().addListener((observable, oldValue, newValue)
                 -> update.accept(getTableView().getItems().get(getIndex()), newValue)
         );
+        
+  
+        
+        
+        
       
     }
 

@@ -6,23 +6,25 @@
 package allforkids.orderManagement.models;
 
 import dopsie.core.Model;
+import java.util.HashMap;
 
 /**
  *
  * @author KHOUBEIB
  */
-public class Address extends Model {
-
+public class ShippingMethod extends Model {
 
     @Override
-
     public String getTableName() {
-        return "address";
+        return "`shipping_method`";
     }
 
     @Override
     public String getPrimaryKeyName() {
         return "id";
     }
-
+    
+    public  String getMethodName() {
+        return (String) this.getAttr("name");
+    }
 }

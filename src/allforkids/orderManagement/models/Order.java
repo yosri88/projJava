@@ -5,10 +5,13 @@
  */
 package allforkids.orderManagement.models;
 
+import static allforkids.orderManagement.models.Helpers.currencyFormatter;
 import dopsie.core.Model;
+import dopsie.dataTypes.Date;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -17,32 +20,32 @@ import java.util.ArrayList;
 public class Order extends Model {
 
     public enum OrderStatus {
-        PENDING("Pending"), AWAITINGPAYMENT("Awaiting Payment"), AWAINTINGSHIPMENT("Awaiting Shipment"),
-        COMPLETED("Completed"), SHIPPED("Shipped"), CANCELLED("Cancelled"), DECLINED("Declined"), REFUNDED("Refunded"),
-        DISPUTED("Disputed"), VERIFICATIONREQUIRED("Verification Required");
+        SHOPPINGCART("Shopping Cart"),
+        PENDING("Pending"), 
+        AWAITINGPAYMENT("Awaiting Payment"), 
+        AWAINTINGSHIPMENT("Awaiting Shipment"),
+        COMPLETED("Completed"), 
+        SHIPPED("Shipped"), 
+        CANCELLED("Cancelled"), 
+        DECLINED("Declined"), 
+        REFUNDED("Refunded"),
+        DISPUTED("Disputed"), 
+        VERIFICATIONREQUIRED("Verification Required");
 
         private String statusName;
+   
 
         OrderStatus(String statusName) {
             this.statusName = statusName;
+         
         }
 
         public String statusName() {
             return statusName;
         }
-    };
-    
-    public enum ShippingMethod {
-        PICKUPINPLACE("Pick up in place"), CHRONOPOST("Chrono Post");
-
-        private String methodName;
-
-        ShippingMethod(String methodName) {
-            this.methodName = methodName;
-        }
-
-        public String methodName() {
-            return methodName;
+        
+        public int statusNumber(){
+          return  this.ordinal();
         }
     };
 
@@ -64,15 +67,26 @@ public class Order extends Model {
     public ArrayList<Payment> payments() throws ModelException {
         return this.hasMany(Payment.class);
     }
-    
-    public User customer() throws ModelException{
+
+    public User customer() throws ModelException {
         return this.hasOne(User.class);
     }
+    
+    public ShippingMethod shippingMethod() throws ModelException {
+        return this.hasOne(ShippingMethod.class);
+    }
+    
+    public Address deliveryAddress() throws ModelException{
+        return this.hasOne(Address.class);
+    }
+    
+    
+    
 
     boolean isShoppingCart() {
 
         boolean flag = true;
-        if (!this.getAttr("shopping_cart").toString().matches("1")) {
+        if (!this.getAttr("shopping_cart").toString().matches("0")) {
             flag = false;
         }
 
@@ -85,7 +99,7 @@ public class Order extends Model {
         if (this.isShoppingCart()) {
 
             cart = (ShoppingCart) this;
-            return cart;
+            
         }
         return cart;
     }
@@ -139,7 +153,6 @@ public class Order extends Model {
 
         return numberOfItems;
     }
-    
 
     public void confirmOrder() {
 
@@ -148,53 +161,119 @@ public class Order extends Model {
         }
     }
 
-    public void setOrderStatus(OrderStatus status) {
-        this.setAttr("order_status", status.statusName());
-    }
-
-    public String getOrderStatus() {
-        return (String) this.getAttr("order_status");
-    }
-    
-        public void setShippingMethod(ShippingMethod method) {
-        this.setAttr("order_status", method.methodName());
-    }
-
-    public String getShippingMethod() {
-        return (String) this.getAttr("shipping_method");
-    }
-    
-    public Double getOrderTotalVat() throws ModelException{
-        double vat = 0 ;
+    public void setOrderStatusByName(String status) {
         
-        for (LineItem l : this.lineItems()){            
-          double inter = (double) l.getAttr("vat_total") ;
-            vat = inter + vat ;
+        int index = OrderStatus.valueOf(status).ordinal();
+        this.setAttr("order_status", index);
+    }
+    
+    public void setOrderStatusByIndex(int index) {
+        if (index < OrderStatus.values().length){
+            this.setAttr("order_status", index);
+        }else
+        {
+            System.out.println("out of range");
         }
-                
+        
+    }
+
+    public String getOrderStatusName() {
+        int index = (int) this.getAttr("order_status");
+        return OrderStatus.values()[index].statusName;
+    }
+    
+    public  int getOrderStatusIndex(){
+        return (int) this.getAttr("order_status");
+    }
+    
+
+
+    public Double getOrderTotalVat() throws ModelException {
+        double vat = 0;
+
+        for (LineItem l : this.lineItems()) {
+            double inter = (double) l.getAttr("vat_total");
+            vat = inter + vat;
+        }
+
         return vat;
     }
 
-    public Double getOrderTotalWithVAT() throws ModelException{
-        double tot = 0 ;
-        
-        for (LineItem l : this.lineItems()){            
-          double inter = (double) l.getAttr("total") ;
-            tot = inter + tot ;
+    public Double getOrderTotalWithVAT() throws ModelException {
+        Double tot = currencyFormatter(0.0);
+
+        for (LineItem l : this.lineItems()) {
+            Double inter = (Double) l.getAttr("total");
+            tot = inter + tot;
         }
-                
-        return tot;
-        
+
+        return Helpers.currencyFormatter(tot);
+
     }
-    
-    public Double getOrderTotalWithoutVAT() throws ModelException{
-                double sub  = 0 ;
-        
-        for (LineItem l : this.lineItems()){            
-          double inter = (double) l.getAttr("sub_total") ;
-            sub = inter + sub ;
+
+    public Double getOrderTotalWithoutVAT() throws ModelException {
+        double sub = 0;
+
+        for (LineItem l : this.lineItems()) {
+            double inter = (double) l.getAttr("sub_total");
+            sub = inter + sub;
         }
-                
+
         return sub;
     }
+
+    // Payment pocess
+    public Double paymentAction(Double amount, String method) throws ModelException, UnsupportedDataTypeException {
+        Double rest = 0.0;
+        rest = Helpers.currencyFormatter(rest);
+        amount = Helpers.currencyFormatter(amount);
+        Double alreadyPaid = this.getTotalPayment();
+        Double orderTotalAmount = this.getOrderTotalWithVAT();
+
+        if ((alreadyPaid < orderTotalAmount) && (amount <= (orderTotalAmount - alreadyPaid))) {
+
+            Payment p = new Payment();
+            p.setAttr("order_id", this.getAttr("id"));
+            p.setAttr("amount", amount);
+            p.setAttr("method", method);
+            p.setAttr("date", new Date());
+            p.save();
+            
+            //update alreadyPaid
+            alreadyPaid =+ amount;
+        }
+        else {
+            System.out.println("error in payment");
+        }
+
+        this.updateOrderStatus();
+        rest = orderTotalAmount - alreadyPaid;
+       
+        return rest;
+    }
+
+    public Double getTotalPayment() throws ModelException {
+
+        Double tot = 0.00;
+        for (Payment p : this.payments()) {
+            //System.out.println(p);
+            tot += p.getPaymentAmount();
+           
+        }
+      
+        return Helpers.currencyFormatter(tot);
+    }
+    
+    public void updateOrderStatus() throws ModelException, UnsupportedDataTypeException{
+        if (this.getTotalPayment() - this.getOrderTotalWithVAT() == 0){
+             this.setAttr("order_status", OrderStatus.AWAINTINGSHIPMENT.name());
+             
+        }else{
+            this.setAttr("order_status", OrderStatus.PENDING.name());
+            //System.out.println("nothing to update");
+        }
+        
+        this.save();
+    }
+
 }
