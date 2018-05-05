@@ -10,9 +10,9 @@
 
 <AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="1024.0" minHeight="600.0" minWidth="1024.0" prefHeight="600.0" prefWidth="1024.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.dashboard.userManagement.UsersListController">
    <children>
-      <AnchorPane id="AnchorPane" layoutY="4.0" prefHeight="60.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="AnchorPane" layoutY="4.0" prefHeight="60.0" prefWidth="1024.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="14.0" layoutY="15.0" prefHeight="30.0" prefWidth="236.0" style="-fx-font-size: 25;" text="All For Kids Forum" AnchorPane.bottomAnchor="15.0" AnchorPane.topAnchor="15.0" />
+            <Label layoutX="14.0" layoutY="15.0" prefHeight="30.0" prefWidth="236.0" style="-fx-font-size: 25;" text="All For Kids Users" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.topAnchor="15.0" />
             <HBox layoutX="833.9000244140625" layoutY="10.899999618530273" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <padding>
                   <Insets right="12.0" />
@@ -23,12 +23,12 @@
       </AnchorPane>
       <HBox layoutY="61.0" prefHeight="45.0" prefWidth="1024.0">
          <children>
-            <JFXButton onAction="#goToAdd" styleClass="primary-btn" text="Add User">
+            <JFXButton onAction="#goToAdd" styleClass="green-btn" text="Add User">
                <HBox.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </HBox.margin>
             </JFXButton>
-            <JFXButton onAction="#deleteClicked" styleClass="primary-btn" text="Delete">
+            <JFXButton onAction="#deleteClicked" styleClass="red-btn" text="Delete">
                <HBox.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </HBox.margin>

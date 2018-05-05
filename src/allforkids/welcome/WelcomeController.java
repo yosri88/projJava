@@ -17,15 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -63,7 +56,7 @@ public class WelcomeController implements Initializable {
             goToDashboardBtn.setVisible(false);
         }
         avatarContainer.getChildren()
-                        .add(currentUser.getAvatarViewPane(50, 50));
+                        .add(currentUser.getAvatarViewPane(40, 40));
     }    
 
 

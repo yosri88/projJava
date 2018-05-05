@@ -74,6 +74,7 @@ public class TopicController implements Initializable {
     }    
     
     public void setTopic(Topic currentTopic) {
+        this.mainTitleLabel.setText(this.mainTitleLabel.getText() + " - " + currentTopic.getAttr("name"));
         this.topic = currentTopic;
         ArrayList<Thread> allThreads = new ArrayList<>();
         try {

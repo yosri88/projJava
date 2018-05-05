@@ -4,14 +4,10 @@
  * and open the template in the editor.
  */
 package helpers;
-import java.io.UnsupportedEncodingException;
+
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;

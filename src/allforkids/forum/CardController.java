@@ -5,10 +5,8 @@
  */
 package allforkids.forum;
 
-import allforkids.forum.models.Topic;
-import com.jfoenix.controls.JFXButton;
+
 import dopsie.core.Model;
-import dopsie.exceptions.ModelException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;

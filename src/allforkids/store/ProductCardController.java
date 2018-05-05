@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXButton;
 import helpers.CustomImageViewPane;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -14,16 +14,14 @@ and open the template in the editor.
     -fx-text-fill: white;
 }
 
-
-.green-btn {
-    -jfx-button-type: FLAT; 
-    -fx-background-color: green; 
+.red-btn {
+     -jfx-button-type: FLAT; 
+    -fx-background-color: red; 
     -fx-text-fill: white;
 }
 
-
-.red-btn {
-    -jfx-button-type: FLAT; 
-    -fx-background-color: red; 
+.green-btn {
+     -jfx-button-type: FLAT; 
+    -fx-background-color: green; 
     -fx-text-fill: white;
 }

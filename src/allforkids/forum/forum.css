@@ -32,6 +32,12 @@ and open the template in the editor.
     -fx-text-fill: white;
 }
 
+.green-btn {
+    -jfx-button-type: FLAT; 
+    -fx-background-color: green; 
+    -fx-text-fill: white;
+}
+
 .user-avatar {
     -fx-padding : 12px;
 }

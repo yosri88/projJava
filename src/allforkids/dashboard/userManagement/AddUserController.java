@@ -23,12 +23,8 @@ import java.util.ResourceBundle;
 import java.util.stream.Stream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+
 
 /**
  * FXML Controller class
@@ -49,6 +45,8 @@ public class AddUserController implements Initializable {
     private JFXTextField mailTF;
     @FXML
     private JFXComboBox<String> roleDropDown;
+    @FXML
+    private JFXTextField phoneTF;
 
     /**
      * Initializes the controller class.
@@ -69,12 +67,14 @@ public class AddUserController implements Initializable {
         String firstName = firstNameTF.getText();
         String lastName = lastNameTF.getText();
         String email = mailTF.getText();
+        String phone = phoneTF.getText();
         String role = roleDropDown.getValue();
         
         if(username.isEmpty() 
                 || password.isEmpty() 
                 || firstName.isEmpty()
                 || lastName.isEmpty()
+                || phone.isEmpty()
                 || email.isEmpty()) {
             TrayNotificationService.failureRedNotification("Fields should not be empty", "Fields should not be empty");
         } else {
@@ -84,6 +84,7 @@ public class AddUserController implements Initializable {
                 user.setAttr("last_name", lastName);
                 user.setAttr("username", username);
                 user.setAttr("email", email);
+                user.setAttr("phone", phone);
                 user.setAttr("password", BCrypt.hashpw(password, BCrypt.gensalt()));
                 user.setRole(Role.valueOf(role));
                 user.save();

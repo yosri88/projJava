@@ -6,8 +6,6 @@
 package allforkids.dashboard.blog;
 
 import allforkids.blog.models.Post;
-import allforkids.dashboard.userManagement.UsersListController;
-import allforkids.userManagement.models.User;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
@@ -37,12 +35,11 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
-import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
  *
- * @author wattouma
+ * @author Wassim
  */
 public class PostsListController implements Initializable {
 
