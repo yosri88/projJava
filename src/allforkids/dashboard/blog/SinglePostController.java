@@ -198,7 +198,7 @@ public class SinglePostController implements Initializable {
                 Pane newLoadedPane = loader.load();
                 ChipController controller = loader.<ChipController>getController();
                 controller.setTagName(name);
-                controller.setParentController(this);
+                controller.setOnRemove( a -> removeTag(a));
                 tagsPane.getChildren().add(newLoadedPane);
                 this.tags.put(name, newLoadedPane);
                 this.newTagTF.clear();

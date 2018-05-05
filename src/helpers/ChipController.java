@@ -10,6 +10,7 @@ import allforkids.blog.BlogMainController;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,6 +34,8 @@ public class ChipController implements Initializable {
     private SinglePostController parentController;
     
     private BlogMainController blogMainParentController;
+    
+    private Consumer<String> onRemove;
     
     @FXML
     private HBox parentHBox;
@@ -62,20 +65,14 @@ public class ChipController implements Initializable {
         this.tagNameLabel.setText(tagName);
     }
     
-    public void setParentController(SinglePostController parentController) {
-        this.parentController = parentController;
+    public void setOnRemove(Consumer<String> onRemove) {
+        this.onRemove = onRemove;
     }
     
-    public void setBlogMainParentController(BlogMainController parentController) {
-        this.blogMainParentController = parentController;
-    }
-
     @FXML
     private void remove(ActionEvent event) {
-        if(parentController != null ) {
-            parentController.removeTag(this.tagNameLabel.getText());
-        } else if (blogMainParentController != null) {
-            blogMainParentController.removeTag(this.tagNameLabel.getText());
+        if(onRemove != null ) {
+            onRemove.accept(tagNameLabel.getText());
         }
     }
 }
