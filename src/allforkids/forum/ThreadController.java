@@ -56,6 +56,9 @@ public class ThreadController implements Initializable {
     }    
     
     public void setThread(Thread currentThread) {
+
+        mainTitleLabel.setText((String)currentThread.getAttr("title"));
+
         this.thread = currentThread;
         try {
             this.posts = currentThread.posts();

@@ -33,6 +33,10 @@ public class Post extends Model {
         return this.manyToMany(Tag.class, PostTag.class);
     }
     
+    public ArrayList<PostTag> postTagsRelation() throws ModelException {
+        return this.hasMany(PostTag.class);
+    }
+    
     @Override
     public boolean equals(Object o) {
         return ((Post)o).getAttr("id").equals(this.getAttr("id"));

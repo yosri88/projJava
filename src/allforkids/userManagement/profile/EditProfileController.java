@@ -73,7 +73,6 @@ public class EditProfileController implements Initializable {
         if (imagePath == null) {
             imagePath = "/img/default-user.png";
         } else {
-            Path currentRelativePath = Paths.get("");
             String absolutePath =  System.getProperty("uploads_folder");
             imagePath = "file:" + absolutePath + imagePath;
         }
@@ -159,6 +158,7 @@ public class EditProfileController implements Initializable {
     private String getFileExtension(File file) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 
     @FXML
     private void uploadPic(MouseEvent event) {

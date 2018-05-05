@@ -32,14 +32,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.DefaultStringConverter;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.converter.DefaultStringConverter;
 
 /**
  * FXML Controller class
  *
- * @author wattouma
+ * @author Wassim
  */
 public class PostsListController implements Initializable {
 
@@ -82,16 +82,12 @@ public class PostsListController implements Initializable {
             }
             return null;
         }));
-        
-        titleCol.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
+
         titleCol.setCellValueFactory(new DopsieCellBuilder(p -> {
             return ((Post) p).getAttr("title");
         }));
-        
-        
-        
-        
-        thumbnailCol.setCellFactory(TextFieldTableCell.forTableColumn(new DefaultStringConverter()));
+
+
         thumbnailCol.setCellValueFactory(new DopsieCellBuilder(p -> {
             return ((Post) p).getAttr("image_path");
         }));
@@ -107,10 +103,10 @@ public class PostsListController implements Initializable {
     @FXML
     private void goToAdd(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/allforkids/dashboard/blog/AddPost.fxml"));
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/allforkids/dashboard/blog/SinglePost.fxml"));
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Pane newLoadedPane = loader.load();
-            AddPostController controller = loader.<AddPostController>getController();
+            SinglePostController controller = loader.<SinglePostController>getController();
             controller.setStage(appStage);
             appStage.hide();
             Scene HomePageScene = new Scene(newLoadedPane);
@@ -144,25 +140,25 @@ public class PostsListController implements Initializable {
     }
 
     @FXML
-    private void inputModified(TableColumn.CellEditEvent<Post, String> event) {
-        Post post = event.getRowValue();
-        String newData = event.getNewValue();
-        String colName = event.getTableColumn().getText();
-        System.out.println(colName);
-        if(colName.equals("Title")) {
-            post.setAttr("title", newData);
+    private void goToEdit(ActionEvent event) {
+        Post selectedPost = (Post) postsTableView.getSelectionModel().getSelectedItem();
+        if(selectedPost == null) {
+            TrayNotificationService.failureRedNotification("Warning", "You should select a post to edit");
+            return;
         }
         try {
-            post.save();
-            TrayNotificationService.successBlueNotification("Post updated!", "Post updated!");
-        } catch (ModelException | UnsupportedDataTypeException ex) {
-            TrayNotificationService.failureRedNotification("Post not updated!", "Post not updated!");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SinglePost.fxml"));
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.hide();
+            Pane newLoadedPane = loader.load();
+            Scene HomePageScene = new Scene(newLoadedPane);
+            SinglePostController controller = loader.<SinglePostController>getController();
+            controller.setStage(appStage);
+            controller.setPost(selectedPost);
+            appStage.setScene(HomePageScene);
+            appStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(PostsListController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    @FXML
-    private void thumbnailModified(TableColumn.CellEditEvent<Post, String> event) {
-        
-    }
-    
 }

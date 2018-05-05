@@ -22,19 +22,19 @@ public class AllForKids extends Application {
     public void start(Stage primaryStage) {
         
         Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/allforkids/orderManagement/views/shoppingCart.fxml"));
+        try { 
+            primaryStage.setResizable(false);
+            //root = FXMLLoader.load(getClass().getResource("/allforkids/orderManagement/views/shoppingCart.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/allforkids/login/Login.fxml"));
+            Scene scene = new Scene(root);
+            primaryStage.setTitle("All For Kids");
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } catch (Exception ex) {
             System.out.println(ex);
             System.out.println(ex.getMessage());
             
         }
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("All For Kids");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    
-        
     }
 
     /**
@@ -47,7 +47,6 @@ public class AllForKids extends Application {
         System.setProperty("user", "wassim");
         System.setProperty("password", "Lpd*de7W");
         System.setProperty("uploads_folder", "D:/Esprit/Projets/Java Web/AllForKids(kbach)/uploads/");
-              
         launch(args);
     }
     

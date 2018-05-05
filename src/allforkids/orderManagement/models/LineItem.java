@@ -37,6 +37,12 @@ public class LineItem extends Model {
         int qty = (int) this.getAttr("quantity");
         qty++;
         this.setAttr("quantity", qty);
+        Double unitPrice = (Double) this.product().getAttr("unit_price") ;
+        float vatRate = (float) this.product().getAttr("vat_rate");
+        this.setAttr("total", (unitPrice * qty));
+        this.setAttr("vat", (unitPrice * qty / 100 *vatRate ));
+        
+        
     }
 
     public void decrementQuantity() {

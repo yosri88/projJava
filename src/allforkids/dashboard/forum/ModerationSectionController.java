@@ -8,7 +8,6 @@ package allforkids.dashboard.forum;
 import allforkids.forum.models.Post;
 import allforkids.forum.models.Report;
 import allforkids.userManagement.models.User;
-import com.jfoenix.controls.JFXTextField;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
@@ -64,7 +63,7 @@ public class ModerationSectionController implements Initializable {
 
         userCol.setCellValueFactory(new DopsieCellBuilder(p -> {
             try {
-                return ((Report) p).reporter().getFullName();
+                return ((Report) p).post().author().getFullName();
             } catch (ModelException ex) {
                 Logger.getLogger(ModerationSectionController.class.getName()).log(Level.SEVERE, null, ex);
             }

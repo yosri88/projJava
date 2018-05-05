@@ -31,7 +31,7 @@ public class fffff {
         System.setProperty("password", "Lpd*de7W");
         System.setProperty("uploads_folder", "D:/Esprit/Projets/Java Web/AllForKids(kbach)/uploads/");
 
-          Order o = Model.find(Order.class, 8);
+          Order o = Model.find(Order.class, 10);
 //        o.setOrderStatus(OrderStatus.VERIFICATIONREQUIRED);
 //        o.save();
 //        System.out.println(o.getOrderStatus());
@@ -107,7 +107,7 @@ public class fffff {
         Product p2 = Model.find(Product.class, 3);
         Product p3 = Model.find(Product.class, 4);
         
-        u.getUserShoppingCart().addItemToShoppingCart(p);
+        u.getUserShoppingCart().addItemToShoppingCart(p2);
         
 //      String link = (String) u.getUserShoppingCart().lineItems().get(0).product().getAttr("image_link");
 //        System.out.println(link);

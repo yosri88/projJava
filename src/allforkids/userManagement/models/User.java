@@ -6,20 +6,25 @@
 package allforkids.userManagement.models;
 
 import allforkids.forum.models.Post;
+
 import allforkids.orderManagement.models.Order;
+
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.CustomImageViewPane;
+
 import helpers.randomStringGenerator;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 
 /**
  *
  * @author Wassim
  */
-public class User extends Model {
+
+public class User extends Model{
 
     public ArrayList<Post> posts() throws ModelException {
         return this.hasMany(Post.class);
@@ -30,6 +35,7 @@ public class User extends Model {
         allforkids.userManagement.models.User user = (allforkids.userManagement.models.User) obj;
         return this.getAttr("id").equals(user.getAttr("id"));
     }
+
 
     public ArrayList<Order> orders() throws ModelException {
         return this.hasMany(Order.class, "customer_id");
@@ -72,6 +78,7 @@ public class User extends Model {
 
     public Role getRole() {
         switch ((int) getAttr("role")) {
+
             case 0:
                 return Role.USER;
             case 1:
@@ -113,6 +120,7 @@ public class User extends Model {
             return new CustomImageViewPane(path, width, height);
         }
         String absolutePath = System.getProperty("uploads_folder");
+
         path = "file:" + absolutePath + path;
         return new CustomImageViewPane(path, width, height);
     }

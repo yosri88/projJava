@@ -16,7 +16,7 @@
          <left>
             <Label text="All for kids dashboard" textFill="#e8e8e8" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="30.0" />
+                  <Font size="25.0" />
                </font>
                <BorderPane.margin>
                   <Insets />
@@ -98,7 +98,7 @@
             </HBox>
             <HBox prefHeight="270.0" prefWidth="1024.0">
                <children>
-                  <JFXButton fx:id="productsMenu" prefHeight="270.0" prefWidth="270.0">
+                  <JFXButton fx:id="productsMenu" onAction="#goToProducts" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
                         <VBox prefHeight="270.0" prefWidth="270.0">
                            <children>

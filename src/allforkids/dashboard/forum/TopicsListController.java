@@ -6,9 +6,6 @@
 package allforkids.dashboard.forum;
 
 import allforkids.forum.models.Topic;
-import allforkids.userManagement.models.Role;
-import allforkids.userManagement.models.User;
-import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import dopsie.core.Model;

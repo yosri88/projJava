@@ -46,7 +46,7 @@ public class ForumMainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ArrayList<Topic> allTopics = new ArrayList<>();
         try {
-            allTopics = Model.fetch(Topic.class).all().execute();
+            allTopics = Model.fetch(Topic.class).all().where("online", "1").execute();
         }
         catch(UnsupportedDataTypeException | ModelException e) {
             System.out.println(e.getMessage());

@@ -70,3 +70,15 @@ and open the template in the editor.
 .file-choosed {
     -fx-background-color: #4BB543; 
 }
+
+.red-btn {
+     -jfx-button-type: FLAT; 
+    -fx-background-color: red; 
+    -fx-text-fill: white;
+}
+
+.green-btn {
+     -jfx-button-type: FLAT; 
+    -fx-background-color: green; 
+    -fx-text-fill: white;
+}

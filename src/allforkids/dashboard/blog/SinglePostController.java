@@ -11,7 +11,6 @@ import allforkids.blog.models.PostTag;
 import allforkids.blog.models.Tag;
 import allforkids.userManagement.models.User;
 import allforkids.userManagement.models.UserSession;
-import static allforkids.userManagement.profile.EditProfileController.getCurrentAbsolutePath;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -52,7 +51,7 @@ import javafx.stage.Stage;
  *
  * @author Wassim
  */
-public class AddPostController implements Initializable {
+public class SinglePostController implements Initializable {
 
     private JFXTextArea contentTextArea;
     @FXML
@@ -75,11 +74,14 @@ public class AddPostController implements Initializable {
     private ScrollPane htmlEditorSP;
     @FXML
     private JFXButton chooseImBtn;
-    @FXML
-    private JFXButton AddPostButton1;
 
     private String newPicPath;
 
+    private Post post;
+    @FXML
+    private JFXButton validateBtn;
+    
+    private ArrayList<Tag> postTags;
     /**
      * Initializes the controller class.
      */
@@ -97,7 +99,7 @@ public class AddPostController implements Initializable {
     }
 
     @FXML
-    private void addPost(ActionEvent event) {
+    private void validatePost(ActionEvent event) {
         try {
             String title = titleTextField.getText();
             String content = this.htmlEditor.getHtmlText();
@@ -124,12 +126,15 @@ public class AddPostController implements Initializable {
             }
             
             User currentUser = UserSession.getInstance();
-            Post post = new Post();
-            Timestamp now = new Timestamp(new Date().getTime());
+            if(this.post == null) {
+                this.post = new Post();
+                Timestamp now = new Timestamp(new Date().getTime());
+                post.setAttr("user_id", currentUser.getAttr("id"));
+                post.setAttr("creation_date", now);
+            }
+            
             post.setAttr("title", title);
             post.setAttr("content", content);
-            post.setAttr("user_id", currentUser.getAttr("id"));
-            post.setAttr("creation_date", now);
             
             if (newPicPath != null) {
                 File source = new File(this.newPicPath);
@@ -141,16 +146,25 @@ public class AddPostController implements Initializable {
             
             post.save();
 
+
+            ArrayList<PostTag> relations = post.postTagsRelation();
+            
+            for(PostTag relation: relations) {
+                relation.delete();
+            }
+            
             for (Tag tag : allPostTags) {
                 PostTag postTag = new PostTag();
                 postTag.setAttr("post_id", post.getAttr("id"));
                 postTag.setAttr("tag_id", tag.getAttr("id"));
                 postTag.save();
             }
+            
+            
 
             goBack(event);
         } catch (ModelException | UnsupportedDataTypeException | IOException ex) {
-            Logger.getLogger(AddPostController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SinglePostController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -175,25 +189,29 @@ public class AddPostController implements Initializable {
             os.close();
         }
     }
-
-    @FXML
-    private void addTag(ActionEvent event) {
+    
+    public void addChip(String name) {
         newTagTF.getScene().getStylesheets().add("/helpers/Chip.css");
-        String tagName = newTagTF.getText();
-        if (!tagName.isEmpty() && !this.tags.containsKey(tagName)) {
+        if (!name.isEmpty() && !this.tags.containsKey(name)) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/helpers/Chip.fxml"));
                 Pane newLoadedPane = loader.load();
                 ChipController controller = loader.<ChipController>getController();
-                controller.setTagName(tagName);
-                controller.setParentController(this);
+                controller.setTagName(name);
+                controller.setOnRemove( a -> removeTag(a));
                 tagsPane.getChildren().add(newLoadedPane);
-                this.tags.put(tagName, newLoadedPane);
+                this.tags.put(name, newLoadedPane);
                 this.newTagTF.clear();
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
         }
+    }
+    
+    @FXML
+    private void addTag(ActionEvent event) {
+        String tagName = newTagTF.getText();
+        this.addChip(tagName);
     }
 
     public void removeTag(String tagName) {
@@ -230,6 +248,24 @@ public class AddPostController implements Initializable {
             this.chooseImBtn.setText("Image Attached");
             this.chooseImBtn.setDisable(true);
         }
+    }
+
+    void setPost(Post selectedPost) {
+        this.validateBtn.setText("Update Post");
+        this.post = selectedPost;
+        String postTitle = (String) post.getAttr("title");
+        String postContent = (String) post.getAttr("content");
+        ArrayList<Tag> tags = new ArrayList<>();
+        try {
+            tags = post.tags();
+        } catch (ModelException ex) {
+            Logger.getLogger(SinglePostController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(Tag tag: tags) {
+            addChip((String)tag.getAttr("name"));
+        }
+        this.titleTextField.setText(postTitle);
+        this.htmlEditor.setHtmlText(postContent);
     }
 
 }

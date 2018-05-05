@@ -17,13 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -129,5 +124,10 @@ public class MainController implements Initializable {
     @FXML
     private void forumMenuClicked(ActionEvent event) {
         NavigationService.goTo(event, this, "/allforkids/dashboard/forum/TopicsList.fxml");
+    }
+
+    @FXML
+    private void goToProducts(ActionEvent event) {
+        NavigationService.goTo(event, this, "/allforkids/dashboard/store/ProductsList.fxml");
     }
 }
