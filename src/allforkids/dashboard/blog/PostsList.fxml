@@ -40,7 +40,12 @@
       </BorderPane>
       <HBox layoutY="61.0" prefHeight="45.0" prefWidth="1024.0">
          <children>
-            <JFXButton onAction="#goToAdd" styleClass="green-btn" text="Add Post">
+            <JFXButton onAction="#goToAdd" styleClass="green-btn" text="Add">
+               <HBox.margin>
+                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton onAction="#goToEdit" styleClass="primary-btn" text="Edit">
                <HBox.margin>
                   <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                </HBox.margin>
@@ -55,8 +60,8 @@
       <TableView fx:id="postsTableView" editable="true" layoutY="105.0" prefHeight="495.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="105.0">
         <columns>
           <TableColumn fx:id="authorCol" prefWidth="135.0" text="Author" />
-          <TableColumn fx:id="titleCol" minWidth="8.0" onEditCommit="#inputModified" prefWidth="705.0" text="Title" />
-            <TableColumn fx:id="thumbnailCol" minWidth="0.0" onEditCommit="#thumbnailModified" prefWidth="185.0" text="Thumbnail" />
+          <TableColumn fx:id="titleCol" minWidth="8.0" prefWidth="705.0" text="Title" />
+            <TableColumn fx:id="thumbnailCol" minWidth="0.0" prefWidth="185.0" text="Thumbnail" />
         </columns>
          <padding>
             <Insets left="-1.0" right="-1.0" />
