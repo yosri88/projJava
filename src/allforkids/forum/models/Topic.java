@@ -14,7 +14,8 @@ import java.util.ArrayList;
  * @author Wassim
  */
 public class Topic extends Model{
-    public ArrayList<Thread> posts() throws ModelException {
+
+    public ArrayList<Thread> threads() throws ModelException {
         return this.hasMany(Thread.class);
     }
 }

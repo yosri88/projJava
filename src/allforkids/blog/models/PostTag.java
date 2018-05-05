@@ -13,4 +13,9 @@ import dopsie.core.Model;
  */
 public class PostTag extends Model {
     
+    @Override
+    public String getTableName() {
+        return "`posttag`";
+    }
+    
 }

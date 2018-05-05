@@ -5,7 +5,7 @@
  */
 package allforkids.blog.models;
 
-import allforkids.forum.models.User;
+import allforkids.userManagement.models.User;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import java.util.ArrayList;
@@ -31,5 +31,15 @@ public class Post extends Model {
     
     public ArrayList<Tag> tags() throws ModelException {
         return this.manyToMany(Tag.class, PostTag.class);
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        return ((Post)o).getAttr("id").equals(this.getAttr("id"));
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

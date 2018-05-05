@@ -8,7 +8,6 @@ package allforkids.forum.models;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import java.util.ArrayList;
-
 /**
  *
  * @author Wassim
@@ -17,4 +16,8 @@ public class Thread extends Model{
     public ArrayList<Post> posts() throws ModelException {
         return this.hasMany(Post.class);
     }
+    
+    public Topic topic() throws ModelException {
+        return this.hasOne(Topic.class);
+    }    
 }

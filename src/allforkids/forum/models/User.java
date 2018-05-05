@@ -5,16 +5,10 @@
  */
 package allforkids.forum.models;
 
-import dopsie.core.Model;
-import dopsie.exceptions.ModelException;
-import java.util.ArrayList;
-
 /**
  *
- * @author Wassim
+ * @author wattouma
  */
-public class User extends Model{
-    public ArrayList<Post> posts() throws ModelException {
-        return this.hasMany(Post.class);
-    }
+public class User {
+    
 }

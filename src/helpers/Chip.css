@@ -15,7 +15,6 @@ and open the template in the editor.
     -fx-font-family: Roboto Medium; 
     -fx-font-size: 14;
     -fx-padding: 10 15 10 15;
-    -fx-border-insets: 5px;
     -fx-background-insets: 5px;
 }
 
@@ -30,3 +29,19 @@ and open the template in the editor.
 .chipLabel {
     -fx-padding: 5px;
 }
+
+.disabled-chip {
+    -fx-background-color: darkgray; 
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-font-family: Roboto Medium; 
+    -fx-font-size: 14;
+    -fx-padding: 5 15 5 15;
+    -fx-background-insets: 5px;
+}
+
+.disabled-chip-label{
+    -fx-padding: 5px;
+    -fx-text-fill: whitesmoke;
+}
+

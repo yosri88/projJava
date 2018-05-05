@@ -6,7 +6,7 @@
 package allforkids.blog;
 
 import allforkids.blog.models.Comment;
-import allforkids.forum.models.User;
+import allforkids.userManagement.models.User;
 import dopsie.exceptions.ModelException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -27,6 +28,8 @@ public class CommentController implements Initializable {
     private Label commentContent;
     @FXML
     private Label commentedByLabel;
+    @FXML
+    private AnchorPane avatarContainer;
 
     /**
      * Initializes the controller class.
@@ -41,6 +44,14 @@ public class CommentController implements Initializable {
             User commentor = comment.commentor();
             String commentorName = (String)commentor.getAttr("first_name");
             this.commentedByLabel.setText("Comment by " + commentorName);
+            this.avatarContainer.getChildren()
+                                .add(
+                                        commentor.getAvatarViewPane(
+                                                avatarContainer.getPrefWidth(), 
+                                                avatarContainer.getPrefHeight()
+                                        )
+                                );
+            
         } catch (ModelException ex) {
             Logger.getLogger(CommentController.class.getName()).log(Level.SEVERE, null, ex);
         }
