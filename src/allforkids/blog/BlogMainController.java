@@ -140,7 +140,7 @@ public class BlogMainController implements Initializable {
                 Pane newLoadedPane = loader.load();
                 ChipController controller = loader.<ChipController>getController();
                 controller.setTagName(tagName);
-                controller.setBlogMainParentController(this);
+                controller.setOnRemove(a -> removeTag(a));
                 this.tagsHBox.getChildren().add(newLoadedPane);
                 this.tags.put(tagName, newLoadedPane);
                 this.tagTF.clear();
