@@ -6,29 +6,11 @@
 package allforkids.orderManagement.models;
 
 //import allforkids.orderManagement.controllers.OrderView;
-import allforkids.orderManagement.controllers.TreeOrderController;
-import allforkids.orderManagement.models.Order.OrderStatus;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import allforkids.store.models.Product;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Spinner;
-import static javafx.scene.control.Spinner.STYLE_CLASS_ARROWS_ON_LEFT_HORIZONTAL;
-import static javafx.scene.control.Spinner.STYLE_CLASS_ARROWS_ON_LEFT_VERTICAL;
-import static javafx.scene.control.Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL;
-import static javafx.scene.control.Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL;
-import javafx.scene.image.ImageView;
+import allforkids.userManagement.models.User;
 
 /**
  *
@@ -42,13 +24,14 @@ public class fffff {
      */
     public static void main(String[] args) throws ModelException, UnsupportedDataTypeException {
 
-        System.setProperty("host", "127.0.0.1");
+        System.setProperty("host", "pma.allforkids.ml");
         System.setProperty("port", "3306");
         System.setProperty("database", "from_scratch");
-        System.setProperty("user", "root");
-        System.setProperty("password", "");
+        System.setProperty("user", "wassim");
+        System.setProperty("password", "Lpd*de7W");
+        System.setProperty("uploads_folder", "D:/Esprit/Projets/Java Web/AllForKids(kbach)/uploads/");
 
-        Order o = Model.find(Order.class, 1);
+          Order o = Model.find(Order.class, 8);
 //        o.setOrderStatus(OrderStatus.VERIFICATIONREQUIRED);
 //        o.save();
 //        System.out.println(o.getOrderStatus());
@@ -112,9 +95,21 @@ public class fffff {
 //
 //        orders.stream().forEach(p -> System.out.println(p.getAmount() + "" + p.getCreationDate()));
 //
-        User u = Model.find(User.class, 5);
+
+ //       System.out.println(randomStringGenerator.generateString());
+
+
+        User u = Model.find(User.class, 1);
         System.out.println(u.getUserShoppingCart());
-//        String link = (String) u.getUserShoppingCart().lineItems().get(0).product().getAttr("image_link");
+        
+        Product p = Model.find(Product.class, 1);
+        Product p1 = Model.find(Product.class, 2);
+        Product p2 = Model.find(Product.class, 3);
+        Product p3 = Model.find(Product.class, 4);
+        
+        u.getUserShoppingCart().addItemToShoppingCart(p);
+        
+//      String link = (String) u.getUserShoppingCart().lineItems().get(0).product().getAttr("image_link");
 //        System.out.println(link);
         //ImageView v = new ImageView("D:/Esprit/Projets/Java Web/AllForKids(kbach)/src/allforkids/orderManagement/views/image/" + link + ".jpg");
         // ImageView v = new ImageView("D:/" + link + ".jpg");

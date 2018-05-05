@@ -5,6 +5,7 @@
  */
 package allforkids.orderManagement.controllers;
 
+import allforkids.userManagement.models.User;
 import allforkids.orderManagement.models.*;
 import com.jfoenix.controls.JFXButton;
 import com.sun.prism.impl.Disposer.Record;

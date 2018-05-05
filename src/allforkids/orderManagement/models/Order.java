@@ -5,13 +5,15 @@
  */
 package allforkids.orderManagement.models;
 
-import static allforkids.orderManagement.models.Helpers.currencyFormatter;
+import allforkids.userManagement.models.User;
+import allforkids.store.models.*;
 import dopsie.core.Model;
 import dopsie.dataTypes.Date;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
+import helpers.Helpers;
+import static helpers.Helpers.currencyFormatter;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  *
@@ -86,7 +88,7 @@ public class Order extends Model {
     boolean isShoppingCart() {
 
         boolean flag = true;
-        if (!this.getAttr("shopping_cart").toString().matches("0")) {
+        if (!this.getAttr("order_status").toString().matches("0")) {
             flag = false;
         }
 
@@ -270,7 +272,7 @@ public class Order extends Model {
              
         }else{
             this.setAttr("order_status", OrderStatus.PENDING.name());
-            //System.out.println("nothing to update");
+     
         }
         
         this.save();
