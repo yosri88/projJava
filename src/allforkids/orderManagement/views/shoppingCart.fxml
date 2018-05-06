@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -34,7 +35,7 @@
                         <Insets bottom="12.0" left="5.0" right="5.0" top="12.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton styleClass="primary-btn" text="Main Menu">
+                  <JFXButton fx:id="goToStore" onAction="#goToStore" styleClass="primary-btn" text="Back to store ">
                      <HBox.margin>
                         <Insets bottom="12.0" left="5.0" right="12.0" top="12.0" />
                      </HBox.margin>
@@ -45,22 +46,29 @@
       </BorderPane>
       <BorderPane layoutX="-12.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <right>
-            <AnchorPane prefHeight="540.0" prefWidth="166.0" style="-fx-border-color: gray; -fx-border-width: 0 0 0 2;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="540.0" prefWidth="375.0" style="-fx-border-color: gray; -fx-border-width: 0 0 0 2;" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="nbrItem" layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="176.0" text="Total amount" />
-                  <Label fx:id="totalHT" layoutX="25.0" layoutY="64.0" prefHeight="18.0" prefWidth="73.0" text="TotalHT" />
-                  <JFXButton fx:id="filterButton1" layoutX="46.0" layoutY="186.0" styleClass="primary-btn" text="Make the Order" />
-                  <Label fx:id="nbrItem1" layoutX="86.0" layoutY="48.0" prefHeight="50.0" prefWidth="42.0" text=" TND" />
+                  <Label fx:id="nbrItem" layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="161.0" style="-fx-background-color: lightblue;" text="nbritem" />
+                  <Label fx:id="totalHT" layoutX="40.0" layoutY="152.0" prefHeight="18.0" prefWidth="73.0" text="TotalHT" />
+                  <JFXButton fx:id="filterButton1" layoutX="129.0" layoutY="457.0" prefHeight="48.0" prefWidth="117.0" styleClass="primary-btn" text="CheckOut" />
+                  <Label fx:id="nbrItem1" layoutX="146.0" layoutY="136.0" prefHeight="50.0" prefWidth="42.0" text=" TND" />
+                  <Label fx:id="shippementLabel" layoutX="14.0" layoutY="66.0" prefHeight="40.0" prefWidth="164.0" style="-fx-background-color: lightblue;" text="shipping" />
+                  <Label fx:id="totalHT" layoutX="188.0" layoutY="14.0" prefHeight="40.0" prefWidth="161.0" style="-fx-background-color: lightblue;" text="totalht" />
+                  <Label fx:id="shippementFee" layoutX="187.0" layoutY="66.0" prefHeight="40.0" prefWidth="164.0" style="-fx-background-color: lightblue;" text="shippementfee" />
                </children></AnchorPane>
          </right>
          <center>
-            <TableView fx:id="itemsTableView" prefHeight="540.0" prefWidth="810.0" styleClass="noheader" stylesheets="@shopping.css" BorderPane.alignment="CENTER">
+            <TableView fx:id="itemsTableView" prefHeight="540.0" prefWidth="755.0" stylesheets="@shopping.css" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="imageItemColumn" prefWidth="181.60003358125687" text="image" />
                 <TableColumn fx:id="descriptionAndPriceColumn" minWidth="0.0" prefWidth="190.40003967285156" text="Description" />
                   <TableColumn fx:id="quantityColumn" prefWidth="111.20001220703125" text="Quantity" />
-                  <TableColumn fx:id="totalItemRowColumn" prefWidth="201.5999755859375" text="Total" />
+                  <TableColumn fx:id="totalItemRowColumn" prefWidth="160.79999999999995" text="Total" />
               </columns>
+               <styleClass>
+                  <String fx:value="noheader" />
+                  <String fx:value="table-cell" />
+               </styleClass>
             </TableView>
          </center>
       </BorderPane>

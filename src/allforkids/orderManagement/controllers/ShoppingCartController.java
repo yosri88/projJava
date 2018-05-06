@@ -12,6 +12,7 @@ import com.sun.prism.impl.Disposer.Record;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
+import helpers.NavigationService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,6 +32,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -82,7 +84,11 @@ public class ShoppingCartController implements Initializable {
     private Label nbrItem1;
 
     @FXML
-    private TableColumn<?, ?> total;
+    private JFXButton goToStore;
+    @FXML
+    private Label shippementLabel;
+    @FXML
+    private Label shippementFee;
 
     /**
      * Initializes the controller class.
@@ -97,7 +103,9 @@ public class ShoppingCartController implements Initializable {
         User u = null;
         Order o = null;
         try {
-            u = Model.find(User.class, 2);
+
+            u = Model.find(User.class, 1);
+            System.out.println(u);
 
             // TODO
         } catch (ModelException ex) {
@@ -106,10 +114,17 @@ public class ShoppingCartController implements Initializable {
 
         try {
             o = u.getUserShoppingCart();
+            System.out.println("current user shopping cart");
             System.out.println(o);
+            System.out.println("---------------------------");
+            System.out.println("line item" + o.lineItems());
+
             System.out.println(ShoppingitemList.stream().count());
+            String absolutePath = System.getProperty("uploads_folder");
             for (LineItem i : o.lineItems()) {
-                ImageView image = new ImageView("file:D:/Esprit/Projets/Java Web/AllForKids(kbach)/src/allforkids/orderManagement/views/image/" + i.product().getAttr("image_link") + ".jpg");
+                String imagePath = "file:" + absolutePath + i.product().getAttr("image") + ".jpg";
+                ImageView image = new ImageView(imagePath);
+                System.out.println(imagePath);
                 image.setFitHeight(100);
                 image.setFitWidth(100);
                 image.setPreserveRatio(false);
@@ -117,12 +132,12 @@ public class ShoppingCartController implements Initializable {
                 ShoppingitemList.add(new ShoppingItem(
                         (int) i.getAttr("id"),
                         image,
-                        (String) i.product().getAttr("product_name") + " : " + i.product().getAttr("product_price"),
+                        (String) i.product().getAttr("short_description") + " : " + i.product().getAttr("unit_price"),
                         (Integer) i.getAttr("quantity"),
                         i.getAttr("total").toString()
                 )
                 );
-                
+
             }
 
         } catch (ModelException ex) {
@@ -133,6 +148,7 @@ public class ShoppingCartController implements Initializable {
 
         // product item image column
         imageItemColumn.setCellValueFactory(new PropertyValueFactory<>("image"));
+        imageItemColumn.setPrefWidth(110);
 
         // produc (description + unit price) column
         descriptionAndPriceColumn.setCellValueFactory(new PropertyValueFactory<>("descriptionPice"));
@@ -193,7 +209,11 @@ public class ShoppingCartController implements Initializable {
                 System.out.println("efreshing . . . . . . . . . . . . . ");
             }
         });
+    }
 
+    @FXML
+    private void goToStore(ActionEvent event) {
+        NavigationService.goTo(event, this, "/allforkids/store/ProductsList.fxml");
     }
 
     public class ShoppingItem {
@@ -204,8 +224,6 @@ public class ShoppingCartController implements Initializable {
         private int quantity;
         private StringProperty total;
         private Button deleteItem;
-
-
 
         public ShoppingItem(int id, ImageView image, String descriptionPice, int quantity, String total) {
             this.id = id;
@@ -242,6 +260,7 @@ public class ShoppingCartController implements Initializable {
 
         public void updateItemRow() {
             String str = getDescriptionPice();
+            System.out.println("=== description ==== : " +str);
             Pattern p = Pattern.compile(" : (.*)");
             Matcher m = p.matcher(str);
 
@@ -259,8 +278,8 @@ public class ShoppingCartController implements Initializable {
 
         }
 
-        public StringProperty getTotal() {
-            return total;
+        public String getTotal() {
+            return total.getValue();
         }
 
         public void setTotal(int qty, Double unitPrice) {

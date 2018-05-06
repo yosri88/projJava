@@ -7,6 +7,8 @@ package allforkids.store;
 
 import allforkids.store.models.Category;
 import allforkids.store.models.Product;
+import allforkids.userManagement.models.User;
+import allforkids.userManagement.models.UserSession;
 import com.sun.javafx.scene.control.skin.TableHeaderRow;
 import com.sun.javafx.scene.control.skin.TableViewSkinBase;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -93,8 +95,15 @@ public class ProductsListController implements Initializable {
         });
         
         // Cart Button
+        User u = UserSession.getInstance();
         cartIcon.setIcon(FontAwesomeIcon.SHOPPING_CART);
-        cartLabel.setText("Cart (0)");
+        try {
+            cartLabel.setText("Cart ("+u.getUserShoppingCart().getNumberOfLineItem()+")");
+        } catch (ModelException ex) {
+            Logger.getLogger(ProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedDataTypeException ex) {
+            Logger.getLogger(ProductsListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     private void showProducts(ArrayList<Product> productsToShow) {
@@ -120,7 +129,7 @@ public class ProductsListController implements Initializable {
     
     @FXML
     private void goToCart(ActionEvent event) {
-        
+         NavigationService.goTo(event, this, "/allforkids/orderManagement/views/shoppingCart.fxml");
     }
 
     @FXML

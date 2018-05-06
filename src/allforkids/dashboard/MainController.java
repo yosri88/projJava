@@ -130,4 +130,9 @@ public class MainController implements Initializable {
     private void goToProducts(ActionEvent event) {
         NavigationService.goTo(event, this, "/allforkids/dashboard/store/ProductsList.fxml");
     }
+
+    @FXML
+    private void goToOrderManagement(ActionEvent event) {
+        NavigationService.goTo(event, this, "/allforkids/orderManagement/views/ordersTable.fxml");
+    }
 }

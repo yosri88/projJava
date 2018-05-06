@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
@@ -27,13 +28,14 @@ import javafx.scene.control.TableView;
 //Define the button cell
 public class ButtonCell extends TableCell<Record, Boolean> {
 
-    final JFXButton cellButton = new JFXButton("Delete");
-
+    public JFXButton cellButton = new JFXButton("Delete");
+    
     ButtonCell(ObservableList<ShoppingItem> thisList) {
-
+        cellButton.setStyle("-fx-font-size:14px;-fx-background-color:RED;");
+        cellButton.setAlignment(Pos.CENTER);
         //Action when the button is pressed
         cellButton.setOnAction(new EventHandler<ActionEvent>() {
-
+            
             @Override
             public void handle(ActionEvent t) {
                 // get Selected Item

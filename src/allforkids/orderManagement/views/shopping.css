@@ -8,8 +8,12 @@ and open the template in the editor.
     Author     : KHOUBEIB
 */
 
-.noheader .column-header-background {
+.noheader .column-header-background  {
     -fx-max-height: 0;
     -fx-pref-height: 0;
     -fx-min-height: 0;
+}
+
+.table-cell {
+    -fx-alignment: center-left;
 }

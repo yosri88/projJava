@@ -6,6 +6,7 @@
 package allforkids.orderManagement.models;
 
 //import allforkids.orderManagement.controllers.OrderView;
+import allforkids.orderManagement.models.Order.OrderStatus;
 import allforkids.store.models.Product;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
@@ -99,15 +100,23 @@ public class fffff {
  //       System.out.println(randomStringGenerator.generateString());
 
 
-        User u = Model.find(User.class, 1);
-        System.out.println(u.getUserShoppingCart());
+//        User u = Model.find(User.class, 1);
+//        System.out.println(u.getUserShoppingCart());
+//        
+//        Product p = Model.find(Product.class, 1);
+//        Product p1 = Model.find(Product.class, 2);
+//        Product p2 = Model.find(Product.class, 3);
+//        Product p3 = Model.find(Product.class, 6);
         
-        Product p = Model.find(Product.class, 1);
-        Product p1 = Model.find(Product.class, 2);
-        Product p2 = Model.find(Product.class, 3);
-        Product p3 = Model.find(Product.class, 4);
-        
-        u.getUserShoppingCart().addItemToShoppingCart(p2);
+      //  u.getUserShoppingCart().addItemToShoppingCart(p3);
+        System.out.println(Order.OrderStatus.valueOf("CANCELLED").ordinal());
+        String s = Order.OrderStatus.valueOf("COMPLETED").statusName();
+        for (OrderStatus ww : OrderStatus.values()){
+            if  (ww.statusName().equals(s)){
+                System.out.println(ww.ordinal());
+            }
+            
+        }
         
 //      String link = (String) u.getUserShoppingCart().lineItems().get(0).product().getAttr("image_link");
 //        System.out.println(link);

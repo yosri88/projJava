@@ -23,16 +23,17 @@ public class Order extends Model {
 
     public enum OrderStatus {
         SHOPPINGCART("Shopping Cart"),
-        PENDING("Pending"),
-        AWAITINGPAYMENT("Awaiting Payment"),
-        AWAINTINGSHIPMENT("Awaiting Shipment"),
-        COMPLETED("Completed"),
-        SHIPPED("Shipped"),
+        //      PENDING("Pending"),
+        //      AWAITINGPAYMENT("Awaiting Payment"),
+        //      AWAINTINGSHIPMENT("Awaiting Shipment"),
+        COMPLETED("Payment Completed"),
+        //      SHIPPED("Shipped"),
         CANCELLED("Cancelled"),
-        DECLINED("Declined"),
-        REFUNDED("Refunded"),
-        DISPUTED("Disputed"),
-        VERIFICATIONREQUIRED("Verification Required");
+        //      DECLINED("Declined"),
+        //      REFUNDED("Refunded"),
+        //      DISPUTED("Disputed"),
+        //      VERIFICATIONREQUIRED("Verification Required");
+        REFUSED("Refused");
 
         private String statusName;
 
@@ -43,10 +44,6 @@ public class Order extends Model {
 
         public String statusName() {
             return statusName;
-        }
-
-        public int statusNumber() {
-            return this.ordinal();
         }
     };
 
@@ -70,11 +67,11 @@ public class Order extends Model {
     }
 
     public User customer() throws ModelException {
-        return this.hasOne(User.class);
+        return this.hasOne(User.class, "customer_id");
     }
 
     public ShippingMethod shippingMethod() throws ModelException {
-        return this.hasOne(ShippingMethod.class);
+        return this.hasOne(ShippingMethod.class, "shipping_method_id");
     }
 
     //public Address deliveryAddress() throws ModelException{
@@ -112,7 +109,7 @@ public class Order extends Model {
                 System.out.println("========= It's NOT a new Item =============");
                 newItem = false;
                 lineItem.incrementQuantity();
-                thisLine = lineItem;
+
             }
         }
 
@@ -124,14 +121,46 @@ public class Order extends Model {
             lineItem.setAttr("quantity", 1);
             Double unitPrice = (Double) p.getAttr("unit_price");
             float vatRate = (float) p.getAttr("vat_rate");
-            this.setAttr("total", (unitPrice));
-            this.setAttr("vat", (unitPrice / 100 * vatRate));
-            thisLine = lineItem;
+            lineItem.setAttr("total", unitPrice);
+            lineItem.setAttr("vat", (Double) (unitPrice * vatRate / 100));
+            lineItem.save();
 
         }
 
-        thisLine.save();
+    }
 
+    public boolean addItemToShoppingCart(Product p, int qty) throws ModelException, UnsupportedDataTypeException {
+        boolean newItem = true;
+        LineItem thisLine = null;
+
+        for (LineItem lineItem : this.lineItems()) {
+
+            if (lineItem.product().getAttr("id") == p.getAttr("id")) {
+                System.out.println("========= It's NOT a new Item =============");
+                newItem = false;
+                lineItem.incrementQuantity(qty);
+//                lineItem.setAttr("vat", (float)p.getAttr("vat_rate") * (Double)p.getAttr("unit_price") * qty / 100);
+//                lineItem.setAttr("total", (Double) p.getAttr("unit_price") * qty );
+//                lineItem.save();
+
+            }
+        }
+
+        if (newItem) {
+            System.out.println("========= It's a new Item =============");
+            LineItem lineItem = new LineItem();
+            lineItem.setAttr("product_id", p.getAttr("id"));
+            lineItem.setAttr("order_id", this.getAttr("id"));
+            lineItem.setAttr("quantity", 1);
+            Double unitPrice = (Double) p.getAttr("unit_price");
+            float vatRate = (float) p.getAttr("vat_rate");
+            lineItem.setAttr("total", unitPrice * qty);
+            lineItem.setAttr("vat", (Double) (unitPrice * vatRate * qty / 100));
+            lineItem.save();
+
+        }
+
+        return newItem;
     }
 
     public int getNumberOfLineItem() throws ModelException {
@@ -164,7 +193,12 @@ public class Order extends Model {
 
     public void setOrderStatusByName(String status) {
 
-        int index = OrderStatus.valueOf(status).ordinal();
+        int index = 0;
+        for (OrderStatus ww : OrderStatus.values()) {
+            if (ww.statusName().equals(status)) {
+                index = ww.ordinal();
+            }
+        }
         this.setAttr("order_status", index);
     }
 
@@ -263,10 +297,10 @@ public class Order extends Model {
 
     public void updateOrderStatus() throws ModelException, UnsupportedDataTypeException {
         if (this.getTotalPayment() - this.getOrderTotalWithVAT() == 0) {
-            this.setAttr("order_status", OrderStatus.AWAINTINGSHIPMENT.name());
+            this.setAttr("order_status", OrderStatus.COMPLETED.name());
 
         } else {
-            this.setAttr("order_status", OrderStatus.PENDING.name());
+            this.setAttr("order_status", OrderStatus.REFUSED.name());
 
         }
 

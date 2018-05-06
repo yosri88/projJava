@@ -32,7 +32,7 @@ public class LineItem extends Model {
         return this.hasOne(Product.class);
     }
 
-    void incrementQuantity() throws ModelException {
+    void incrementQuantity() throws ModelException, UnsupportedDataTypeException {
 
         int qty = (int) this.getAttr("quantity");
         qty++;
@@ -41,6 +41,21 @@ public class LineItem extends Model {
         float vatRate = (float) this.product().getAttr("vat_rate");
         this.setAttr("total", (unitPrice * qty));
         this.setAttr("vat", (unitPrice * qty / 100 *vatRate ));
+        this.save();
+        
+        
+    }
+    
+       void incrementQuantity( int newQty) throws ModelException, UnsupportedDataTypeException {
+
+        int qty = (int) this.getAttr("quantity");
+        qty = qty + newQty;
+        this.setAttr("quantity", qty);
+        Double unitPrice = (Double) this.product().getAttr("unit_price") ;
+        float vatRate = (float) this.product().getAttr("vat_rate");
+        this.setAttr("total", (unitPrice * qty));
+        this.setAttr("vat", (unitPrice * qty / 100 *vatRate ));
+        this.save();
         
         
     }
@@ -55,6 +70,7 @@ public class LineItem extends Model {
     void setQuantity(int quantity) {
 
         this.setAttr("quantity", quantity);
+        
     }
 
     int getQuantity() {

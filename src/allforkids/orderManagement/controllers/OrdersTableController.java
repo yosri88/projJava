@@ -6,6 +6,7 @@
 package allforkids.orderManagement.controllers;
 
 import allforkids.orderManagement.models.Order;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -14,8 +15,8 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
+import helpers.NavigationService;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,32 +27,38 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.ChoiceBoxTreeTableCell;
-import javafx.scene.control.cell.ComboBoxTreeTableCell;
 
 /**
  * FXML Controller class
  *
  * @author KHOUBEIB
  */
-public class TreeOrderController implements Initializable {
+public class OrdersTableController implements Initializable {
 
+    /**
+     * Initializes the controller class.
+     */
     @FXML
     private JFXTreeTableView<OrderView> treeView;
     @FXML
     private JFXTextField inputField;
+    @FXML
+    private JFXButton filterButton;
+    @FXML
+    private JFXButton goToMain;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -93,14 +100,14 @@ public class TreeOrderController implements Initializable {
         try {
             allOrderList = Model.fetch(Order.class).all().execute();
         } catch (ModelException | UnsupportedDataTypeException ex) {
-            Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrdersTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
           DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
         for (Order o : allOrderList){
             try {
                 orders.add(new OrderView(
                         String.valueOf(o.getAttr("id")),
-                        (String)o.getAttr("order_reference"),
+                        (String)o.getAttr("reference"),
                         o.customer().getFullName(),
                         o.getOrderStatusName(),
                         o.shippingMethod().getMethodName(),
@@ -109,7 +116,7 @@ public class TreeOrderController implements Initializable {
                 ));
                 
             } catch (ModelException ex) {
-                Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrdersTableController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -148,9 +155,9 @@ public class TreeOrderController implements Initializable {
                     System.out.println("***********************"+event.getNewValue()+orderId);
                     currentEditingOrder.getValue().setStatus(event.getNewValue(), orderId);
                 } catch (ModelException ex) {
-                    Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(OrdersTableController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (UnsupportedDataTypeException ex) {
-                    Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(OrdersTableController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -176,9 +183,14 @@ public class TreeOrderController implements Initializable {
             }
         });
     }
+
+    @FXML
+    private void goToMain(ActionEvent event) {
+         NavigationService.goTo(event, this, "/allforkids/dashboard/Main.fxml");
+    }
 }
 
-    class OrderViews extends RecursiveTreeObject<OrderView> {
+    class OrderView extends RecursiveTreeObject<OrderView> {
        
     StringProperty id;    
     StringProperty reference;
@@ -188,7 +200,7 @@ public class TreeOrderController implements Initializable {
     StringProperty creationDate;
     StringProperty amount;
 
-    public OrderViews(String id, String reference, String customer, String status, String shippingMethod, String creationDate, String amount) {
+    public OrderView(String id, String reference, String customer, String status, String shippingMethod, String creationDate, String amount) {
         this.id =  new SimpleStringProperty(id);
      //   this.id =  id ;
         this.reference = new SimpleStringProperty(reference);
@@ -229,18 +241,11 @@ public class TreeOrderController implements Initializable {
 
         int id = 0;
         try {
-//            ResultSet rs = Order.sqlQuery("SELECT * from `order` where `order_reference` =\""+ref+"\";");
             ArrayList<Order> o = Model.fetch(Order.class).all().where("order_reference","=", ref ).execute();
             System.out.println("-----------------------"+o);
-//            while (rs.next()) {
-//
-//                System.out.println("rs get int ==> : " + rs.getInt("id"));
-//                id= rs.getInt("id");
-//                
-//            }
 
         } catch (UnsupportedDataTypeException ex) {
-            Logger.getLogger(TreeOrderController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrdersTableController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -254,13 +259,15 @@ public class TreeOrderController implements Initializable {
 
     public static void setStatus(String newStatus, String id) throws ModelException, UnsupportedDataTypeException {
 
+        
         System.out.println("new status : "+ newStatus + "--  order id est : "+id);
         
         Order od = Model.find(Order.class, Integer.parseInt(id));
-        System.out.println("order à modifier : "+od);
-        od.setAttr("order_status", newStatus);
+        od.setOrderStatusByName(newStatus);
+//        System.out.println("order à modifier : "+od);
+//        od.setAttr("order_status", newStatus);
         od.save();
         
     }
-
+    
 }
