@@ -95,11 +95,12 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <TableView fx:id="categoriesTableView" maxHeight="513.0" minHeight="513.0" onMouseClicked="#selectCategory" prefHeight="513.0" prefWidth="198.0">
+                  <TableView fx:id="categoriesTableView" maxHeight="513.0" minHeight="475.0" onMouseClicked="#selectCategory" prefHeight="475.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="categoriesCol" editable="false" maxWidth="198.0" prefWidth="198.0" resizable="false" sortType="DESCENDING" sortable="false" />
                     </columns>
                   </TableView>
+                  <JFXButton onAction="#goToStores" prefHeight="35.0" prefWidth="200.0" styleClass="primary-btn" text="Our stores" />
                </children>
             </VBox>
          </left>
