@@ -17,3 +17,10 @@ and open the template in the editor.
 .table-cell {
     -fx-alignment: center-left;
 }
+
+
+.primary-btn {
+    -jfx-button-type: FLAT; 
+    -fx-background-color: #428bca; 
+    -fx-text-fill: white;
+}

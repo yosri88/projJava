@@ -9,15 +9,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="1024.0" minHeight="600.0" minWidth="1024.0" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.orderManagement.controllers.ShoppingCartController">
+<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="1024.0" minHeight="600.0" minWidth="1024.0" prefHeight="600.0" prefWidth="1024.0" stylesheets="@shopping.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.orderManagement.controllers.ShoppingCartController">
    <children>
       <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="1024.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <Label text="Shopping cart" textFill="#e8e8e8" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="30.0" />
+                  <Font size="25.0" />
                </font>
                <BorderPane.margin>
                   <Insets />
@@ -30,11 +31,6 @@
          <right>
             <HBox prefHeight="60.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="filterButton" styleClass="primary-btn" text="Filter/Search">
-                     <HBox.margin>
-                        <Insets bottom="12.0" left="5.0" right="5.0" top="12.0" />
-                     </HBox.margin>
-                  </JFXButton>
                   <JFXButton fx:id="goToStore" onAction="#goToStore" styleClass="primary-btn" text="Back to store ">
                      <HBox.margin>
                         <Insets bottom="12.0" left="5.0" right="12.0" top="12.0" />
@@ -46,28 +42,92 @@
       </BorderPane>
       <BorderPane layoutX="-12.0" layoutY="-3.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <right>
-            <AnchorPane prefHeight="540.0" prefWidth="375.0" style="-fx-border-color: gray; -fx-border-width: 0 0 0 2;" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="nbrItem" layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="161.0" style="-fx-background-color: lightblue;" text="nbritem" />
-                  <Label fx:id="totalHT" layoutX="40.0" layoutY="152.0" prefHeight="18.0" prefWidth="73.0" text="TotalHT" />
-                  <JFXButton fx:id="filterButton1" layoutX="129.0" layoutY="457.0" prefHeight="48.0" prefWidth="117.0" styleClass="primary-btn" text="CheckOut" />
-                  <Label fx:id="nbrItem1" layoutX="146.0" layoutY="136.0" prefHeight="50.0" prefWidth="42.0" text=" TND" />
-                  <Label fx:id="shippementLabel" layoutX="14.0" layoutY="66.0" prefHeight="40.0" prefWidth="164.0" style="-fx-background-color: lightblue;" text="shipping" />
-                  <Label fx:id="totalHT" layoutX="188.0" layoutY="14.0" prefHeight="40.0" prefWidth="161.0" style="-fx-background-color: lightblue;" text="totalht" />
-                  <Label fx:id="shippementFee" layoutX="187.0" layoutY="66.0" prefHeight="40.0" prefWidth="164.0" style="-fx-background-color: lightblue;" text="shippementfee" />
-               </children></AnchorPane>
+            <BorderPane BorderPane.alignment="CENTER">
+               <center>
+                  <VBox>
+                     <children>
+                        <Label fx:id="nbrItem" prefHeight="17.0" prefWidth="331.0" style="-fx-border-color: #428bca; -fx-border-radius: 5px;" text="Number of Items" textFill="#2f2f2f">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="totalHT" prefHeight="40.0" prefWidth="331.0" style="-fx-border-color: #428bca; -fx-border-radius: 5px;" text="VAT.free Total" textFill="#2f2f2f">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="shippementLabel" prefHeight="40.0" prefWidth="331.0" style="-fx-border-color: #428bca; -fx-border-radius: 5px;" text="Shipping Type" textFill="#2f2f2f">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="shippementFee" prefHeight="40.0" prefWidth="330.0" style="-fx-border-color: #428bca; -fx-border-radius: 5px;" text="Shipment fee" textFill="#2f2f2f">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </VBox>
+               </center>
+               <bottom>
+                  <VBox BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label fx:id="totalTTC" prefHeight="37.0" prefWidth="156.0" text="Total TTC">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="nbrItem1" prefHeight="18.0" prefWidth="72.0" text=" TND">
+                                 <padding>
+                                    <Insets bottom="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <JFXButton fx:id="filterButton1" prefWidth="327.0" style="-fx-background-color: green;" styleClass="primary-btn" text="CheckOut" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </bottom>
+            </BorderPane>
          </right>
          <center>
-            <TableView fx:id="itemsTableView" prefHeight="540.0" prefWidth="755.0" stylesheets="@shopping.css" BorderPane.alignment="CENTER">
+            <TableView fx:id="itemsTableView" prefHeight="540.0" prefWidth="648.0" stylesheets="@shopping.css" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="imageItemColumn" prefWidth="181.60003358125687" text="image" />
-                <TableColumn fx:id="descriptionAndPriceColumn" minWidth="0.0" prefWidth="190.40003967285156" text="Description" />
-                  <TableColumn fx:id="quantityColumn" prefWidth="111.20001220703125" text="Quantity" />
-                  <TableColumn fx:id="totalItemRowColumn" prefWidth="160.79999999999995" text="Total" />
+                <TableColumn fx:id="descriptionAndPriceColumn" minWidth="0.0" prefWidth="272.8359069824219" text="Description" />
+                  <TableColumn fx:id="quantityColumn" onEditCommit="#quantityChanged" onEditStart="#quantityChanged" prefWidth="74.16409301757812" text="Quantity" />
+                  <TableColumn fx:id="totalItemRowColumn" prefWidth="126.0" text="Total" />
               </columns>
                <styleClass>
-                  <String fx:value="noheader" />
                   <String fx:value="table-cell" />
+                  <String fx:value="noheader" />
                </styleClass>
             </TableView>
          </center>

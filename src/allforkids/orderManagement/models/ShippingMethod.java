@@ -27,4 +27,8 @@ public class ShippingMethod extends Model {
     public  String getMethodName() {
         return (String) this.getAttr("name");
     }
+    
+    public  Float getFee() {
+        return (Float) this.getAttr("extra_fee");
+    }
 }

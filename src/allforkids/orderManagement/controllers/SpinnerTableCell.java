@@ -5,14 +5,9 @@
  */
 package allforkids.orderManagement.controllers;
 
-import allforkids.orderManagement.controllers.ShoppingCartController.ShoppingItem;
 import java.util.function.BiConsumer;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableCell;
-import javafx.scene.control.TableView;
 
 /**
  *
@@ -21,23 +16,34 @@ import javafx.scene.control.TableView;
 public class SpinnerTableCell<S, T extends Integer> extends TableCell<S, T> {
 
     private final Spinner<T> spinner;
-   
 
     public SpinnerTableCell(int stock, BiConsumer<S, T> update, int step) {
+        this.spinner = new Spinner<>(0, 20, 1);
+        this.spinner.setEditable(false);
+//
+        spinner.setOnScroll(e -> {
+            if (e.getDeltaY() > 0) {
+                spinner.increment(1);
+                System.out.println("increment");
+            } else {
+                spinner.decrement(1);
+                System.out.println("decrement");
+            }
 
-        
-        this.spinner = new Spinner<>(0, stock, step);
-        this.spinner.setEditable(true);
+        });
+        spinner.setOnMouseClicked(e -> {
+            String eventTarget = e.getTarget().toString();
+            S item = getTableView().getItems().get(getIndex());
+            if(eventTarget.contains("increment-arrow-button")) {
+                System.out.println("increment");
+                update.accept(item, (T) new Integer(1));
+            } else {
+                System.out.println("decrement");
+                update.accept(item, (T) new Integer(-1));
+                System.out.println(new Integer(-1));
+            }
+        });
 
-        this.spinner.valueProperty().addListener((observable, oldValue, newValue)
-                -> update.accept(getTableView().getItems().get(getIndex()), newValue)
-        );
-        
-  
-        
-        
-        
-      
     }
 
     @Override
