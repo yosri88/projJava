@@ -44,7 +44,6 @@ public class ProductCardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
         
     public void setProduct(Product product) {
@@ -57,10 +56,12 @@ public class ProductCardController implements Initializable {
         if(imagePath != null) {
             String absolutePath =  System.getProperty("uploads_folder");
             imagePath = "file:" + absolutePath + imagePath;
-            double imageWidth = imageContainer.getPrefWidth();
-            double imageHeight = imageContainer.getPrefHeight();
-            imageContainer.getChildren().add(new CustomImageViewPane(imagePath, imageWidth, imageHeight));
+        } else {
+            imagePath = "/img/default-product.png";
         }
+        double imageWidth = imageContainer.getPrefWidth();
+        double imageHeight = imageContainer.getPrefHeight();
+        imageContainer.getChildren().add(new CustomImageViewPane(imagePath, imageWidth, imageHeight));
     }
     
     @FXML

@@ -100,12 +100,12 @@
       </StackPane>
       <ImageView fitHeight="371.0" fitWidth="371.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-120.0">
          <image>
-            <Image url="@file:/Users/wattouma/Downloads/girl.png" />
+            <Image url="img/girl.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="353.0" fitWidth="353.0" layoutX="-157.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-120.0">
          <image>
-            <Image url="@file:/Users/wattouma/Downloads/boy.png" />
+            <Image url="img/boy.png" />
          </image>
       </ImageView>
    </children>
