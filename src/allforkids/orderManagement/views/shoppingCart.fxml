@@ -122,7 +122,7 @@
               <columns>
                 <TableColumn fx:id="imageItemColumn" prefWidth="181.60003358125687" text="image" />
                 <TableColumn fx:id="descriptionAndPriceColumn" minWidth="0.0" prefWidth="272.8359069824219" text="Description" />
-                  <TableColumn fx:id="quantityColumn" onEditCommit="#quantityChanged" onEditStart="#quantityChanged" prefWidth="74.16409301757812" text="Quantity" />
+                  <TableColumn fx:id="quantityColumn" prefWidth="74.16409301757812" text="Quantity" />
                   <TableColumn fx:id="totalItemRowColumn" prefWidth="126.0" text="Total" />
               </columns>
                <styleClass>

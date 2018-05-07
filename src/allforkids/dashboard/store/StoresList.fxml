@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="1024.0" minHeight="600.0" minWidth="1024.0" prefHeight="600.0" prefWidth="1024.0" stylesheets="@store.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.dashboard.store.ProductsListController">
+<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="1024.0" minHeight="600.0" minWidth="1024.0" prefHeight="600.0" prefWidth="1024.0" stylesheets="@store.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.dashboard.store.StoresListController">
    <children>
       <AnchorPane id="AnchorPane" layoutY="4.0" prefHeight="60.0" prefWidth="1024.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -19,19 +20,29 @@
                   <Insets right="12.0" />
                </padding>
             </HBox>
-            <JFXButton layoutX="940.0" layoutY="17.0" onAction="#goToMainMenu" styleClass="primary-btn" text="Main Menu" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="17.0" />
+            <JFXButton layoutX="940.0" layoutY="17.0" onAction="#backToProducts" styleClass="primary-btn" text="Back To Products" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="17.0" />
          </children>
       </AnchorPane>
       <BorderPane layoutY="61.0" prefHeight="45.0" prefWidth="1024.0">
          <center>
-            <HBox prefHeight="45.0" prefWidth="676.0">
+            <HBox prefHeight="45.0">
                <children>
-                  <JFXButton onAction="#goToAdd" styleClass="green-btn" text="Add">
+                  <JFXTextField fx:id="newStoreNameTf" promptText="Store name">
                      <HBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                      </HBox.margin>
-                  </JFXButton>
-                  <JFXButton onAction="#editClicked" styleClass="primary-btn" text="Edit">
+                  </JFXTextField>
+                  <JFXTextField fx:id="latTf" promptText="Latitude">
+                     <HBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="longTF" promptText="Longitude">
+                     <HBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <JFXButton onAction="#addStore" styleClass="green-btn" text="Add">
                      <HBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                      </HBox.margin>
@@ -44,36 +55,15 @@
                </children>
             </HBox>
          </center>
-         <right>
-            <HBox BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-               <children>
-                  <JFXButton onAction="#goToStores" prefHeight="27.0" prefWidth="115.0" styleClass="primary-btn" text="Manage Stores">
-                     <HBox.margin>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                     </HBox.margin>
-                  </JFXButton>
-                  <JFXButton onAction="#goToCategories" prefHeight="27.0" prefWidth="144.0" styleClass="primary-btn" text="Manage Categories">
-                     <HBox.margin>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                     </HBox.margin>
-                  </JFXButton>
-               </children>
-            </HBox>
-         </right>
       </BorderPane>
-      <TableView fx:id="productsTableView" editable="true" layoutY="105.0" prefHeight="495.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="105.0">
+      <TableView fx:id="storesTableView" editable="true" layoutY="105.0" prefHeight="495.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="105.0">
          <padding>
             <Insets left="-1.0" right="-1.0" />
          </padding>
          <columns>
-            <TableColumn fx:id="refCol" prefWidth="55.0" text="Ref" />
-            <TableColumn fx:id="nameCol" prefWidth="332.0" text="Name" />
-            <TableColumn fx:id="categoryCol" prefWidth="111.0" text="Category" />
-            <TableColumn fx:id="unitPriceCol" prefWidth="219.0" text="Unit Price" />
-            <TableColumn fx:id="descriptionCol" prefWidth="308.0" text="Short Description" />
+            <TableColumn fx:id="nameCol" onEditCommit="#inputModified" prefWidth="741.0" text="Name" />
+            <TableColumn fx:id="latCol" onEditCommit="#inputModified" prefWidth="146.0" text="Latitude" />
+            <TableColumn fx:id="lonCol" onEditCommit="#inputModified" prefWidth="137.0" text="Longitude" />
          </columns>
       </TableView>
    </children>

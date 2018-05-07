@@ -24,10 +24,7 @@ public class AllForKids extends Application {
         Parent root = null;
         try { 
             primaryStage.setResizable(false);
-            root = FXMLLoader.load(getClass().getResource("/allforkids/orderManagement/views/shoppingCart.fxml"));
-            //root = FXMLLoader.load(getClass().getResource("/allforkids/login/Login.fxml"));
-            //root = FXMLLoader.load(getClass().getResource("/allforkids/orderManagement/views/TreeOrder.fxml"));
-            //root = FXMLLoader.load(getClass().getResource("/allforkids/orderManagement/views/ordersTable.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/allforkids/login/Login.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setTitle("All For Kids");
             primaryStage.setScene(scene);
@@ -48,7 +45,7 @@ public class AllForKids extends Application {
         System.setProperty("database", "from_scratch");
         System.setProperty("user", "wassim");
         System.setProperty("password", "Lpd*de7W");
-        System.setProperty("uploads_folder", "D:/Esprit/Projets/Java Web/AllForKids(kbach)/uploads/products/");
+        System.setProperty("uploads_folder", "/Users/wattouma/Documents/www/AllForKidsWeb/data/");
         launch(args);
     }
     

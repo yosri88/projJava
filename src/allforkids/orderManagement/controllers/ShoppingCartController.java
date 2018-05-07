@@ -9,7 +9,6 @@ import allforkids.userManagement.models.User;
 import allforkids.orderManagement.models.*;
 import allforkids.userManagement.models.UserSession;
 import com.jfoenix.controls.JFXButton;
-import dopsie.core.Model;
 import dopsie.exceptions.ModelException;
 import dopsie.exceptions.UnsupportedDataTypeException;
 import helpers.DopsieCellBuilder;

@@ -148,5 +148,10 @@ public class ProductsListController implements Initializable {
         }
         showProducts(productsToShow);
     }
+
+    @FXML
+    private void goToStores(ActionEvent event) {
+        NavigationService.goTo(event, this, "Stores.fxml");
+    }
     
 }
