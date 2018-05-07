@@ -1,5 +1,4 @@
 package allforkids;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,11 +17,12 @@ import javafx.stage.Stage;
  * @author Wassim
  */
 public class AllForKids extends Application {
-
+    
     @Override
     public void start(Stage primaryStage) {
+        
         Parent root = null;
-        try {
+        try { 
             primaryStage.setResizable(false);
             root = FXMLLoader.load(getClass().getResource("/allforkids/login/Login.fxml"));
             Scene scene = new Scene(root);
@@ -32,6 +32,7 @@ public class AllForKids extends Application {
         } catch (Exception ex) {
             System.out.println(ex);
             System.out.println(ex.getMessage());
+            
         }
     }
 
@@ -45,8 +46,7 @@ public class AllForKids extends Application {
         System.setProperty("user", "wassim");
         System.setProperty("password", "Lpd*de7W");
         System.setProperty("uploads_folder", "/Users/wattouma/Documents/www/AllForKidsWeb/data/");
-        
         launch(args);
     }
-
+    
 }

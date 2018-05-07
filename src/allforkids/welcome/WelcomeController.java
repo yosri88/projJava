@@ -56,7 +56,7 @@ public class WelcomeController implements Initializable {
             goToDashboardBtn.setVisible(false);
         }
         avatarContainer.getChildren()
-                        .add(currentUser.getAvatarViewPane(40, 40));
+            .add(currentUser.getAvatarViewPane(40, 40));
     }    
 
 

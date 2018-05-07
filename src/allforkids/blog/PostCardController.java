@@ -6,8 +6,6 @@
 package allforkids.blog;
 
 import allforkids.blog.models.Post;
-import allforkids.blog.models.Tag;
-import allforkids.forum.models.User;
 import dopsie.exceptions.ModelException;
 import helpers.ChipController;
 import helpers.CustomImageViewPane;

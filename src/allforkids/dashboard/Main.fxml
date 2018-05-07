@@ -119,7 +119,7 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="OrdersMenu" prefHeight="270.0" prefWidth="270.0">
+                  <JFXButton fx:id="OrdersMenu" onAction="#goToOrderManagement" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
                         <VBox prefHeight="270.0" prefWidth="270.0">
                            <children>
@@ -140,7 +140,7 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="StatisticsMenu" prefHeight="270.0" prefWidth="270.0">
+                  <JFXButton fx:id="StatisticsMenu" onAction="#goToStats" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
                         <VBox prefHeight="270.0" prefWidth="270.0">
                            <children>

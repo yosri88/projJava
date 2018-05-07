@@ -14,7 +14,6 @@ and open the template in the editor.
     -fx-text-fill: white;
 }
 
-
 .green-btn {
     -jfx-button-type: FLAT; 
     -fx-background-color: green; 

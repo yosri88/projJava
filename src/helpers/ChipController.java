@@ -5,7 +5,6 @@
  */
 package helpers;
 
-import allforkids.dashboard.blog.SinglePostController;
 import allforkids.blog.BlogMainController;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
@@ -30,10 +29,6 @@ public class ChipController implements Initializable {
     private Label tagNameLabel;
     @FXML
     private JFXButton closeBtn;
-    
-    private SinglePostController parentController;
-    
-    private BlogMainController blogMainParentController;
     
     private Consumer<String> onRemove;
     
@@ -68,7 +63,7 @@ public class ChipController implements Initializable {
     public void setOnRemove(Consumer<String> onRemove) {
         this.onRemove = onRemove;
     }
-    
+   
     @FXML
     private void remove(ActionEvent event) {
         if(onRemove != null ) {

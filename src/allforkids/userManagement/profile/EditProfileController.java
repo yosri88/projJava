@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -152,6 +153,10 @@ public class EditProfileController implements Initializable {
     @FXML
     private void goToWelcome(ActionEvent event) {
         NavigationService.goTo(event, this, "/allforkids/welcome/Welcome.fxml");
+    }
+
+    private String getFileExtension(File file) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

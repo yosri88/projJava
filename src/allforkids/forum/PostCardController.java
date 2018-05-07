@@ -100,6 +100,7 @@ public class PostCardController implements Initializable {
                 this.downArrowBtn.setDisable(true);
                 this.reportBtn.setDisable(true);
             }
+
             if(post.userReported(currentUser)) {
                 reportBtn.setDisable(true);
             }

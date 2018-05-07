@@ -31,6 +31,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.DefaultStringConverter;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -58,6 +60,10 @@ public class PostsListController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        postsTableView.setEditable(true);
+        authorCol.setEditable(false);
+        titleCol.setEditable(true);
+        thumbnailCol.setEditable(true);
         
         try {
             posts = Model.fetch(Post.class).all().where("online", "1").execute();
@@ -76,11 +82,12 @@ public class PostsListController implements Initializable {
             }
             return null;
         }));
-        
+
         titleCol.setCellValueFactory(new DopsieCellBuilder(p -> {
             return ((Post) p).getAttr("title");
         }));
-        
+
+
         thumbnailCol.setCellValueFactory(new DopsieCellBuilder(p -> {
             return ((Post) p).getAttr("image_path");
         }));
@@ -131,8 +138,6 @@ public class PostsListController implements Initializable {
             } 
         }
     }
-    
- 
 
     @FXML
     private void goToEdit(ActionEvent event) {
@@ -156,5 +161,4 @@ public class PostsListController implements Initializable {
             Logger.getLogger(PostsListController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

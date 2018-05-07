@@ -141,7 +141,7 @@ public class PostDetailsController implements Initializable {
     }
 
     @FXML
-    private void addComment(ActionEvent event) {
+    private void addComment(ActionEvent event) throws ModelException, UnsupportedDataTypeException {
         String commentText = this.commentBodyTf.getText();
         if (!commentText.isEmpty()) {
             try {

@@ -45,6 +45,7 @@ public class AddUserController implements Initializable {
     private JFXTextField mailTF;
     @FXML
     private JFXComboBox<String> roleDropDown;
+
     @FXML
     private JFXTextField phoneTF;
 
@@ -85,6 +86,7 @@ public class AddUserController implements Initializable {
                 user.setAttr("username", username);
                 user.setAttr("email", email);
                 user.setAttr("phone", phone);
+
                 user.setAttr("password", BCrypt.hashpw(password, BCrypt.gensalt()));
                 user.setRole(Role.valueOf(role));
                 user.save();
