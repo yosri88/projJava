@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1024.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.dashboard.MainController">
+<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="1024.0" minHeight="600.0" minWidth="1024.0" prefHeight="600.0" prefWidth="1024.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allforkids.dashboard.MainController">
    <children>
       <BorderPane prefHeight="60.0" prefWidth="1024.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -27,9 +27,9 @@
             </Label>
          </left>
       </BorderPane>
-      <VBox layoutY="69.0" prefHeight="540.0" prefWidth="1024.0">
+      <VBox layoutY="69.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0">
          <children>
-            <HBox prefHeight="270.0" prefWidth="1024.0">
+            <HBox prefHeight="240.0">
                <children>
                   <JFXButton fx:id="usersMenu" onAction="#userMenuClicked" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
@@ -49,7 +49,7 @@
                         </VBox>
                      </graphic>
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton fx:id="blogMenu" onAction="#blogMenuClicked" prefHeight="270.0" prefWidth="270.0">
@@ -70,7 +70,7 @@
                         </VBox>
                      </graphic>
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton fx:id="forumMenu" onAction="#forumMenuClicked" prefHeight="270.0" prefWidth="270.0">
@@ -91,12 +91,12 @@
                         </VBox>
                      </graphic>
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXButton>
                </children>
             </HBox>
-            <HBox prefHeight="270.0" prefWidth="1024.0">
+            <HBox prefHeight="240.0">
                <children>
                   <JFXButton fx:id="productsMenu" onAction="#goToProducts" prefHeight="270.0" prefWidth="270.0">
                      <graphic>
@@ -116,7 +116,7 @@
                         </VBox>
                      </graphic>
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton fx:id="OrdersMenu" onAction="#goToOrderManagement" prefHeight="270.0" prefWidth="270.0">
@@ -137,7 +137,7 @@
                         </VBox>
                      </graphic>
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton fx:id="StatisticsMenu" onAction="#goToStats" prefHeight="270.0" prefWidth="270.0">
@@ -158,7 +158,7 @@
                         </VBox>
                      </graphic>
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXButton>
                </children>

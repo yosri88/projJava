@@ -112,7 +112,13 @@ public class ShoppingCartController implements Initializable {
         // product item image column
         imageItemColumn.setCellValueFactory(new DopsieCellBuilder(p -> {
             try {
-                String path = "file:" + absolutePath + (String)((LineItem)p).product().getAttr("image");
+                String path;
+                String imageRelPath = (String)((LineItem)p).product().getAttr("image");
+                if(!imageRelPath.isEmpty() && imageRelPath != null) {
+                    path = "file:" + absolutePath + imageRelPath;
+                } else {
+                    path = "/img/default-product.png";
+                }
                 ImageView productImage = new ImageView(path);
                 productImage.setFitHeight(100);
                 productImage.setFitWidth(100);

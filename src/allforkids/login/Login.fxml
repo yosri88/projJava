@@ -44,12 +44,12 @@
                         <JFXButton fx:id="goToRegister" layoutX="29.0" layoutY="294.0" onAction="#goToRegister" prefHeight="27.0" prefWidth="171.0" text="Register" />
                         <ImageView fitHeight="106.0" fitWidth="106.0" layoutX="140.0" layoutY="20.0">
                            <image>
-                              <Image url="@file:/Users/wattouma/Downloads/girl.png" />
+                              <Image url="img/girl.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="106.0" fitWidth="106.0" layoutX="246.0" layoutY="20.0">
                            <image>
-                              <Image url="@file:/Users/wattouma/Downloads/boy.png" />
+                              <Image url="img/boy.png" />
                            </image>
                         </ImageView>
                      </children>

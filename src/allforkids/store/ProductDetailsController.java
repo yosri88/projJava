@@ -117,12 +117,16 @@ public class ProductDetailsController implements Initializable {
         this.referenceLabel.setText((String) product.getAttr("reference"));
         String imagePath = (String) product.getAttr("image");
         if (imagePath != null) {
+            System.out.println(imagePath);
             String absolutePath = System.getProperty("uploads_folder");
             imagePath = "file:" + absolutePath + imagePath;
-            double imageWidth = imageContainer.getPrefWidth();
-            double imageHeight = imageContainer.getPrefHeight();
-            imageContainer.getChildren().add(new CustomImageViewPane(imagePath, imageWidth, imageHeight));
+        } else {
+            imagePath = "/img/default-product.png";   
         }
+        double imageWidth = imageContainer.getPrefWidth();
+        double imageHeight = imageContainer.getPrefHeight();
+        imageContainer.getChildren().add(new CustomImageViewPane(imagePath, imageWidth, imageHeight));
+        
         this.shortDescription.setText((String) product.getAttr("short_description"));
         final WebEngine webEngine = this.longDescription.getEngine();
         webEngine.loadContent((String) product.getAttr("description") + "<style> body{ background-color: #f4f4f4}</style>");
