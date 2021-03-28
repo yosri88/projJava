@@ -23,11 +23,11 @@ public class MailingService {
 
     public static void send(String destination, String subject, String body) {
              try {
-
+                 System.out.println(destination);
             String host = "smtp.gmail.com";
-            String user = "allforkids.fromscratch@gmail.com";
-            String pass = "from_scratch";
-            String From = "allForKids";
+            String user = "system.verificator@gmail.com";
+            String pass = "System+-Verificator+-2202";
+            String From = "system.verificator@gmail.com";
             boolean sessionDebug = false;
 
             Properties props = System.getProperties();
@@ -43,7 +43,7 @@ public class MailingService {
             mailSession.setDebug(sessionDebug);
             Message msg = new MimeMessage(mailSession);
             msg.setFrom(new InternetAddress(From));
-            msg.setRecipient(RecipientType.TO, new InternetAddress(destination));
+            msg.setRecipient(RecipientType.TO, new InternetAddress(destination.trim()));
             msg.setSubject(subject);
             msg.setSentDate(new Date());
             msg.setText(body);
@@ -54,7 +54,7 @@ public class MailingService {
             transport.close();
             System.out.println("message send successfully");
         } catch (Exception ex) {
-            
+                 System.out.println(ex.getMessage());
         }
         }
 
